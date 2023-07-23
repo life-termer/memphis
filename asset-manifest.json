@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/memphis/static/css/main.6dcb39f2.css",
+    "main.js": "/memphis/static/js/main.1e271780.js",
+    "static/js/787.f9265d84.chunk.js": "/memphis/static/js/787.f9265d84.chunk.js",
+    "static/media/Surchin_CV.pdf": "/memphis/static/media/Surchin_CV.10f4758ccb477e9db691.pdf",
+    "static/media/loading-screen.jpg": "/memphis/static/media/loading-screen.3b43a90054c93b56066d.jpg",
+    "index.html": "/memphis/index.html",
+    "main.6dcb39f2.css.map": "/memphis/static/css/main.6dcb39f2.css.map",
+    "main.1e271780.js.map": "/memphis/static/js/main.1e271780.js.map",
+    "787.f9265d84.chunk.js.map": "/memphis/static/js/787.f9265d84.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6dcb39f2.css",
+    "static/js/main.1e271780.js"
+  ]
+}
