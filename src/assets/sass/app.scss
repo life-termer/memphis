@@ -2,6 +2,7 @@
 @import "footer";
 @import "windows";
 @import "loading-screen";
+@import "desctop";
 
 body {
   background: #008080;
@@ -19,9 +20,9 @@ body {
   height: 100vh;
   overflow: hidden;
   .draggable-container {
-    height: calc(100% - 4rem);
+    height: 100%;
     width: calc(100% - 0.5rem);
-    margin: auto;
+    margin: 0.25rem auto 60px auto;
   }
 }
 

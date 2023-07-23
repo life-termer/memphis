@@ -1,0 +1,26 @@
+.desctop {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  height: 100%;
+  .desctop-item {
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    .text {
+      color: #fff;
+      text-align: center;
+      max-width: 100px;
+    }
+    .image-wrapper {
+      margin-bottom: 0.5rem;
+    }
+    &.focused {
+      background: #0c1a988c;
+    }
+  }
+}

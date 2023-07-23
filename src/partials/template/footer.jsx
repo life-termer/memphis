@@ -1,10 +1,32 @@
 import React, { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
 import Clock from "../moduls/clock";
 
-export default function Footer({ items, setRunningProgram, setActiveProgram }) {
+export default function Footer({
+  items,
+  setRunningProgram,
+  setActiveProgram,
+  isShutdown,
+}) {
   const [active, setActive] = useState(false);
   const startMenu = useRef();
   const startButton = useRef();
+  const footer = useRef();
+  const timeline = useRef(gsap.timeline());
+
+  let tl = timeline.current;
+  console.log(isShutdown);
+  if (isShutdown) {
+    tl.reverse();
+  } else tl.delay(4);
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      tl.to(footer.current, {
+        display: "block",
+        delay: 0,
+      });
+    });
+  }, []);
 
   const handleStartClickInside = (event) => {
     setActive((myRef) => !myRef);
@@ -24,11 +46,11 @@ export default function Footer({ items, setRunningProgram, setActiveProgram }) {
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    // return () => document.removeEventListener("mousedown", handleClickOutside);
   });
 
   return (
-    <footer>
+    <footer ref={footer}>
       <div id="start-bar">
         <div id="start-button-items">
           <span
@@ -51,7 +73,7 @@ export default function Footer({ items, setRunningProgram, setActiveProgram }) {
               {items.map((item, index) => {
                 return (
                   <React.Fragment key={"startItems" + item.id}>
-                    {item.id === 2 ? (
+                    {item.id === 2 && item.startItem ? (
                       <li id={item.id} key={item.id} className={item.classes}>
                         <img src={item.image} alt={item.imageAlt} />
                         {item.fullName}
@@ -71,12 +93,12 @@ export default function Footer({ items, setRunningProgram, setActiveProgram }) {
                           })}
                         </ul>
                       </li>
-                    ) : (
+                    ) : item.startItem ? (
                       <li
                         id={item.id}
                         key={item.id}
                         className={
-                          index === 0 || index === 4 || index === 5
+                          index === 0 || index === 3 || index === 4
                             ? "disabled " + item.classes
                             : item.classes
                         }
@@ -85,7 +107,7 @@ export default function Footer({ items, setRunningProgram, setActiveProgram }) {
                         <img src={item.image} alt={item.imageAlt} />
                         {item.fullName}
                       </li>
-                    )}
+                    ) : ""}
                   </React.Fragment>
                 );
               })}
@@ -124,7 +146,8 @@ export default function Footer({ items, setRunningProgram, setActiveProgram }) {
                       id={item.id}
                       key={item.id}
                       className={
-                        "tab windows-box-shadow " +
+                        item.classes +
+                        " tab windows-box-shadow " +
                         item.running +
                         " " +
                         item.active
@@ -151,22 +174,4 @@ export default function Footer({ items, setRunningProgram, setActiveProgram }) {
   );
 }
 
-// return (
-//   <div>
-//     {(() => {
-//       if (false) {
-//         return (
-//           <div>someCase</div>
-//         )
-//       } else if (false) {
-//         return (
-//           <div>otherCase</div>
-//         )
-//       } else {
-//         return (
-//           <div>catch all</div>
-//         )
-//       }
-//     })()}
-//   </div>
-// )
+

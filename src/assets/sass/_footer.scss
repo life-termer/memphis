@@ -2,6 +2,10 @@ footer {
   margin-top: auto;
   width: 100vw;
   background-color: cadetblue;
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 #start-bar {
@@ -57,7 +61,8 @@ footer {
       cursor: pointer;
       box-sizing: border-box;
       width: calc(100% - 3rem);
-      &.line {
+      &.update,
+      &.help {
         box-shadow: 0 2px #808280, 0 4px white;
       }
       &.disabled {
@@ -122,11 +127,10 @@ footer {
 #start-bar .programs > ul {
   display: none;
   position: absolute;
-  top: 0;
-  left: calc(100% - 6px);
+  top: 4px;
+  left: 100%;
   background: silver;
   list-style: none;
-  padding: none;
   margin: 0;
   padding: 0;
   height: auto;
@@ -134,7 +138,7 @@ footer {
   li {
     height: 2rem;
     width: 100%;
-    padding: 0;
+    padding: 0 0 0 1rem;
     margin: 0;
   }
 }
@@ -220,15 +224,11 @@ footer {
   margin: 0 0 0 1rem;
   padding: 0 0 0 2rem;
   display: flex;
-  overflow: hidden;
-  padding: 4px 0 0 2rem;
-  position: relative;
   position: relative;
   // top: -3px;
-  height: calc(100% + -1px);
 }
 #items > .tab {
-  height: calc(100% - 4px);
+  height: 100%;
   display: flex;
   width: 10.5rem;
   align-items: center;
@@ -242,7 +242,10 @@ footer {
   overflow: hidden;
   text-overflow: ellipsis;
   &.running {
-    display: block;
+    display: flex;
+  }
+  &.shutdown {
+    display: none;
   }
 }
 
