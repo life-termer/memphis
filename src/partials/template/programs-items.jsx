@@ -10,7 +10,7 @@ const menuItems = [
   {
     id: 1,
     fullName: "Windows Update",
-    classes: "update update",
+    classes: "update",
     image: update,
     imageAlt: "logo",
     running: "",
@@ -102,7 +102,19 @@ const menuItems = [
     active: "",
     minimized: "",
     desktopShortcut: false,
-    startItem: true,
+    startItem: false,
+  },
+  {
+    id: 8,
+    fullName: "passwords",
+    classes: "pass",
+    image: documents,
+    imageAlt: "logo",
+    running: "",
+    active: "",
+    minimized: "",
+    desktopShortcut: false,
+    startItem: false,
   },
 ];
 

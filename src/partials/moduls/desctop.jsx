@@ -26,32 +26,32 @@ export default function Desctop({
     });
   }, []);
 
-  const handleClickOutside = (event) => {
-    if (!shortcut.current.contains(event.target)) {
-      const programList = items[1].programList.map((item) =>
-        item.id === parseInt(event.currentTarget.id)
-          ? { ...item, focused: "" }
-          : { ...item, focused: "" }
-      );
-      const trasformmenuItems = items.map((item) =>
-        item.id === 2
-          ? { ...item, programList }
-          : item.id === parseInt(event.currentTarget.id)
-          ? { ...item, focused: "" }
-          : { ...item, focused: "" }
-      );
+  // const handleClickOutside = (event) => {
+  //   if (!shortcut.current.contains(event.target)) {
+  //     const programList = items[1].programList.map((item) =>
+  //       item.id === parseInt(event.currentTarget.id)
+  //         ? { ...item, focused: "" }
+  //         : { ...item, focused: "" }
+  //     );
+  //     const trasformmenuItems = items.map((item) =>
+  //       item.id === 2
+  //         ? { ...item, programList }
+  //         : item.id === parseInt(event.currentTarget.id)
+  //         ? { ...item, focused: "" }
+  //         : { ...item, focused: "" }
+  //     );
 
-      setItems(trasformmenuItems);
-    }
-  };
+  //     setItems(trasformmenuItems);
+  //   }
+  // };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  });
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", handleShortcutClickOutside);
+  //   return () => document.removeEventListener("mousedown", handleShortcutClickOutside);
+  // });
 
   return (
-    <div className="desctop">
+    <div className="desctop" onClick={handleShortcutClickOutside}>
       {items.map((item) => {
         return (
           <React.Fragment key={"items" + item.id}>

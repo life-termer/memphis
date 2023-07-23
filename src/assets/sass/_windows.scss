@@ -29,7 +29,7 @@
     min-height: 10rem;
     .content {
       display: flex;
-      gap: 1rem;
+      gap: 1.2rem;
     }
   }
   &.cv {
@@ -187,8 +187,16 @@ iframe {
 .file {
   display: flex;
   flex-direction: column;
-  justify-content: top;
   align-items: center;
   gap: 0.5rem;
   max-width: 100px;
+  height: fit-content;
+  p{
+    padding: 0 0.3rem;
+  }
+  &.focused {
+    p {
+      background: #0c1a988c;
+    }
+  }
 }

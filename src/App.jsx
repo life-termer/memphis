@@ -11,6 +11,7 @@ import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 import Documents from "./partials/moduls/documents";
 import SurchinSv from "./partials/moduls/surchinSv";
+import Pass from "./partials/moduls/pass";
 gsap.registerPlugin(Draggable);
 
 function Memphis() {
@@ -22,6 +23,7 @@ function Memphis() {
   let isLooggedOff = false;
 
   const setActiveProgram = (event) => {
+    event.stopPropagation();
     //if clicked tab item toggle minimized state and toggle active state
     if (event.currentTarget.classList.contains("tab")) {
       const programList = items[1].programList.map((item) =>
@@ -93,13 +95,14 @@ function Memphis() {
     // console.log(event.currentTarget);
   };
   const setRunningProgram = (event) => {
-    console.log(event.currentTarget.id);
+    // console.log(event.currentTarget.id);
+    event.stopPropagation();
     const programList = items[1].programList.map((item) =>
       item.id === parseInt(event.currentTarget.id)
         ? { ...item, running: "running", active: "active" }
         : { ...item, active: "" }
     );
-    
+
     const trasformmenuItems = items.map((item) =>
       item.id === 2
         ? { ...item, programList }
@@ -139,7 +142,7 @@ function Memphis() {
   };
 
   const closeAllProgram = () => {
-    console.log("close all");
+    // console.log("close all");
     const programList = items[1].programList.map((item) => {
       return { ...item, running: "", active: "" };
     });
@@ -160,28 +163,30 @@ function Memphis() {
   };
 
   const handleShortcutClickInside = (event) => {
-    const programList = items[1].programList.map((item) =>
-      item.id === parseInt(event.currentTarget.id)
-        ? { ...item, focused: "focused" }
-        : { ...item, focused: "" }
-    );
-    const trasformmenuItems = items.map((item) =>
-      item.id === 2
-        ? { ...item, programList }
-        : item.id === parseInt(event.currentTarget.id)
-        ? { ...item, focused: "focused" }
-        : { ...item, focused: "" }
-    );
-
-    setItems(trasformmenuItems);
-
+    event.stopPropagation();
     switch (event.detail) {
+      case 1:
+        const programList = items[1].programList.map((item) =>
+          item.id === parseInt(event.currentTarget.id)
+            ? { ...item, focused: "focused" }
+            : { ...item, focused: "" }
+        );
+        const trasformmenuItems = items.map((item) =>
+          item.id === 2
+            ? { ...item, programList }
+            : item.id === parseInt(event.currentTarget.id)
+            ? { ...item, focused: "focused" }
+            : { ...item, focused: "" }
+        );
+        setItems(trasformmenuItems);
+        break;
       case 2:
         setRunningProgram(event);
         break;
     }
   };
   const handleShortcutClickOutside = (event) => {
+    console.log(event.currentTarget)
     const programList = items[1].programList.map((item) =>
       item.id === parseInt(event.currentTarget.id)
         ? { ...item, focused: "" }
@@ -196,14 +201,6 @@ function Memphis() {
     );
 
     setItems(trasformmenuItems);
-  };
-  const handleDoubleFileClick = (event) => {
-    switch (event.detail) {
-      case 2:
-        event.stopPropagation();
-        setRunningProgram(event);
-        break;
-    }
   };
 
   const isRunning = (items, id, program) => {
@@ -258,7 +255,7 @@ function Memphis() {
                 setActiveProgram={setActiveProgram}
                 setMinimizeWindow={setMinimizeWindow}
                 setCloseProgram={setCloseProgram}
-                handleDoubleFileClick={handleDoubleFileClick}
+                handleShortcutClickInside={handleShortcutClickInside}
               />
             ) : (
               ""
@@ -273,11 +270,22 @@ function Memphis() {
             ) : (
               ""
             )}
+            {isRunning(items, 7, false) ? (
+              <Pass
+                items={items}
+                setActiveProgram={setActiveProgram}
+                setMinimizeWindow={setMinimizeWindow}
+                setCloseProgram={setCloseProgram}
+              />
+            ) : (
+              ""
+            )}
           </div>
           <Footer
             items={items}
             setRunningProgram={setRunningProgram}
             setActiveProgram={setActiveProgram}
+            handleShortcutClickOutside={handleShortcutClickOutside}
             isShutdown={shutdown}
           />
         </>

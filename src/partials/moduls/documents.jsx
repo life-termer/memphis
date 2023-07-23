@@ -10,7 +10,7 @@ export default function Documents({
   setCloseProgram,
   setMinimizeWindow,
   setActiveProgram,
-  handleDoubleFileClick,
+  handleShortcutClickInside,
 }) {
   const [maximized, setMaximized] = useState(false);
   const [focus, setFocus] = useState(false);
@@ -18,10 +18,6 @@ export default function Documents({
   const [irameSrc, setIrameSrc] = useState("http://dsurch.in/");
   const dragInstance = useRef();
   const dragWindow = useRef();
-
-  const handleFileClick = (event) => {
-    setFocus((myRef) => !myRef);
-  };
 
   useEffect(() => {
     dragInstance.current = Draggable.create(dragWindow.current, {
@@ -94,15 +90,22 @@ export default function Documents({
           <div className="item">Help</div>
         </div>
         <div className="content white">
-          <div className={
-              focus ? "focused file pass" : "file pass"
-            } onClick={handleFileClick}>
+          <div id="8" key="8"  className={
+                  items[7].classes +
+                  " file " +
+                  items[7].focused
+                } onClick={handleShortcutClickInside}>
             <div className="image-wrapper">
               <img src={padlock} alt="" />
             </div>
             <p>passwords.txt</p>
           </div>
-          <div id="7" key="7" className="file sv" onClick={handleDoubleFileClick}>
+          <div id="7" key="7" className={
+                  items[6].classes +
+                  " file " +
+                  items[6].focused
+                } 
+                onClick={handleShortcutClickInside}>
             <div className="image-wrapper">
               <img src={cv} alt="" />
             </div>

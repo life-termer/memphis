@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
+import desctop from "../../assets/images/icons/ic-desktop.png";
 import { gsap } from "gsap";
 import Clock from "../moduls/clock";
 
 export default function Footer({
   items,
+  handleShortcutClickOutside,
   setRunningProgram,
   setActiveProgram,
   isShutdown,
@@ -15,7 +17,7 @@ export default function Footer({
   const timeline = useRef(gsap.timeline());
 
   let tl = timeline.current;
-  console.log(isShutdown);
+  // console.log(isShutdown);
   if (isShutdown) {
     tl.reverse();
   } else tl.delay(4);
@@ -50,7 +52,7 @@ export default function Footer({
   });
 
   return (
-    <footer ref={footer}>
+    <footer ref={footer} onClick={handleShortcutClickOutside}>
       <div id="start-bar">
         <div id="start-button-items">
           <span
@@ -59,6 +61,11 @@ export default function Footer({
             onClick={handleStartClickInside}
             className="windows-box-shadow"
           ></span>
+          <div className="start-submenu">
+            <div className="start-desctop">
+              <img src={desctop} alt="" />
+            </div>
+          </div>
           <div
             id="start-menu"
             ref={startMenu}

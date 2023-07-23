@@ -220,7 +220,8 @@ footer {
   display: flex;
   width: calc(100% - 4rem);
 }
-#items {
+#items,
+.start-submenu  {
   margin: 0 0 0 1rem;
   padding: 0 0 0 2rem;
   display: flex;
@@ -282,4 +283,21 @@ footer {
 #items > .tab img {
   width: 1.75rem;
   padding: 0 0.5rem 0 0;
+}
+.start-submenu {
+  position: relative;
+  &::before {
+    content: "";
+    top: 0;
+    width: 2px;
+    height: calc(100% - 2px);
+    position: absolute;
+    background: #f2f2f2;
+    box-shadow: 1px 1px 0 #818181;
+    left: 0.5rem;
+  }
+  .start-desctop {
+    // width: 32px;
+    // height: 32px;
+  }
 }

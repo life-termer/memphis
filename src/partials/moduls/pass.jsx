@@ -4,7 +4,7 @@ import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 gsap.registerPlugin(Draggable);
 
-export default function SurchinSv({
+export default function Pass({
   items,
   setCloseProgram,
   setMinimizeWindow,
@@ -18,7 +18,7 @@ export default function SurchinSv({
   useEffect(() => {
     dragInstance.current = Draggable.create(dragWindow.current, {
       bounds: ".draggable-container",
-      trigger: ".drag-target-cv",
+      trigger: ".drag-target-pass",
       edgeResistance: 1,
       type: "x,y",
       inertia: false,
@@ -42,22 +42,22 @@ export default function SurchinSv({
   {
     return (
       <div
-        id="7"
+        id="8"
         className={
-          "window cv windows-box-shadow " +
-          items[6].active +
+          "window pass windows-box-shadow " +
+          items[7].active +
           " " +
-          items[6].minimized +
+          items[7].minimized +
           classMax
         }
         onClick={setActiveProgram}
         ref={dragWindow}
       >
-        <div className="header drag-target-cv" onClick={toggleMaximizeWindow}>
-          <div>Surchin_CV.pdf</div>
+        <div className="header drag-target-pass" onClick={toggleMaximizeWindow}>
+          <div>passwords.txt</div>
           <div className="header-buttons">
             <div
-              id="min-7"
+              id="min-8"
               className="minimize windows-box-shadow"
               onClick={setMinimizeWindow}
             ></div>
@@ -66,7 +66,7 @@ export default function SurchinSv({
               onClick={setMaximizeWindow}
             ></div>
             <div
-              id="close-7"
+              id="close-8"
               className="close windows-box-shadow"
               onClick={setCloseProgram}
             >
@@ -84,10 +84,6 @@ export default function SurchinSv({
           <div className="item">Help</div>
         </div>
         <div className="content white">
-        <object data={cvPdf}
-                width="100%"
-                height="100%">
-        </object>
         </div>
       </div>
     );
