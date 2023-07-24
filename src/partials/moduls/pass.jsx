@@ -82,9 +82,9 @@ export default function Pass({
           <div className="item">Help</div>
         </div>
         <div className="content white">
-          <textarea id="story" name="story">
-          https://github.com/life-termer : Kyq8Ab5FtCUarrBXUjW55kqTL5N6cT
+          <textarea id="story" name="story" defaultValue="https://github.com/life-termer : Kyq8Ab5FtCUarrBXUjW55kqTL5N6cT
           dsurchin@gmail.com : rKwyML6UdG4UyA5M9V2d4afkGVMZBKkPF
+          ">
           </textarea>
         </div>
       </div>

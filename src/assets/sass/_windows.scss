@@ -51,6 +51,11 @@
     top: 10rem;
     left: 10rem;
   }
+  &.minesweeper {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
   .header {
     background: linear-gradient(90deg, #000a7c79, #377cc6);
     color: white;
@@ -101,6 +106,26 @@ iframe {
   display: flex;
   padding: 0.5rem 0.5rem 0.5rem 1.25rem;
   position: relative;
+  .item.active {
+    opacity: 1;
+    position: relative;
+    cursor: pointer;
+    &.show {
+      .subitems {
+        display: block;
+      }
+    }
+    .subitems {
+      display: none;
+      position: absolute;
+      top: 0;
+      background: #b9b9b9;
+      left: 0;
+      height: 250px;
+      width: 100px;
+      z-index: 1000;
+    }
+  }
 }
 
 .options:before,

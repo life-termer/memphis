@@ -1,4 +1,5 @@
 import ie from "../../assets/images/icons/ic-ie.png";
+import minesweeper from "../../assets/images/icons/ic-minesweeper.png";
 import update from "../../assets/images/icons/ic-update.png";
 import documents from "../../assets/images/icons/ic-documents.png";
 import help from "../../assets/images/icons/ic-help.png";
@@ -37,6 +38,19 @@ const menuItems = [
         classes: "ie",
         image: ie,
         imageAlt: "logo",
+        running: "",
+        active: "",
+        minimized: "",
+        desktopShortcut: true,
+        focused: "",
+      },
+      {
+        id: 22,
+        group: "programs",
+        fullName: "Minesweeper",
+        classes: "minesweeper",
+        image: minesweeper,
+        imageAlt: "minesweeper",
         running: "",
         active: "",
         minimized: "",

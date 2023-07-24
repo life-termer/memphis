@@ -3,6 +3,7 @@
 @import "windows";
 @import "loading-screen";
 @import "desctop";
+@import "minesweeper";
 
 body {
   background: #008080;
@@ -20,8 +21,8 @@ body {
   height: 100vh;
   overflow: hidden;
   .draggable-container {
-    height: 100%;
     width: calc(100% - 0.5rem);
+    height: calc(100% - 64px);
     margin: 0.25rem auto 60px auto;
   }
 }

@@ -12,6 +12,7 @@ import { Draggable } from "gsap/Draggable";
 import Documents from "./partials/moduls/documents";
 import SurchinSv from "./partials/moduls/surchinSv";
 import Pass from "./partials/moduls/pass";
+import Minesweeper from "./partials/moduls/minesweeper/minesweeper";
 gsap.registerPlugin(Draggable);
 
 function Memphis() {
@@ -99,7 +100,13 @@ function Memphis() {
     event.stopPropagation();
     const programList = items[1].programList.map((item) =>
       item.id === parseInt(event.currentTarget.id)
-        ? { ...item, running: "running", active: "active", minimized: "", focused: "focused" }
+        ? {
+            ...item,
+            running: "running",
+            active: "active",
+            minimized: "",
+            focused: "focused",
+          }
         : { ...item, active: "" }
     );
 
@@ -107,7 +114,13 @@ function Memphis() {
       item.id === 2
         ? { ...item, programList }
         : item.id === parseInt(event.currentTarget.id)
-        ? { ...item, running: "running", active: "active", minimized: "", focused: "focused" }
+        ? {
+            ...item,
+            running: "running",
+            active: "active",
+            minimized: "",
+            focused: "focused",
+          }
         : { ...item, active: "" }
     );
 
@@ -186,7 +199,7 @@ function Memphis() {
     }
   };
   const handleShortcutClickOutside = (event) => {
-    console.log(event.currentTarget)
+    console.log(event.currentTarget);
     const programList = items[1].programList.map((item) =>
       item.id === parseInt(event.currentTarget.id)
         ? { ...item, focused: "" }
@@ -219,7 +232,7 @@ function Memphis() {
 
     setItems(trasformmenuItems);
   };
-  
+
   const isRunning = (items, id, program) => {
     if (program) {
       if (items[1].programList[id].running === "running") {
@@ -254,9 +267,18 @@ function Memphis() {
             ) : (
               ""
             )}
-
             {isRunning(items, 0, true) ? (
               <InternetExplorer
+                items={items}
+                setActiveProgram={setActiveProgram}
+                setMinimizeWindow={setMinimizeWindow}
+                setCloseProgram={setCloseProgram}
+              />
+            ) : (
+              ""
+            )}
+            {isRunning(items, 1, true) ? (
+              <Minesweeper
                 items={items}
                 setActiveProgram={setActiveProgram}
                 setMinimizeWindow={setMinimizeWindow}
