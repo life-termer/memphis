@@ -1,6 +1,4 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
-import cv from "../../assets/images/icons/ic-file-cv.png";
-import padlock from "../../assets/images/icons/ic-file-padlock.png";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 gsap.registerPlugin(Draggable);
@@ -96,7 +94,7 @@ export default function Documents({
                   items[7].focused
                 } onClick={handleShortcutClickInside}>
             <div className="image-wrapper">
-              <img src={padlock} alt="" />
+              <img src={items[7].image} alt={items[7].imageAlt} />
             </div>
             <p>passwords.txt</p>
           </div>
@@ -107,7 +105,7 @@ export default function Documents({
                 } 
                 onClick={handleShortcutClickInside}>
             <div className="image-wrapper">
-              <img src={cv} alt="" />
+              <img src={items[6].image} alt={items[7].imageAlt} />
             </div>
             <p>Surchin_CV.pdf</p>
           </div>

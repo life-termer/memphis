@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import desctop from "../../assets/images/icons/ic-desktop.png";
+import desctop from "../../assets/images/icons/ic-desktop-active.png";
 import { gsap } from "gsap";
 import Clock from "../moduls/clock";
 
 export default function Footer({
   items,
   handleShortcutClickOutside,
+  handleSubDesctopClick,
   setRunningProgram,
   setActiveProgram,
   isShutdown,
@@ -59,10 +60,10 @@ export default function Footer({
             id="start-button"
             ref={startButton}
             onClick={handleStartClickInside}
-            className="windows-box-shadow"
+            className="active-button"
           ></span>
           <div className="start-submenu">
-            <div className="start-desctop">
+            <div className="start-desctop active-button" onClick={handleSubDesctopClick}>
               <img src={desctop} alt="" />
             </div>
           </div>

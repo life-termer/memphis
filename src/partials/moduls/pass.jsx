@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
-import cvPdf from "../../assets/docs/Surchin_CV.pdf";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 gsap.registerPlugin(Draggable);
@@ -13,7 +12,6 @@ export default function Pass({
   const [maximized, setMaximized] = useState(false);
   const dragInstance = useRef();
   const dragWindow = useRef();
-
 
   useEffect(() => {
     dragInstance.current = Draggable.create(dragWindow.current, {
@@ -84,6 +82,10 @@ export default function Pass({
           <div className="item">Help</div>
         </div>
         <div className="content white">
+          <textarea id="story" name="story">
+          https://github.com/life-termer : Kyq8Ab5FtCUarrBXUjW55kqTL5N6cT
+          dsurchin@gmail.com : rKwyML6UdG4UyA5M9V2d4afkGVMZBKkPF
+          </textarea>
         </div>
       </div>
     );

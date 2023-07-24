@@ -10,8 +10,10 @@
   overflow: hidden;
   width: 20rem;
   height: 21rem;
+  min-height: 15rem;
+  min-width: 15rem;
   max-height: calc(100vh - 63px);
-  max-width: calc(100vw - 0.3rem);
+  max-width: calc(100vw - 0.4rem);
   &.ie {
     width: 40%;
     min-width: 40%;
@@ -42,6 +44,12 @@
     .content {
       padding: 0;
     }
+  }
+  &.pass {
+    width: 30%;
+    height: 40%;
+    top: 10rem;
+    left: 10rem;
   }
   .header {
     background: linear-gradient(90deg, #000a7c79, #377cc6);
@@ -197,6 +205,22 @@ iframe {
   &.focused {
     p {
       background: #0c1a988c;
+    }
+  }
+}
+.pass {
+  .content {
+    padding: 0;
+    textarea {
+      border: 1px solid transparent; 
+      width: 100%;
+      height: 100%;
+      outline: none;
+      &:focus,
+      &:focus-visible {
+        border: 1px solid transparent;
+        outline: none;
+      }
     }
   }
 }

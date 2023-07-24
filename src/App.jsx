@@ -99,7 +99,7 @@ function Memphis() {
     event.stopPropagation();
     const programList = items[1].programList.map((item) =>
       item.id === parseInt(event.currentTarget.id)
-        ? { ...item, running: "running", active: "active" }
+        ? { ...item, running: "running", active: "active", minimized: "", focused: "focused" }
         : { ...item, active: "" }
     );
 
@@ -107,7 +107,7 @@ function Memphis() {
       item.id === 2
         ? { ...item, programList }
         : item.id === parseInt(event.currentTarget.id)
-        ? { ...item, running: "running", active: "active" }
+        ? { ...item, running: "running", active: "active", minimized: "", focused: "focused" }
         : { ...item, active: "" }
     );
 
@@ -202,7 +202,24 @@ function Memphis() {
 
     setItems(trasformmenuItems);
   };
+  const handleSubDesctopClick = (event) => {
+    event.stopPropagation();
+    const programList = items[1].programList.map((item) =>
+      item.running === "running"
+        ? { ...item, minimized: "minimized", active: "" }
+        : item
+    );
+    const trasformmenuItems = items.map((item) =>
+      item.id === 2
+        ? { ...item, programList }
+        : item.running === "running"
+        ? { ...item, minimized: "minimized", active: "" }
+        : item
+    );
 
+    setItems(trasformmenuItems);
+  };
+  
   const isRunning = (items, id, program) => {
     if (program) {
       if (items[1].programList[id].running === "running") {
@@ -286,6 +303,7 @@ function Memphis() {
             setRunningProgram={setRunningProgram}
             setActiveProgram={setActiveProgram}
             handleShortcutClickOutside={handleShortcutClickOutside}
+            handleSubDesctopClick={handleSubDesctopClick}
             isShutdown={shutdown}
           />
         </>

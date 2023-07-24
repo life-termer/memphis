@@ -5,6 +5,8 @@ import help from "../../assets/images/icons/ic-help.png";
 import shutdown from "../../assets/images/icons/ic-shutdown.png";
 import logOff from "../../assets/images/icons/ic-log-off.png";
 import programs from "../../assets/images/icons/ic-programs.png";
+import cv from "../../assets/images/icons/ic-file-cv.png";
+import padlock from "../../assets/images/icons/ic-file-padlock.png";
 
 const menuItems = [
   {
@@ -96,7 +98,7 @@ const menuItems = [
     id: 7,
     fullName: "SurchinSV",
     classes: "cv",
-    image: documents,
+    image: cv,
     imageAlt: "logo",
     running: "",
     active: "",
@@ -108,7 +110,7 @@ const menuItems = [
     id: 8,
     fullName: "passwords",
     classes: "pass",
-    image: documents,
+    image: padlock,
     imageAlt: "logo",
     running: "",
     active: "",

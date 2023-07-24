@@ -190,11 +190,17 @@ footer {
   justify-content: center;
 }
 
-#start-button:active {
-  box-shadow: -2px -2px #818181, -2px 0 #818181, 0 -2px #818181, -4px -4px black,
-    -4px 0 black, 0 -4px black, 2px 2px #e0dede, 0 2px #e0dede, 2px 0 #e0dede,
-    2px -2px #818181, -2px 2px #e0dede, -4px 2px black, -4px 4px white,
-    4px 4px white, 4px 0 white, 0 4px white, 2px -4px black, 4px -4px white;
+.active-button {
+  box-shadow: -2px -2px #e0dede, -2px 0 #e0dede, 0 -2px #e0dede, -4px -4px white,
+    -4px 0 white, 0 -4px white, 2px 2px #818181, 0 2px #818181, 2px 0 #818181,
+    2px -2px #e0dede, -2px 2px #818181, -4px 2px white, -4px 4px black,
+    4px 4px black, 4px 0 black, 0 4px black, 2px -4px white, 4px -4px black;
+    &:active {
+      box-shadow: -2px -2px #818181, -2px 0 #818181, 0 -2px #818181, -4px -4px black,
+      -4px 0 black, 0 -4px black, 2px 2px #e0dede, 0 2px #e0dede, 2px 0 #e0dede,
+      2px -2px #818181, -2px 2px #e0dede, -4px 2px black, -4px 4px white,
+      4px 4px white, 4px 0 white, 0 4px white, 2px -4px black, 4px -4px white;
+    }
 }
 
 #windows-start-menu-blue {
@@ -286,6 +292,8 @@ footer {
 }
 .start-submenu {
   position: relative;
+  align-items: center;
+  flex-wrap: wrap;
   &::before {
     content: "";
     top: 0;
@@ -297,7 +305,30 @@ footer {
     left: 0.5rem;
   }
   .start-desctop {
-    // width: 32px;
-    // height: 32px;
+    position: relative;
+    width: 28px;
+    height: 24px;
+    &::after {
+      position: absolute;
+      content: '';
+      top: -6px;
+      left: -3px;
+      width: 32px;
+      height: 32px;
+      background: url('../images/icons/ic-desktop.png');
+      background-position: center;
+      background-size: contain;
+      opacity: 0;
+    }
+    img {
+      position: relative;
+      top: -6px;
+      left: -3px;
+    }
+    &:active {
+      &::after {
+        opacity: 1;
+      }
+    }
   }
 }

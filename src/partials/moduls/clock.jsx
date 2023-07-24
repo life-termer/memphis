@@ -23,7 +23,8 @@ export default function Clock() {
 
     return (
         <div id="time-options">
-            {hours + ":" + minutes + ":" + seconds}
+            {today.toLocaleString('en-US', { hour: 'numeric',minute: 'numeric', hour12: true })}
+            {/* {hours + ":" + minutes + ":" + seconds} */}
         </div>
     )
     

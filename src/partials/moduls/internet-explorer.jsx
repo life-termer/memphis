@@ -10,8 +10,8 @@ export default function InternetExplorer({
   setActiveProgram,
 }) {
   const [maximized, setMaximized] = useState(false);
-  const [input, setInput] = useState("http://dsurch.in/index.html");
-  const [irameSrc, setIrameSrc] = useState("http://dsurch.in/index.html");
+  const [input, setInput] = useState("https://dsurch.in/");
+  const [irameSrc, setIrameSrc] = useState("https://dsurch.in/");
   const dragInstance = useRef();
   const dragWindow = useRef();
 
