@@ -79,6 +79,7 @@
   &.minimized {
     display: none;
   }
+
 }
 
 iframe {
@@ -184,6 +185,16 @@ iframe {
   align-items: center;
   cursor: pointer;
   justify-content: center;
+}
+.header-buttons > div.disabled{
+  pointer-events: none;
+  cursor: auto ;
+}
+.header-buttons > div.disabled.maximize:after,
+.header-buttons > div.disabled.maximize:before {
+  content: "";
+  border: 2px solid rgba(0, 0, 0, 0.377);
+  border-top: 3px solid rgba(0, 0, 0, 0.349);
 }
 .header-buttons > div.maximize:after,
 .header-buttons > div.maximize:before {

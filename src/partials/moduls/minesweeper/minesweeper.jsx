@@ -42,9 +42,9 @@ export default function Minesweeper({
       setGrid(newBoard.board);
     }
     if(size === "lg")
-      newBoard = CreateBoard(20, 20, 15);
+      newBoard = CreateBoard(16, 16, 40);
     if(size === "xl")
-      newBoard = CreateBoard(40, 40, 30);
+      newBoard = CreateBoard(30, 16, 75);
   }
 
   const [show, setShow] = useState(false);
@@ -69,7 +69,6 @@ export default function Minesweeper({
   const revealcell=(x,y)=>{
     let newGrid=JSON.parse(JSON.stringify(grid));
     if(newGrid[x][y].value==="X"){
-        alert("you clicked mine")
         for(let i=0;i<mineLocation.length;i++){
             newGrid[mineLocation[i][0]][mineLocation[i][1]].revealed=true;
         }
@@ -123,6 +122,9 @@ export default function Minesweeper({
               id="min-22"
               className="minimize windows-box-shadow"
               onClick={setMinimizeWindow}
+            ></div>
+            <div
+              className="maximize windows-box-shadow disabled"
             ></div>
             <div
               id="close-22"

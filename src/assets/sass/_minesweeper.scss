@@ -13,7 +13,7 @@
     height: 614px;
   }
   .content {
-    padding: 0;
+    padding: 5px 0 0 0;
   }
   .board {
     display: flex;
@@ -23,10 +23,19 @@
     }
     &-cell {
       position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 600;
       width: 30px;
       height: 30px;
-      // padding: 5px;
       border: 1px dashed black;
+      &.empty {
+        color: #b9b9b9;
+      }
+      &.x {
+        background: center / 14px 14px no-repeat url('../images/icons/minesweeper/bomb.png'),#b9b9b9 ;
+      }
       &-closed {
         position: absolute;
         top: 50%;
@@ -43,10 +52,16 @@
           display: none;
         }
         &.true {
-          background-color: #000;
+          background: center / 10px 14px no-repeat url('../images/icons/minesweeper/flag.png'),#b9b9b9 ;
           
         }
       }
     }
   }
+}
+.c-blue {
+  color: rgb(0, 0, 255);
+}
+.c-green {
+  color: rgb(0, 128, 0);
 }
