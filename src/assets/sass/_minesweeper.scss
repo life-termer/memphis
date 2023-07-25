@@ -1,3 +1,52 @@
 .minesweeper {
   resize: none;
+  &.sm {
+    width: 240px;
+    height: 314px;
+  }
+  &.lg {
+    width: 540px;
+    height: 614px;
+  }
+  &.xl {
+    width: 540px;
+    height: 614px;
+  }
+  .content {
+    padding: 0;
+  }
+  .board {
+    display: flex;
+    flex-direction: column;
+    &-row {
+      display: flex;
+    }
+    &-cell {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      // padding: 5px;
+      border: 1px dashed black;
+      &-closed {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 24px;
+        width: 24px;
+        background: #b9b9b9;
+        box-shadow: -2px -2px #e0dede, -2px 0 #e0dede, 0 -2px #e0dede, -4px -4px white, -4px 0 white, 0 -4px white, 2px 2px #818181, 0 2px #818181, 2px 0 #818181, 2px -2px #e0dede, -2px 2px #818181, -4px 2px white, -4px 4px black, 4px 4px black, 4px 0 black, 0 4px black, 2px -4px white, 4px -4px black;
+        &:active {
+          box-shadow: -2px -2px #818181, -2px 0 #818181, 0 -2px #818181, -4px -4px black, -4px 0 black, 0 -4px black, 2px 2px #e0dede, 0 2px #e0dede, 2px 0 #e0dede, 2px -2px #818181, -2px 2px #e0dede, -4px 2px black, -4px 4px white, 4px 4px white, 4px 0 white, 0 4px white, 2px -4px black, 4px -4px white;
+        }
+        &.revealed {
+          display: none;
+        }
+        &.true {
+          background-color: #000;
+          
+        }
+      }
+    }
+  }
 }
