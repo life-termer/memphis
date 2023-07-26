@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 import Board from "./components/board"
 import CreateBoard from "./utils/createBoard";
+import PlaceMines from "./utils/placeMines";
 import revealed from "./utils/reveal";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
@@ -15,31 +16,32 @@ export default function Minesweeper({
   const dragInstance = useRef();
   const dragWindow = useRef();
   const menuItem = useRef();
-  let newBoard = CreateBoard(8, 8, 10);
+  let newBoard = CreateBoard(8, 8);
 
-  const [gameType, setGameType] = useState('sm');
+  const [gameType, setGameType] = useState([8, 8, 10, 'sm']);
   const [grid, setGrid] = useState([]);
   const [minecount,setMinecount]=useState(10);
   const [nonMinecount,setNonMinecount]=useState(0);
   const [mineLocation,setmineLocation]=useState([]);
+  const [clickCount, setClickCount] = useState(true);
 
   useEffect(() => {
     function freshBoard() {
       setGrid(newBoard.board);
       setNonMinecount(8*8-10);
-      setmineLocation(newBoard.mineLocation);
-      setGrid(newBoard.board);
     }
     freshBoard();
   }, []);
 
+
   const newGame = (size) => {
-    if(size === "sm"){
-      newBoard = CreateBoard(8, 8, 10);
+    if(size === 'sm'){
+      setClickCount(true);
+      setGameType([8, 8, 10, 'sm']);
+      newBoard = CreateBoard(8, 8);
+      setGrid(newBoard.board);
       setMinecount(10);
       setNonMinecount(8*8-10);
-      setmineLocation(newBoard.mineLocation);
-      setGrid(newBoard.board);
     }
     if(size === "lg")
       newBoard = CreateBoard(16, 16, 40);
@@ -67,25 +69,30 @@ export default function Minesweeper({
   }
   
   const revealcell=(x,y)=>{
-    let newGrid=JSON.parse(JSON.stringify(grid));
-    if(newGrid[x][y].value==="X"){
-        for(let i=0;i<mineLocation.length;i++){
-            newGrid[mineLocation[i][0]][mineLocation[i][1]].revealed=true;
-        }
-        setGrid(newGrid);
+    if(clickCount){
+      newBoard = PlaceMines(grid, gameType[0], gameType[1], gameType[2], x, y);
+      setGrid(newBoard.board);
+      setmineLocation(newBoard.mineLocation);
+      setClickCount(false);
     }
-    else{
-        let revealedboard=revealed(newGrid,x,y,nonMinecount);
-        setGrid(revealedboard.arr);
-        setNonMinecount(revealedboard.newNonMines);
+    let newGrid=JSON.parse(JSON.stringify(grid));
+    if(newGrid[x][y].flagged === false){
+      if(newGrid[x][y].value==="X"){
+          for(let i=0;i<mineLocation.length;i++){
+              newGrid[mineLocation[i][0]][mineLocation[i][1]].revealed=true;
+          }
+          setGrid(newGrid);
+      }
+      else{
+          let revealedboard=revealed(newGrid,x,y,nonMinecount);
+          setGrid(revealedboard.arr);
+          setNonMinecount(revealedboard.newNonMines);
+      }
     }
   }
   const handleMenuItemClick = () => {
     // setShow((myRef) => !myRef);
-    
-    newGame("sm");
-    setGrid(newBoard.board);
-    setGameType("sm");
+    newGame('sm');
   };
 
 
@@ -110,7 +117,7 @@ export default function Minesweeper({
           " " +
           items[1].programList[1].minimized +
           " " +
-          gameType
+          gameType[3]
         }
         onClick={setActiveProgram}
         ref={dragWindow}

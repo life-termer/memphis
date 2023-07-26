@@ -29,12 +29,20 @@
       font-weight: 600;
       width: 30px;
       height: 30px;
-      border: 1px dashed black;
+      border: 1px dashed rgba(0, 0, 0, 0.74);
       &.empty {
         color: #b9b9b9;
       }
       &.x {
-        background: center / 14px 14px no-repeat url('../images/icons/minesweeper/bomb.png'),#b9b9b9 ;
+        &::after {
+          position: absolute;
+          content: '';
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: center / 14px 14px no-repeat url('../images/icons/minesweeper/bomb.png'),#b9b9b9 ;
+        }
       }
       &-closed {
         position: absolute;
@@ -44,16 +52,17 @@
         height: 24px;
         width: 24px;
         background: #b9b9b9;
+        z-index: 99;
         box-shadow: -2px -2px #e0dede, -2px 0 #e0dede, 0 -2px #e0dede, -4px -4px white, -4px 0 white, 0 -4px white, 2px 2px #818181, 0 2px #818181, 2px 0 #818181, 2px -2px #e0dede, -2px 2px #818181, -4px 2px white, -4px 4px black, 4px 4px black, 4px 0 black, 0 4px black, 2px -4px white, 4px -4px black;
-        &:active {
+        &.active {
           box-shadow: -2px -2px #818181, -2px 0 #818181, 0 -2px #818181, -4px -4px black, -4px 0 black, 0 -4px black, 2px 2px #e0dede, 0 2px #e0dede, 2px 0 #e0dede, 2px -2px #818181, -2px 2px #e0dede, -4px 2px black, -4px 4px white, 4px 4px white, 4px 0 white, 0 4px white, 2px -4px black, 4px -4px white;
         }
         &.revealed {
           display: none;
         }
         &.true {
+          box-shadow: -2px -2px #e0dede, -2px 0 #e0dede, 0 -2px #e0dede, -4px -4px white, -4px 0 white, 0 -4px white, 2px 2px #818181, 0 2px #818181, 2px 0 #818181, 2px -2px #e0dede, -2px 2px #818181, -4px 2px white, -4px 4px black, 4px 4px black, 4px 0 black, 0 4px black, 2px -4px white, 4px -4px black;
           background: center / 10px 14px no-repeat url('../images/icons/minesweeper/flag.png'),#b9b9b9 ;
-          
         }
       }
     }
