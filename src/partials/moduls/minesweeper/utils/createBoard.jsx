@@ -1,4 +1,4 @@
-export default function CreateBoard(row, col, bombs, firstX, firstY) {
+export default function CreateBoard(row, col) {
   // Board for storing the values for each cell
   let board = [];
 

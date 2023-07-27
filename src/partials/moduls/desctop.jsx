@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
+import { Draggable } from "gsap/Draggable";
+gsap.registerPlugin(Draggable);
 
 export default function Desctop({
   items,
@@ -12,8 +14,13 @@ export default function Desctop({
   const blackScreen = useRef();
   const loadingScreen = useRef();
   const timeline = useRef(gsap.timeline());
+  const dragInstance = useRef();
+  const dragWindow = useRef();
 
   let tl = timeline.current;
+  var gridWidth = 150;
+  var gridHeight = 150;
+  
   if (isShutdown) {
     tl.reverse().delay(-0.5);
   }
@@ -25,7 +32,30 @@ export default function Desctop({
       });
     });
   }, []);
-
+  useEffect(() => {
+    document.querySelectorAll(".desctop-item").forEach(element => {
+      dragInstance.current = Draggable.create(element, {
+        bounds: ".desctop",
+        trigger: element,
+        edgeResistance: 1,
+        type: "x,y",
+        inertia: true,
+        autoScroll: true,
+        cursor: "auto",
+        liveSnap: {
+          x: function (endValue) {
+            console.log(endValue + " " + Math.round(endValue / gridWidth) * gridWidth);
+            return Math.round(endValue / gridWidth) * gridWidth;
+          },
+          y: function (endValue) {
+            return Math.round(endValue / gridHeight) * gridHeight;
+          },
+        },
+      });
+    }, []);
+  
+    });
+    
   // const handleClickOutside = (event) => {
   //   if (!shortcut.current.contains(event.target)) {
   //     const programList = items[1].programList.map((item) =>
