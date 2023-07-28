@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
-import Board from "./components/board"
+import Board from "./components/board";
 import CreateBoard from "./utils/createBoard";
 import PlaceMines from "./utils/placeMines";
 import revealed from "./utils/reveal";
@@ -16,85 +16,131 @@ export default function Minesweeper({
   const dragInstance = useRef();
   const dragWindow = useRef();
   const menuItem = useRef();
+  const timeline = useRef(gsap.timeline());
   let newBoard = CreateBoard(8, 8);
 
-  const [gameType, setGameType] = useState([8, 8, 10, 'sm']);
+  const revealAllCells = (direction) => {
+    let tl = timeline.current;
+    let ctx = gsap.context(() => {
+      tl.to(".board-cell-closed", {
+        opacity: 0,
+      });
+    });
+    if(direction === 'forward')
+      tl.play().timeScale(1);
+    else {
+      tl.timeScale(2).reverse();
+    }
+  }
+
+  const [gameType, setGameType] = useState([8, 8, 10, "sm"]);
   const [grid, setGrid] = useState([]);
-  const [minecount,setMinecount]=useState(10);
-  const [nonMinecount,setNonMinecount]=useState(0);
-  const [mineLocation,setmineLocation]=useState([]);
+  const [mineCount, setMinecount] = useState(10);
+  const [nonMinecount, setNonMinecount] = useState(0);
+  const [mineLocation, setmineLocation] = useState([]);
   const [clickCount, setClickCount] = useState(true);
+  const [endGame, setEndgame] = useState("");
 
   useEffect(() => {
     function freshBoard() {
       setGrid(newBoard.board);
-      setNonMinecount(8*8-10);
+      setNonMinecount(8 * 8 - 10);
     }
     freshBoard();
   }, []);
 
-
   const newGame = (size) => {
-    if(size === 'sm'){
+    if (size === "sm") {
+      // revealAllCells('back');
       setClickCount(true);
-      setGameType([8, 8, 10, 'sm']);
+      setGameType([8, 8, 10, "sm"]);
       newBoard = CreateBoard(8, 8);
       setGrid(newBoard.board);
       setMinecount(10);
-      setNonMinecount(8*8-10);
+      setNonMinecount(8 * 8 - 10);
+      setEndgame("");
+      
     }
-    if(size === "lg")
-      newBoard = CreateBoard(16, 16, 40);
-    if(size === "xl")
-      newBoard = CreateBoard(30, 16, 75);
-  }
+    if (size === "lg") 
+    {
+      revealAllCells('back');
+      setClickCount(true);
+      setGameType([16, 16, 40, "lg"]);
+      newBoard = CreateBoard(16, 16);
+      setGrid(newBoard.board);
+      setMinecount(40);
+      setNonMinecount(16 * 16 - 40);
+      setEndgame("");
+      
+    }
+    
+    if (size === "xl") newBoard = CreateBoard(30, 16, 75);
+  };
 
   const [show, setShow] = useState(false);
 
-  const updateFlag = (e,x,y) => {
+  const updateFlag = (e, x, y) => {
     e.preventDefault();
-    let mines = minecount;
+    let mines = mineCount;
     // deep copy of the object
-    let newGrid=JSON.parse(JSON.stringify(grid));
-    if(newGrid[x][y].flagged===false){
-      newGrid[x][y].flagged=true;
+    let newGrid = JSON.parse(JSON.stringify(grid));
+    if (newGrid[x][y].flagged === false) {
+      newGrid[x][y].flagged = true;
       setMinecount(--mines);
-    }
-    else {
+    } else {
       setMinecount(++mines);
-      newGrid[x][y].flagged=false;
+      newGrid[x][y].flagged = false;
     }
-    
+
     setGrid(newGrid);
-  }
-  
-  const revealcell=(x,y)=>{
-    if(clickCount){
+  };
+
+  const revealcell = (x, y) => {
+    if (clickCount) {
       newBoard = PlaceMines(grid, gameType[0], gameType[1], gameType[2], x, y);
       setGrid(newBoard.board);
       setmineLocation(newBoard.mineLocation);
       setClickCount(false);
+      setEndgame("");
     }
-    let newGrid=JSON.parse(JSON.stringify(grid));
-    if(newGrid[x][y].flagged === false){
-      if(newGrid[x][y].value==="X"){
-          for(let i=0;i<mineLocation.length;i++){
-              newGrid[mineLocation[i][0]][mineLocation[i][1]].revealed=true;
+    let newGrid = JSON.parse(JSON.stringify(grid));
+    if (newGrid[x][y].flagged === false) {
+      if (newGrid[x][y].value === "X") {
+        
+        setEndgame("gameLost");
+        // for (let i = 0; i < mineLocation.length; i++) {
+        //   newGrid[mineLocation[i][0]][mineLocation[i][1]].revealed = true;
+        // }
+        for (let i = 0; i < newGrid[0].length; i++) {
+          for (let y = 0; y < newGrid[1].length; y++) {
+            newGrid[i][y].revealed = true;
+          }
+        }
+        // revealAllCells('forward');
+        setGrid(newGrid);
+      } else {
+        let revealedboard = revealed(newGrid, x, y, nonMinecount);
+        setGrid(revealedboard.arr);
+        setNonMinecount(revealedboard.newNonMines);
+        if (revealedboard.newNonMines === 0) {
+          setEndgame("gameWon");
+          for (let i = 0; i < newGrid[0].length; i++) {
+            for (let y = 0; y < newGrid[1].length; y++) {
+              
+              newGrid[i][y].revealed = true;
+            }
           }
           setGrid(newGrid);
-      }
-      else{
-          let revealedboard=revealed(newGrid,x,y,nonMinecount);
-          setGrid(revealedboard.arr);
-          setNonMinecount(revealedboard.newNonMines);
+        }
       }
     }
-  }
-  const handleMenuItemClick = () => {
-    // setShow((myRef) => !myRef);
-    newGame('sm');
+    
   };
 
+  const handleMenuItemClick = () => {
+    // setShow((myRef) => !myRef);
+    newGame("lg");
+  };
 
   useEffect(() => {
     dragInstance.current = Draggable.create(dragWindow.current, {
@@ -107,6 +153,7 @@ export default function Minesweeper({
       cursor: "auto",
     });
   }, []);
+  
   {
     return (
       <div
@@ -117,7 +164,9 @@ export default function Minesweeper({
           " " +
           items[1].programList[1].minimized +
           " " +
-          gameType[3]
+          gameType[3] +
+          " " +
+          endGame
         }
         onClick={setActiveProgram}
         ref={dragWindow}
@@ -130,9 +179,7 @@ export default function Minesweeper({
               className="minimize windows-box-shadow"
               onClick={setMinimizeWindow}
             ></div>
-            <div
-              className="maximize windows-box-shadow disabled"
-            ></div>
+            <div className="maximize windows-box-shadow disabled"></div>
             <div
               id="close-22"
               className="close windows-box-shadow"
@@ -142,24 +189,28 @@ export default function Minesweeper({
             </div>
           </div>
         </div>
-        
+
         <div className="options line">
-          <div className={
-            show ? "show item active" : "item active"
-          }
-          onClick={handleMenuItemClick} ref={menuItem}>
+          <div
+            className={show ? "show item active" : "item active"}
+            onClick={handleMenuItemClick}
+            ref={menuItem}
+          >
             Game
             <div className="subitems line"></div>
           </div>
-          <div className="item" ref={menuItem}>Help</div>
-          <div className="item" ref={menuItem}>{minecount}</div>
+          <div className="item" ref={menuItem}>
+            Help
+          </div>
+          <div className="item" ref={menuItem}>
+            {mineCount}
+          </div>
+          <div className="item" ref={menuItem}>
+            {endGame}
+          </div>
         </div>
         <div className="content">
-          <Board 
-            grid={grid}
-            updateFlag={updateFlag}
-            revealcell={revealcell}
-          />
+          <Board grid={grid} updateFlag={updateFlag} revealcell={revealcell} />
         </div>
       </div>
     );

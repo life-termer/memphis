@@ -67,6 +67,18 @@
       }
     }
   }
+  &.gameLost {
+    .board {
+      &-cell {
+        pointer-events: none;
+        &.x {
+          &::after {
+            background: center / 14px 14px no-repeat url('../images/icons/minesweeper/wrong-bomb.png'),#b9b9b9 ;
+          }
+        }
+      }
+    }
+  }
 }
 .c-blue {
   color: rgb(0, 0, 255);

@@ -10,7 +10,7 @@ export default function PlaceMines(board, row, col, bombs, firstX, firstY) {
     let y = random(0, col - 1);
     while(true) {
       x = random(0, row - 1);
-      console.log("x " + x + " : y " + y);
+      // console.log("x " + x + " : y " + y);
       if(x !== firstX) {
         break;
       }

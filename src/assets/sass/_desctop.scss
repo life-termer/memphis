@@ -1,5 +1,5 @@
 .desctop {
-  $shortcut-width: 150px;
+  $shortcut-width: 145px;
   $shortcut-height: 120px;
   width: 100%;
   height: 100%;
@@ -41,7 +41,7 @@
     &:nth-child(2) {
       order: 3;
       transform: translate(
-        calc($shortcut-width * 8),
+        calc(($shortcut-width) * 8),
         calc($shortcut-height * 5)
       );
     }
