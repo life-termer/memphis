@@ -1,8 +1,8 @@
 .minesweeper {
   resize: none;
   &.sm {
-    width: 240px;
-    height: 314px;
+    width: 280px;
+    height: 435px;
   }
   &.lg {
     width: 540px;
@@ -13,11 +13,42 @@
     height: 614px;
   }
   .content {
-    padding: 5px 0 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: $box-shadow;
+    margin: 5px;
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      box-shadow: $inverted-shadow;
+      margin-bottom: 20px;
+      .reset {
+        width: 35px;
+        height: 35px;
+        background: url('../images/icons/minesweeper/smiley-face.png');
+        box-shadow: $box-shadow;
+        &:active {
+          box-shadow: $inverted-shadow;
+        }
+      }
+      .timer,
+      .score {
+        display: flex;
+        div {
+          width: 20px;
+          height: 35px;
+          background: center / cover no-repeat url('../images/icons/minesweeper/display_zero.png');
+        }
+      }
+    }
+    
   }
   .board {
     display: flex;
     flex-direction: column;
+    box-shadow: $inverted-shadow;
     &-row {
       display: flex;
     }
@@ -53,9 +84,9 @@
         width: 24px;
         background: #b9b9b9;
         z-index: 99;
-        box-shadow: -2px -2px #e0dede, -2px 0 #e0dede, 0 -2px #e0dede, -4px -4px white, -4px 0 white, 0 -4px white, 2px 2px #818181, 0 2px #818181, 2px 0 #818181, 2px -2px #e0dede, -2px 2px #818181, -4px 2px white, -4px 4px black, 4px 4px black, 4px 0 black, 0 4px black, 2px -4px white, 4px -4px black;
+        box-shadow: $box-shadow;
         &.active {
-          box-shadow: -2px -2px #818181, -2px 0 #818181, 0 -2px #818181, -4px -4px black, -4px 0 black, 0 -4px black, 2px 2px #e0dede, 0 2px #e0dede, 2px 0 #e0dede, 2px -2px #818181, -2px 2px #e0dede, -4px 2px black, -4px 4px white, 4px 4px white, 4px 0 white, 0 4px white, 2px -4px black, 4px -4px white;
+          box-shadow: $inverted-shadow;
         }
         &.revealed {
           display: none;
@@ -78,6 +109,19 @@
         }
       }
     }
+    .content .content-header .reset {
+      background: url('../images/icons/minesweeper/dead-face.png');
+    }
+  }
+  &.gameWon {
+    .board {
+      &-cell {
+        pointer-events: none;
+      }
+    }
+    .content .content-header .reset {
+      background: url('../images/icons/minesweeper/cool-face.png');
+    }
   }
 }
 .c-blue {
@@ -85,4 +129,22 @@
 }
 .c-green {
   color: rgb(0, 128, 0);
+}
+.c-red {
+  color: rgb(255, 0, 0);
+}
+.c-dark-blue {
+  color: rgb(0, 0, 105);
+}
+.c-dark-red {
+  color: rgb(105, 0, 0);
+}
+.c-dark-green {
+  color: rgb(0, 70, 0);
+}
+.c-yellow {
+  color: rgb(148, 148, 0);
+}
+.c-black {
+  color: #000;
 }

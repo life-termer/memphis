@@ -6,7 +6,6 @@ import Footer from "./partials/template/footer";
 import Desctop from "./partials/moduls/desctop";
 import WindowsUpdate from "./partials/moduls/windows-update";
 import InternetExplorer from "./partials/moduls/internet-explorer";
-import Heading from "./partials/moduls/GSAPComponent";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 import Documents from "./partials/moduls/documents";

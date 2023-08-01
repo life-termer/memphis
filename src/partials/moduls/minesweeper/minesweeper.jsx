@@ -18,6 +18,9 @@ export default function Minesweeper({
   const menuItem = useRef();
   const timeline = useRef(gsap.timeline());
   let newBoard = CreateBoard(8, 8);
+  const [intervalId, setIntervalId] = useState(0);
+  const [timer, setTimer] = useState(0);
+  
 
   const revealAllCells = (direction) => {
     let tl = timeline.current;
@@ -30,6 +33,19 @@ export default function Minesweeper({
       tl.play().timeScale(1);
     else {
       tl.timeScale(2).reverse();
+    }
+  }
+
+  const counter = (value) => {
+    if(value === 'start') {
+      const interval = setInterval(() => {
+      setTimer(timer => timer + 1);
+        }, 1000);
+      setIntervalId(interval);
+    }
+    else {
+      clearInterval(intervalId);
+      setTimer(0);
     }
   }
 
@@ -50,6 +66,7 @@ export default function Minesweeper({
   }, []);
 
   const newGame = (size) => {
+    counter('stop');
     if (size === "sm") {
       // revealAllCells('back');
       setClickCount(true);
@@ -102,6 +119,7 @@ export default function Minesweeper({
       setmineLocation(newBoard.mineLocation);
       setClickCount(false);
       setEndgame("");
+      counter('start');
     }
     let newGrid = JSON.parse(JSON.stringify(grid));
     if (newGrid[x][y].flagged === false) {
@@ -138,8 +156,15 @@ export default function Minesweeper({
   };
 
   const handleMenuItemClick = () => {
-    // setShow((myRef) => !myRef);
     newGame("lg");
+  };
+  const handleResetClick = () => {
+    if(gameType[3] === "sm")
+      newGame("sm");
+    if(gameType[3] === "lg")
+      newGame("lg");
+      if(gameType[3] === "xl")
+      newGame("xl");
   };
 
   useEffect(() => {
@@ -190,7 +215,7 @@ export default function Minesweeper({
           </div>
         </div>
 
-        <div className="options line">
+        <div className="options">
           <div
             className={show ? "show item active" : "item active"}
             onClick={handleMenuItemClick}
@@ -206,11 +231,26 @@ export default function Minesweeper({
             {mineCount}
           </div>
           <div className="item" ref={menuItem}>
-            {endGame}
+            {timer}
           </div>
         </div>
         <div className="content">
-          <Board grid={grid} updateFlag={updateFlag} revealcell={revealcell} />
+          <div className="inner-contert">
+            <div className="content-header">
+              <div className="timer">
+                <div className="timer-1"></div>
+                <div className="timer-2"></div>
+                <div className="timer-3"></div>
+              </div>
+              <div className="reset" onClick={handleResetClick}></div>
+              <div className="score">
+                <div className="score-1"></div>
+                <div className="score-2"></div>
+                <div className="score-3"></div>
+              </div>
+            </div>
+            <Board grid={grid} updateFlag={updateFlag} revealcell={revealcell} />
+          </div>
         </div>
       </div>
     );

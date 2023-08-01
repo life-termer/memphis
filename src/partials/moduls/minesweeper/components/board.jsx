@@ -28,7 +28,7 @@ export default function Board({ grid, updateFlag, revealcell }) {
         return 'c-dark-green';
       }
       case 7: {
-        return 'c-dark-blue';
+        return 'c-yellow';
       }
       case 8: {
         return 'c-black';
