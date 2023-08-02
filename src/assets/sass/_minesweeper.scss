@@ -1,16 +1,17 @@
 .minesweeper {
   resize: none;
+  overflow: visible;
   &.sm {
     width: 280px;
     height: 435px;
   }
   &.lg {
-    width: 540px;
-    height: 614px;
+    width: 520px;
+    height: 670px;
   }
   &.xl {
-    width: 540px;
-    height: 614px;
+    width: 940px;
+    height: 670px;
   }
   .content {
     display: flex;
@@ -41,7 +42,48 @@
           height: 35px;
           background: center / cover no-repeat url('../images/icons/minesweeper/display_zero.png');
         }
+        .timer-0,
+        .score-0 {
+          background: center / cover no-repeat url('../images/icons/minesweeper/display_zero.png');
+        }
+        .timer-1,
+        .score-1 {
+          background: center / cover no-repeat url('../images/icons/minesweeper/display_one.png');
+        }
+        .timer-2,
+        .score-2 {
+          background: center / cover no-repeat url('../images/icons/minesweeper//display_two.png');
+        }
+        .timer-3,
+        .score-3 {
+          background: center / cover no-repeat url('../images/icons/minesweeper/display_three.png');
+        }
+        .timer-4,
+        .score-4 {
+          background: center / cover no-repeat url('../images/icons/minesweeper/display_four.png');
+        }
+        .timer-5,
+        .score-5 {
+          background: center / cover no-repeat url('../images/icons/minesweeper/display_five.png');
+        }
+        .timer-6,
+        .score-6 {
+          background: center / cover no-repeat url('../images/icons/minesweeper/display_six.png');
+        }
+        .timer-7,
+        .score-7 {
+          background: center / cover no-repeat url('../images/icons/minesweeper/display_seven.png');
+        }
+        .timer-8,
+        .score-8 {
+          background: center / cover no-repeat url('../images/icons/minesweeper/display_eight.png');
+        }
+        .timer-9,
+        .score-9 {
+          background: center / cover no-repeat url('../images/icons/minesweeper/display_nine.png');
+        }
       }
+      
     }
     
   }
@@ -123,6 +165,7 @@
       background: url('../images/icons/minesweeper/cool-face.png');
     }
   }
+  
 }
 .c-blue {
   color: rgb(0, 0, 255);
@@ -147,4 +190,45 @@
 }
 .c-black {
   color: #000;
+}
+.best-times {
+  resize: none;
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  min-height: 200px;
+  height: 200px;
+  z-index: 2000;
+  &.active {
+    display: block;
+  }
+  .best-times-content {
+    padding: 1rem 1rem;
+    div {
+      display: flex;
+      justify-content: space-around;
+      span:nth-child(1) {
+        width: 120px;
+      }
+      span:nth-child(2) {
+        width: 100px;
+      }
+      span:nth-child(3) {
+        width: 100px;
+        text-align: end;
+      }
+    }
+    .best-times-buttons {
+      margin-top: 1.5rem;
+      div {
+        padding: 0.1rem 0.6rem;
+        &:active {
+          box-shadow: $inverted-shadow;
+        }
+      }
+    }
+  }
 }

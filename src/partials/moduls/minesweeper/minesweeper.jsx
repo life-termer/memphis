@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 import Board from "./components/board";
+import BestTimes from "./components/best-times";
 import CreateBoard from "./utils/createBoard";
 import PlaceMines from "./utils/placeMines";
 import revealed from "./utils/reveal";
@@ -20,8 +21,15 @@ export default function Minesweeper({
   let newBoard = CreateBoard(8, 8);
   const [intervalId, setIntervalId] = useState(0);
   const [timer, setTimer] = useState(0);
+  const [gameType, setGameType] = useState([8, 8, 10, "sm"]);
+  const [grid, setGrid] = useState([]);
+  const [mineCount, setMinecount] = useState(10);
+  const [nonMinecount, setNonMinecount] = useState(0);
+  const [mineLocation, setmineLocation] = useState([]);
+  const [clickCount, setClickCount] = useState(true);
+  const [endGame, setEndgame] = useState("");
+  const [showBestTimes, setShowBestTimes] = useState("");
   
-
   const revealAllCells = (direction) => {
     let tl = timeline.current;
     let ctx = gsap.context(() => {
@@ -45,17 +53,9 @@ export default function Minesweeper({
     }
     else {
       clearInterval(intervalId);
-      setTimer(0);
+      
     }
   }
-
-  const [gameType, setGameType] = useState([8, 8, 10, "sm"]);
-  const [grid, setGrid] = useState([]);
-  const [mineCount, setMinecount] = useState(10);
-  const [nonMinecount, setNonMinecount] = useState(0);
-  const [mineLocation, setmineLocation] = useState([]);
-  const [clickCount, setClickCount] = useState(true);
-  const [endGame, setEndgame] = useState("");
 
   useEffect(() => {
     function freshBoard() {
@@ -66,9 +66,10 @@ export default function Minesweeper({
   }, []);
 
   const newGame = (size) => {
+    setTimer(0);
     counter('stop');
     if (size === "sm") {
-      // revealAllCells('back');
+      revealAllCells('back');
       setClickCount(true);
       setGameType([8, 8, 10, "sm"]);
       newBoard = CreateBoard(8, 8);
@@ -91,7 +92,17 @@ export default function Minesweeper({
       
     }
     
-    if (size === "xl") newBoard = CreateBoard(30, 16, 75);
+    if (size === "xl")
+    {
+      revealAllCells('back');
+      setClickCount(true);
+      setGameType([16, 30, 75, "xl"]);
+      newBoard = CreateBoard(16, 30);
+      setGrid(newBoard.board);
+      setMinecount(75);
+      setNonMinecount(16 * 30 - 75);
+      setEndgame("");
+    }
   };
 
   const [show, setShow] = useState(false);
@@ -124,13 +135,13 @@ export default function Minesweeper({
     let newGrid = JSON.parse(JSON.stringify(grid));
     if (newGrid[x][y].flagged === false) {
       if (newGrid[x][y].value === "X") {
-        
         setEndgame("gameLost");
+        counter('stop');
         // for (let i = 0; i < mineLocation.length; i++) {
         //   newGrid[mineLocation[i][0]][mineLocation[i][1]].revealed = true;
         // }
-        for (let i = 0; i < newGrid[0].length; i++) {
-          for (let y = 0; y < newGrid[1].length; y++) {
+        for (let i = 0; i < gameType[0]; i++) {
+          for (let y = 0; y < gameType[1]; y++) {
             newGrid[i][y].revealed = true;
           }
         }
@@ -142,8 +153,9 @@ export default function Minesweeper({
         setNonMinecount(revealedboard.newNonMines);
         if (revealedboard.newNonMines === 0) {
           setEndgame("gameWon");
-          for (let i = 0; i < newGrid[0].length; i++) {
-            for (let y = 0; y < newGrid[1].length; y++) {
+          counter('stop');
+          for (let i = 0; i < gameType[0]; i++) {
+            for (let y = 0; y < gameType[1]; y++) {
               
               newGrid[i][y].revealed = true;
             }
@@ -156,7 +168,7 @@ export default function Minesweeper({
   };
 
   const handleMenuItemClick = () => {
-    newGame("lg");
+    setShow((myRef) => !myRef);
   };
   const handleResetClick = () => {
     if(gameType[3] === "sm")
@@ -196,6 +208,7 @@ export default function Minesweeper({
         onClick={setActiveProgram}
         ref={dragWindow}
       >
+        <BestTimes showBestTimes={showBestTimes} setShowBestTimes={setShowBestTimes} timer={timer} />
         <div className="header drag-target-minesweeper">
           <div>Minesweeper</div>
           <div className="header-buttons">
@@ -222,31 +235,32 @@ export default function Minesweeper({
             ref={menuItem}
           >
             Game
-            <div className="subitems line"></div>
+            <div className="subitems">
+              <div className="subitem line" onClick={handleResetClick}>New</div>
+              <div className={gameType[3] === "sm" ? "current subitem" : "subitem"} onClick={() => newGame("sm")}>Begginer</div>
+              <div className={gameType[3] === "lg" ? "current subitem" : "subitem"} onClick={() => newGame("lg")}>Intermediate</div>
+              <div className={gameType[3] === "xl" ? "current subitem line" : "subitem line"} onClick={() => newGame("xl")}>Expert</div>
+              <div className="subitem line" onClick={() => setShowBestTimes("active")}>Best Times</div>
+              <div id="close-22" className="subitem" onClick={setCloseProgram}>Exit</div>
+            </div>
           </div>
           <div className="item" ref={menuItem}>
             Help
-          </div>
-          <div className="item" ref={menuItem}>
-            {mineCount}
-          </div>
-          <div className="item" ref={menuItem}>
-            {timer}
           </div>
         </div>
         <div className="content">
           <div className="inner-contert">
             <div className="content-header">
               <div className="timer">
-                <div className="timer-1"></div>
-                <div className="timer-2"></div>
-                <div className="timer-3"></div>
+                <div className={(timer > 999) ? 9 : (timer > 99) ? "timer-" + parseInt(timer / 100 % 10) : "timer-" + 0}></div>
+                <div className={(timer > 999) ? 9 : (timer > 9) ? "timer-" + parseInt(timer / 10 % 10) : "timer-" + 0}></div>
+                <div className={(timer > 999) ? 9 : (timer > 9) ? "timer-" + timer % 10 : "timer-" + timer}></div>
               </div>
               <div className="reset" onClick={handleResetClick}></div>
               <div className="score">
-                <div className="score-1"></div>
-                <div className="score-2"></div>
-                <div className="score-3"></div>
+                <div className={(mineCount > 99) ? "score-" + parseInt(mineCount / 100 % 10) : "score-" + 0}></div>
+                <div className={(mineCount > 9) ? "score-" + parseInt(mineCount / 10 % 10) : "score-" + 0}></div>
+                <div className={(mineCount > 9) ? "score-" + mineCount % 10 : "score-" + mineCount}></div>
               </div>
             </div>
             <Board grid={grid} updateFlag={updateFlag} revealcell={revealcell} />

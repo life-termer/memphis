@@ -12,7 +12,7 @@
     justify-content: flex-start;
     width: $shortcut-width;
     height: $shortcut-height;
-
+    z-index: 100 !important;
     .text {
       color: #fff;
       text-align: center;
