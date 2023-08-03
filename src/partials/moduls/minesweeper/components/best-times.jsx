@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 
-export default function BestTimes({ showBestTimes, setShowBestTimes }) {
-
+export default function BestTimes({
+  showBestTimes,
+  setShowBestTimes,
+  restBestTimes,
+  bestTimeBegginer,
+  bestTimeInter,
+  bestTimeExpert,
+  bestUserBegginer,
+  bestUserInter,
+  bestUserExpert,
+}) {
   return (
     <div className={"window windows-box-shadow best-times " + showBestTimes}>
       <div className="header">
@@ -17,23 +26,30 @@ export default function BestTimes({ showBestTimes, setShowBestTimes }) {
       </div>
       <div className="best-times-content">
         <div className="begginer">
-            <span>Begginer:</span>
-            <span>9 seconds</span>
-            <span>unknown</span>
+          <span>Begginer:</span>
+          <span>{bestTimeBegginer} seconds</span>
+          <span>unknown</span>
         </div>
         <div className="intermediate">
-            <span>Intermediate:</span>
-            <span>99 seconds</span>
-            <span>unknown</span>
+          <span>Intermediate:</span>
+          <span>{bestTimeInter} seconds</span>
+          <span>unknown</span>
         </div>
         <div className="expert">
-            <span>Expert:</span>
-            <span>999 seconds</span>
-            <span>unknown</span>
+          <span>Expert:</span>
+          <span>{bestTimeExpert} seconds</span>
+          <span>unknown</span>
         </div>
         <div className="best-times-buttons">
-            <div className="reset windows-box-shadow">Reset</div>
-            <div className="ok windows-box-shadow" onClick={() => setShowBestTimes("")}>OK</div>
+          <div className="reset windows-box-shadow" onClick={restBestTimes}>
+            Reset
+          </div>
+          <div
+            className="ok windows-box-shadow"
+            onClick={() => setShowBestTimes("")}
+          >
+            OK
+          </div>
         </div>
       </div>
     </div>
