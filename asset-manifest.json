@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/memphis/static/css/main.5595d855.css",
-    "main.js": "/memphis/static/js/main.c39467e4.js",
+    "main.css": "/memphis/static/css/main.08d2079f.css",
+    "main.js": "/memphis/static/js/main.b646a316.js",
     "static/js/787.f9265d84.chunk.js": "/memphis/static/js/787.f9265d84.chunk.js",
     "static/media/Surchin_CV.pdf": "/memphis/static/media/Surchin_CV.10f4758ccb477e9db691.pdf",
     "static/media/loading-screen.jpg": "/memphis/static/media/loading-screen.3b43a90054c93b56066d.jpg",
     "static/media/flag.png": "/memphis/static/media/flag.7e2783d2cf87ba6392b5.png",
     "index.html": "/memphis/index.html",
-    "main.5595d855.css.map": "/memphis/static/css/main.5595d855.css.map",
-    "main.c39467e4.js.map": "/memphis/static/js/main.c39467e4.js.map",
+    "main.08d2079f.css.map": "/memphis/static/css/main.08d2079f.css.map",
+    "main.b646a316.js.map": "/memphis/static/js/main.b646a316.js.map",
     "787.f9265d84.chunk.js.map": "/memphis/static/js/787.f9265d84.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5595d855.css",
-    "static/js/main.c39467e4.js"
+    "static/css/main.08d2079f.css",
+    "static/js/main.b646a316.js"
   ]
 }
