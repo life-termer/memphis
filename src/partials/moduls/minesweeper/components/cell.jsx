@@ -27,7 +27,7 @@ export default function Cell({ details, updateFlag, revealcell }) {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      {details.revealed ? details.value : ""}
+      {details.revealed ? details.value : details.value}
     </div>
   );
 }

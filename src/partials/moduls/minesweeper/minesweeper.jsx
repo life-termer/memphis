@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Board from "./components/board";
 import BestTimes from "./components/best-times";
+import SetBestTime from "./components/set-best-time";
 import CreateBoard from "./utils/createBoard";
 import PlaceMines from "./utils/placeMines";
 import revealed from "./utils/reveal";
@@ -14,11 +15,13 @@ export default function Minesweeper({
   setMinimizeWindow,
   setActiveProgram,
 }) {
+
+  let newBoard = CreateBoard(8, 8);
+
   const dragInstance = useRef();
   const dragWindow = useRef();
   const menuItem = useRef();
   const timeline = useRef(gsap.timeline());
-  let newBoard = CreateBoard(8, 8);
   const [intervalId, setIntervalId] = useState(0);
   const [timer, setTimer] = useState(0);
   const [gameType, setGameType] = useState([8, 8, 10, "sm"]);
@@ -28,6 +31,7 @@ export default function Minesweeper({
   const [mineLocation, setmineLocation] = useState([]);
   const [clickCount, setClickCount] = useState(true);
   const [endGame, setEndgame] = useState("");
+  const [bestScore, setBestScore] = useState("");
   const [showBestTimes, setShowBestTimes] = useState("");
   const [bestTimeBegginer, setBestTimeBegginer] = useState(999);
   const [bestTimeInter, setBestTimeInter] = useState(999);
@@ -35,6 +39,27 @@ export default function Minesweeper({
   const [bestUserBegginer, setBestUserBegginer] = useState("unknown");
   const [bestUserInter, setBestUserInter] = useState("unknown");
   const [bestUserExpert, setBestUserExpert] = useState("unknown");
+
+  function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(";");
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === " ") c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+  function deleteCookie(name, path, domain) {
+    if (getCookie(name)) {
+      document.cookie =
+        name +
+        "=" +
+        (path ? ";path=" + path : "") +
+        (domain ? ";domain=" + domain : "") +
+        ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+    }
+  }
 
   const revealAllCells = (direction) => {
     let tl = timeline.current;
@@ -66,7 +91,13 @@ export default function Minesweeper({
       setNonMinecount(8 * 8 - 10);
     }
     freshBoard();
-  }, []);
+    if (getCookie("bestTimeSm")) setBestTimeBegginer(getCookie("bestTimeSm"));
+    if (getCookie("bestUserSm")) setBestUserBegginer(getCookie("bestUserSm"));
+    if (getCookie("bestTimeLg")) setBestTimeInter(getCookie("bestTimeLg"));
+    if (getCookie("bestUserLg")) setBestUserInter(getCookie("bestUserLg"));
+    if (getCookie("bestTimeXl")) setBestTimeExpert(getCookie("bestTimeXl"));
+    if (getCookie("bestUserXl")) setBestUserExpert(getCookie("bestUserXl"));
+  }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
   const newGame = (size) => {
     setTimer(0);
@@ -122,6 +153,19 @@ export default function Minesweeper({
     setGrid(newGrid);
   };
 
+  const ifBestScore = (timer, gameType) => {
+    if (gameType === "sm" && timer < bestTimeBegginer) {
+      return true;
+    }
+    if (gameType === "lg" && timer < bestTimeInter) {
+      return true;
+    }
+    if (gameType === "xl" && timer < bestTimeExpert) {
+      return true;
+    }
+    return false;
+  };
+
   const revealcell = (x, y) => {
     if (clickCount) {
       newBoard = PlaceMines(grid, gameType[0], gameType[1], gameType[2], x, y);
@@ -152,6 +196,9 @@ export default function Minesweeper({
         setNonMinecount(revealedboard.newNonMines);
         if (revealedboard.newNonMines === 0) {
           setEndgame("gameWon");
+          if (ifBestScore(timer, gameType[3])) {
+            setBestScore("active");
+          }
           counter("stop");
           for (let i = 0; i < gameType[0]; i++) {
             for (let y = 0; y < gameType[1]; y++) {
@@ -174,12 +221,18 @@ export default function Minesweeper({
   };
 
   const restBestTimes = () => {
-    setBestTimeBegginer(0);
-    setBestTimeInter(0);
-    setBestTimeExpert(0);
+    setBestTimeBegginer(999);
+    setBestTimeInter(999);
+    setBestTimeExpert(999);
     setBestUserBegginer("unknown");
-    setBestUserInter("");
-    setBestUserExpert("");
+    setBestUserInter("unknown");
+    setBestUserExpert("unknown");
+    deleteCookie("bestTimeSm");
+    deleteCookie("bestUserSm");
+    deleteCookie("bestTimeLg");
+    deleteCookie("bestUserLg");
+    deleteCookie("bestTimeXl");
+    deleteCookie("bestUserXl");
   };
   useEffect(() => {
     dragInstance.current = Draggable.create(dragWindow.current, {
@@ -210,17 +263,57 @@ export default function Minesweeper({
         onClick={setActiveProgram}
         ref={dragWindow}
       >
-        <BestTimes
-          showBestTimes={showBestTimes}
-          setShowBestTimes={setShowBestTimes}
-          restBestTimes={restBestTimes}
-          bestTimeBegginer={bestTimeBegginer}
-          bestTimeInter={bestTimeInter}
-          bestTimeExpert={bestTimeExpert}
-          bestUserBegginer={bestUserBegginer}
-          bestUserInter={bestUserInter}
-          bestUserExpert={bestUserExpert}
-        />
+        {showBestTimes === "active" ? (
+          <BestTimes
+            showBestTimes={showBestTimes}
+            setShowBestTimes={setShowBestTimes}
+            restBestTimes={restBestTimes}
+            bestTimeBegginer={bestTimeBegginer}
+            bestTimeInter={bestTimeInter}
+            bestTimeExpert={bestTimeExpert}
+            bestUserBegginer={bestUserBegginer}
+            bestUserInter={bestUserInter}
+            bestUserExpert={bestUserExpert}
+          />
+        ) : (
+          ""
+        )}
+        {bestScore === "active" && gameType[3] === "sm" ? (
+          <SetBestTime
+            setBestScore={setBestScore}
+            setShowBestTimes={setShowBestTimes}
+            setBestTime={setBestTimeBegginer}
+            setBestUser={setBestUserBegginer}
+            timer={timer}
+            gameType={gameType[3]}
+          />
+        ) : (
+          ""
+        )}
+        {bestScore === "active" && gameType[3] === "lg" ? (
+          <SetBestTime
+            setBestScore={setBestScore}
+            setShowBestTimes={setShowBestTimes}
+            setBestTime={setBestTimeInter}
+            setBestUser={setBestUserInter}
+            timer={timer}
+            gameType={gameType[3]}
+          />
+        ) : (
+          ""
+        )}
+        {bestScore === "active" && gameType[3] === "xl" ? (
+          <SetBestTime
+            setBestScore={setBestScore}
+            setShowBestTimes={setShowBestTimes}
+            setBestTime={setBestTimeExpert}
+            setBestUser={setBestUserExpert}
+            timer={timer}
+            gameType={gameType[3]}
+          />
+        ) : (
+          ""
+        )}
         <div className="header drag-target-minesweeper">
           <div>Minesweeper</div>
           <div className="header-buttons">

@@ -194,7 +194,7 @@
 .best-times {
   resize: none;
   position: absolute;
-  display: none;
+  display: block;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -202,9 +202,7 @@
   min-height: 200px;
   height: 200px;
   z-index: 2000;
-  &.active {
-    display: block;
-  }
+
   .best-times-content {
     padding: 1rem 1rem;
     div {
@@ -228,6 +226,34 @@
         &:active {
           box-shadow: $inverted-shadow;
         }
+      }
+    }
+  }
+}
+.set-best-time {
+  resize: none;
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  min-height: 200px;
+  height: 200px;
+  z-index: 2000;
+  .set-best-time-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1rem;
+  }
+  .set-best-time-buttons {
+    margin-top: 1.5rem;
+    div {
+      padding: 0.1rem 0.6rem;
+      &:active {
+        box-shadow: $inverted-shadow;
       }
     }
   }

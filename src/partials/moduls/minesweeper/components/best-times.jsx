@@ -28,17 +28,17 @@ export default function BestTimes({
         <div className="begginer">
           <span>Begginer:</span>
           <span>{bestTimeBegginer} seconds</span>
-          <span>unknown</span>
+          <span>{bestUserBegginer}</span>
         </div>
         <div className="intermediate">
           <span>Intermediate:</span>
           <span>{bestTimeInter} seconds</span>
-          <span>unknown</span>
+          <span>{bestUserInter}</span>
         </div>
         <div className="expert">
           <span>Expert:</span>
           <span>{bestTimeExpert} seconds</span>
-          <span>unknown</span>
+          <span>{bestUserExpert}</span>
         </div>
         <div className="best-times-buttons">
           <div className="reset windows-box-shadow" onClick={restBestTimes}>
