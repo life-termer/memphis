@@ -1,0 +1,13 @@
+.minesweeper {
+  resize: none;
+  overflow: visible;
+  width: 940px;
+  height: 670px;
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: $box-shadow;
+    margin: 5px;
+  }
+}

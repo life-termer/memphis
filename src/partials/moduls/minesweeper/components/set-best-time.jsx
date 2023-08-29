@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createCookie } from "../../../utilities/cookies";
 
 export default function SetBestTime({
   setBestScore,
@@ -9,13 +10,6 @@ export default function SetBestTime({
   gameType,
 }) {
   const [input, setInput] = useState("");
-
-  const createCookie = (cookieName, cookieValue, days) => {
-    let date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    document.cookie =
-      cookieName + " = " + cookieValue + "; expires = " + date.toGMTString();
-  };
 
   const handleInputField = (event) => {
     setInput(event.target.value);

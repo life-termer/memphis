@@ -7,6 +7,7 @@ import PlaceMines from "./utils/placeMines";
 import revealed from "./utils/reveal";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
+import { getCookie, deleteCookie } from "../../utilities/cookies";
 gsap.registerPlugin(Draggable);
 
 export default function Minesweeper({
@@ -15,7 +16,6 @@ export default function Minesweeper({
   setMinimizeWindow,
   setActiveProgram,
 }) {
-
   let newBoard = CreateBoard(8, 8);
 
   const dragInstance = useRef();
@@ -23,6 +23,7 @@ export default function Minesweeper({
   const menuItem = useRef();
   const timeline = useRef(gsap.timeline());
   const [intervalId, setIntervalId] = useState(0);
+  const [show, setShow] = useState(false);
   const [timer, setTimer] = useState(0);
   const [gameType, setGameType] = useState([8, 8, 10, "sm"]);
   const [grid, setGrid] = useState([]);
@@ -39,27 +40,6 @@ export default function Minesweeper({
   const [bestUserBegginer, setBestUserBegginer] = useState("unknown");
   const [bestUserInter, setBestUserInter] = useState("unknown");
   const [bestUserExpert, setBestUserExpert] = useState("unknown");
-
-  function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(";");
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) === " ") c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-  }
-  function deleteCookie(name, path, domain) {
-    if (getCookie(name)) {
-      document.cookie =
-        name +
-        "=" +
-        (path ? ";path=" + path : "") +
-        (domain ? ";domain=" + domain : "") +
-        ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
-    }
-  }
 
   const revealAllCells = (direction) => {
     let tl = timeline.current;
@@ -97,7 +77,7 @@ export default function Minesweeper({
     if (getCookie("bestUserLg")) setBestUserInter(getCookie("bestUserLg"));
     if (getCookie("bestTimeXl")) setBestTimeExpert(getCookie("bestTimeXl"));
     if (getCookie("bestUserXl")) setBestUserExpert(getCookie("bestUserXl"));
-  }, []);// eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const newGame = (size) => {
     setTimer(0);
@@ -134,8 +114,6 @@ export default function Minesweeper({
       setEndgame("");
     }
   };
-
-  const [show, setShow] = useState(false);
 
   const updateFlag = (e, x, y) => {
     e.preventDefault();
@@ -247,204 +225,198 @@ export default function Minesweeper({
     });
   }, []);
 
-  {
-    return (
-      <div
-        id="22"
-        className={
-          "window minesweeper windows-box-shadow " +
-          items[1].programList[1].active +
-          " " +
-          items[1].programList[1].minimized +
-          " " +
-          gameType[3] +
-          " " +
-          endGame
-        }
-        onClick={setActiveProgram}
-        ref={dragWindow}
-      >
-        {showBestTimes === "active" ? (
-          <BestTimes
-            showBestTimes={showBestTimes}
-            setShowBestTimes={setShowBestTimes}
-            restBestTimes={restBestTimes}
-            bestTimeBegginer={bestTimeBegginer}
-            bestTimeInter={bestTimeInter}
-            bestTimeExpert={bestTimeExpert}
-            bestUserBegginer={bestUserBegginer}
-            bestUserInter={bestUserInter}
-            bestUserExpert={bestUserExpert}
-          />
-        ) : (
-          ""
-        )}
-        {bestScore === "active" && gameType[3] === "sm" ? (
-          <SetBestTime
-            setBestScore={setBestScore}
-            setShowBestTimes={setShowBestTimes}
-            setBestTime={setBestTimeBegginer}
-            setBestUser={setBestUserBegginer}
-            timer={timer}
-            gameType={gameType[3]}
-          />
-        ) : (
-          ""
-        )}
-        {bestScore === "active" && gameType[3] === "lg" ? (
-          <SetBestTime
-            setBestScore={setBestScore}
-            setShowBestTimes={setShowBestTimes}
-            setBestTime={setBestTimeInter}
-            setBestUser={setBestUserInter}
-            timer={timer}
-            gameType={gameType[3]}
-          />
-        ) : (
-          ""
-        )}
-        {bestScore === "active" && gameType[3] === "xl" ? (
-          <SetBestTime
-            setBestScore={setBestScore}
-            setShowBestTimes={setShowBestTimes}
-            setBestTime={setBestTimeExpert}
-            setBestUser={setBestUserExpert}
-            timer={timer}
-            gameType={gameType[3]}
-          />
-        ) : (
-          ""
-        )}
-        <div className="header drag-target-minesweeper">
-          <div>Minesweeper</div>
-          <div className="header-buttons">
-            <div
-              id="min-22"
-              className="minimize windows-box-shadow"
-              onClick={setMinimizeWindow}
-            ></div>
-            <div className="maximize windows-box-shadow disabled"></div>
-            <div
-              id="close-22"
-              className="close windows-box-shadow"
-              onClick={setCloseProgram}
-            >
-              X
-            </div>
-          </div>
-        </div>
-
-        <div className="options">
+  return (
+    <div
+      id="22"
+      className={
+        "window minesweeper windows-box-shadow " +
+        items[1].programList[1].active +
+        " " +
+        items[1].programList[1].minimized +
+        " " +
+        gameType[3] +
+        " " +
+        endGame
+      }
+      onClick={setActiveProgram}
+      ref={dragWindow}
+    >
+      {showBestTimes === "active" ? (
+        <BestTimes
+          showBestTimes={showBestTimes}
+          setShowBestTimes={setShowBestTimes}
+          restBestTimes={restBestTimes}
+          bestTimeBegginer={bestTimeBegginer}
+          bestTimeInter={bestTimeInter}
+          bestTimeExpert={bestTimeExpert}
+          bestUserBegginer={bestUserBegginer}
+          bestUserInter={bestUserInter}
+          bestUserExpert={bestUserExpert}
+        />
+      ) : (
+        ""
+      )}
+      {bestScore === "active" && gameType[3] === "sm" ? (
+        <SetBestTime
+          setBestScore={setBestScore}
+          setShowBestTimes={setShowBestTimes}
+          setBestTime={setBestTimeBegginer}
+          setBestUser={setBestUserBegginer}
+          timer={timer}
+          gameType={gameType[3]}
+        />
+      ) : (
+        ""
+      )}
+      {bestScore === "active" && gameType[3] === "lg" ? (
+        <SetBestTime
+          setBestScore={setBestScore}
+          setShowBestTimes={setShowBestTimes}
+          setBestTime={setBestTimeInter}
+          setBestUser={setBestUserInter}
+          timer={timer}
+          gameType={gameType[3]}
+        />
+      ) : (
+        ""
+      )}
+      {bestScore === "active" && gameType[3] === "xl" ? (
+        <SetBestTime
+          setBestScore={setBestScore}
+          setShowBestTimes={setShowBestTimes}
+          setBestTime={setBestTimeExpert}
+          setBestUser={setBestUserExpert}
+          timer={timer}
+          gameType={gameType[3]}
+        />
+      ) : (
+        ""
+      )}
+      <div className="header drag-target-minesweeper">
+        <div>Minesweeper</div>
+        <div className="header-buttons">
           <div
-            className={show ? "show item active" : "item active"}
-            onClick={handleMenuItemClick}
-            ref={menuItem}
+            id="min-22"
+            className="minimize windows-box-shadow"
+            onClick={setMinimizeWindow}
+          ></div>
+          <div className="maximize windows-box-shadow disabled"></div>
+          <div
+            id="close-22"
+            className="close windows-box-shadow"
+            onClick={setCloseProgram}
           >
-            Game
-            <div className="subitems">
-              <div className="subitem line" onClick={handleResetClick}>
-                New
-              </div>
-              <div
-                className={gameType[3] === "sm" ? "current subitem" : "subitem"}
-                onClick={() => newGame("sm")}
-              >
-                Begginer
-              </div>
-              <div
-                className={gameType[3] === "lg" ? "current subitem" : "subitem"}
-                onClick={() => newGame("lg")}
-              >
-                Intermediate
-              </div>
-              <div
-                className={
-                  gameType[3] === "xl" ? "current subitem line" : "subitem line"
-                }
-                onClick={() => newGame("xl")}
-              >
-                Expert
-              </div>
-              <div
-                className="subitem line"
-                onClick={() => setShowBestTimes("active")}
-              >
-                Best Times
-              </div>
-              <div id="close-22" className="subitem" onClick={setCloseProgram}>
-                Exit
-              </div>
-            </div>
-          </div>
-          <div className="item" ref={menuItem}>
-            Help
-          </div>
-        </div>
-        <div className="content">
-          <div className="inner-contert">
-            <div className="content-header">
-              <div className="timer">
-                <div
-                  className={
-                    timer > 999
-                      ? 9
-                      : timer > 99
-                      ? "timer-" + parseInt((timer / 100) % 10)
-                      : "timer-" + 0
-                  }
-                ></div>
-                <div
-                  className={
-                    timer > 999
-                      ? 9
-                      : timer > 9
-                      ? "timer-" + parseInt((timer / 10) % 10)
-                      : "timer-" + 0
-                  }
-                ></div>
-                <div
-                  className={
-                    timer > 999
-                      ? 9
-                      : timer > 9
-                      ? "timer-" + (timer % 10)
-                      : "timer-" + timer
-                  }
-                ></div>
-              </div>
-              <div className="reset" onClick={handleResetClick}></div>
-              <div className="score">
-                <div
-                  className={
-                    mineCount > 99
-                      ? "score-" + parseInt((mineCount / 100) % 10)
-                      : "score-" + 0
-                  }
-                ></div>
-                <div
-                  className={
-                    mineCount > 9
-                      ? "score-" + parseInt((mineCount / 10) % 10)
-                      : "score-" + 0
-                  }
-                ></div>
-                <div
-                  className={
-                    mineCount > 9
-                      ? "score-" + (mineCount % 10)
-                      : "score-" + mineCount
-                  }
-                ></div>
-              </div>
-            </div>
-            <Board
-              grid={grid}
-              updateFlag={updateFlag}
-              revealcell={revealcell}
-            />
+            X
           </div>
         </div>
       </div>
-    );
-  }
+
+      <div className="options">
+        <div
+          className={show ? "show item active" : "item active"}
+          onClick={handleMenuItemClick}
+          ref={menuItem}
+        >
+          Game
+          <div className="subitems">
+            <div className="subitem line" onClick={handleResetClick}>
+              New
+            </div>
+            <div
+              className={gameType[3] === "sm" ? "current subitem" : "subitem"}
+              onClick={() => newGame("sm")}
+            >
+              Begginer
+            </div>
+            <div
+              className={gameType[3] === "lg" ? "current subitem" : "subitem"}
+              onClick={() => newGame("lg")}
+            >
+              Intermediate
+            </div>
+            <div
+              className={
+                gameType[3] === "xl" ? "current subitem line" : "subitem line"
+              }
+              onClick={() => newGame("xl")}
+            >
+              Expert
+            </div>
+            <div
+              className="subitem line"
+              onClick={() => setShowBestTimes("active")}
+            >
+              Best Times
+            </div>
+            <div id="close-22" className="subitem" onClick={setCloseProgram}>
+              Exit
+            </div>
+          </div>
+        </div>
+        <div className="item" ref={menuItem}>
+          Help
+        </div>
+      </div>
+      <div className="content">
+        <div className="inner-contert">
+          <div className="content-header">
+            <div className="timer">
+              <div
+                className={
+                  timer > 999
+                    ? 9
+                    : timer > 99
+                    ? "timer-" + parseInt((timer / 100) % 10)
+                    : "timer-" + 0
+                }
+              ></div>
+              <div
+                className={
+                  timer > 999
+                    ? 9
+                    : timer > 9
+                    ? "timer-" + parseInt((timer / 10) % 10)
+                    : "timer-" + 0
+                }
+              ></div>
+              <div
+                className={
+                  timer > 999
+                    ? 9
+                    : timer > 9
+                    ? "timer-" + (timer % 10)
+                    : "timer-" + timer
+                }
+              ></div>
+            </div>
+            <div className="reset" onClick={handleResetClick}></div>
+            <div className="score">
+              <div
+                className={
+                  mineCount > 99
+                    ? "score-" + parseInt((mineCount / 100) % 10)
+                    : "score-" + 0
+                }
+              ></div>
+              <div
+                className={
+                  mineCount > 9
+                    ? "score-" + parseInt((mineCount / 10) % 10)
+                    : "score-" + 0
+                }
+              ></div>
+              <div
+                className={
+                  mineCount > 9
+                    ? "score-" + (mineCount % 10)
+                    : "score-" + mineCount
+                }
+              ></div>
+            </div>
+          </div>
+          <Board grid={grid} updateFlag={updateFlag} revealcell={revealcell} />
+        </div>
+      </div>
+    </div>
+  );
 }

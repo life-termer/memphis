@@ -42,7 +42,8 @@ export default function Desctop({
         onDragEnd() {
           gsap.to(element, {
             x: Math.round(this.x / gridWidth) * gridWidth,
-            y: Math.round(this.y / gridHeight) * gridHeight
+            y: Math.round(this.y / gridHeight) * gridHeight,
+            duration: 0.15
           });
         },
         // snap: {

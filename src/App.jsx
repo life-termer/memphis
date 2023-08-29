@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./assets/sass/app.scss";
 import LoadigScreen from "./partials/moduls/loading-screen";
 import { menuItems } from "./partials/template/programs-items";
@@ -12,15 +12,23 @@ import Documents from "./partials/moduls/documents";
 import SurchinSv from "./partials/moduls/surchinSv";
 import Pass from "./partials/moduls/pass";
 import Minesweeper from "./partials/moduls/minesweeper/minesweeper";
+import Snake from "./partials/moduls/snake/snake";
 gsap.registerPlugin(Draggable);
 
 function Memphis() {
   const [items, setItems] = useState(menuItems);
   const [shutdown, setShutdown] = useState(false);
+  const [matches, setMatches] = useState(
+    window.matchMedia("(max-width: 768px)").matches
+  );
+
+  useEffect(() => {
+    window
+      .matchMedia("(max-width: 768px)")
+      .addEventListener("change", (e) => setMatches(e.matches));
+  }, []);
 
   let isCookieConsent = true;
-  // let isShutdouwn = 0;
-  let isLooggedOff = false;
 
   const setActiveProgram = (event) => {
     event.stopPropagation();
@@ -195,6 +203,8 @@ function Memphis() {
       case 2:
         setRunningProgram(event);
         break;
+      default:
+        break;
     }
   };
   const handleShortcutClickOutside = (event) => {
@@ -243,95 +253,114 @@ function Memphis() {
   };
 
   return (
-    <div className="memphis">
-      <LoadigScreen isShutdown={shutdown} />
-      {isCookieConsent ? (
-        <>
-          <div className="draggable-container">
-            <Desctop
-              items={items}
-              setItems={setItems}
-              setRunningProgram={setRunningProgram}
-              handleShortcutClickInside={handleShortcutClickInside}
-              handleShortcutClickOutside={handleShortcutClickOutside}
-              isShutdown={shutdown}
-            />
-            {isRunning(items, 0, false) ? (
-              <WindowsUpdate
-                items={items}
-                setActiveProgram={setActiveProgram}
-                setMinimizeWindow={setMinimizeWindow}
-                setCloseProgram={setCloseProgram}
-              />
-            ) : (
-              ""
-            )}
-            {isRunning(items, 0, true) ? (
-              <InternetExplorer
-                items={items}
-                setActiveProgram={setActiveProgram}
-                setMinimizeWindow={setMinimizeWindow}
-                setCloseProgram={setCloseProgram}
-              />
-            ) : (
-              ""
-            )}
-            {isRunning(items, 1, true) ? (
-              <Minesweeper
-                items={items}
-                setActiveProgram={setActiveProgram}
-                setMinimizeWindow={setMinimizeWindow}
-                setCloseProgram={setCloseProgram}
-              />
-            ) : (
-              ""
-            )}
-
-            {isRunning(items, 2, false) ? (
-              <Documents
-                items={items}
-                setActiveProgram={setActiveProgram}
-                setMinimizeWindow={setMinimizeWindow}
-                setCloseProgram={setCloseProgram}
-                handleShortcutClickInside={handleShortcutClickInside}
-              />
-            ) : (
-              ""
-            )}
-            {isRunning(items, 6, false) ? (
-              <SurchinSv
-                items={items}
-                setActiveProgram={setActiveProgram}
-                setMinimizeWindow={setMinimizeWindow}
-                setCloseProgram={setCloseProgram}
-              />
-            ) : (
-              ""
-            )}
-            {isRunning(items, 7, false) ? (
-              <Pass
-                items={items}
-                setActiveProgram={setActiveProgram}
-                setMinimizeWindow={setMinimizeWindow}
-                setCloseProgram={setCloseProgram}
-              />
-            ) : (
-              ""
-            )}
-          </div>
-          <Footer
-            items={items}
-            setRunningProgram={setRunningProgram}
-            setActiveProgram={setActiveProgram}
-            handleShortcutClickOutside={handleShortcutClickOutside}
-            handleSubDesctopClick={handleSubDesctopClick}
-            isShutdown={shutdown}
-          />
-        </>
-      ) : (
-        ""
+    <React.Fragment>
+      {matches && (
+        <div className="no-mobile">
+          <h1>This application is not optimized for small displays.</h1>
+          <p>Sorry for inconvenience &#x1F610;</p>
+        </div>
       )}
-    </div>
+      {!matches && (
+        <div className="memphis">
+          <LoadigScreen isShutdown={shutdown} />
+          {isCookieConsent ? (
+            <React.Fragment>
+              <div className="draggable-container">
+                <Desctop
+                  items={items}
+                  setItems={setItems}
+                  setRunningProgram={setRunningProgram}
+                  handleShortcutClickInside={handleShortcutClickInside}
+                  handleShortcutClickOutside={handleShortcutClickOutside}
+                  isShutdown={shutdown}
+                />
+                {isRunning(items, 0, false) ? (
+                  <WindowsUpdate
+                    items={items}
+                    setActiveProgram={setActiveProgram}
+                    setMinimizeWindow={setMinimizeWindow}
+                    setCloseProgram={setCloseProgram}
+                  />
+                ) : (
+                  ""
+                )}
+                {isRunning(items, 0, true) ? (
+                  <InternetExplorer
+                    items={items}
+                    setActiveProgram={setActiveProgram}
+                    setMinimizeWindow={setMinimizeWindow}
+                    setCloseProgram={setCloseProgram}
+                  />
+                ) : (
+                  ""
+                )}
+                {isRunning(items, 1, true) ? (
+                  <Minesweeper
+                    items={items}
+                    setActiveProgram={setActiveProgram}
+                    setMinimizeWindow={setMinimizeWindow}
+                    setCloseProgram={setCloseProgram}
+                  />
+                ) : (
+                  ""
+                )}
+                {isRunning(items, 2, true) ? (
+                  <Snake
+                    items={items}
+                    setActiveProgram={setActiveProgram}
+                    setMinimizeWindow={setMinimizeWindow}
+                    setCloseProgram={setCloseProgram}
+                  />
+                ) : (
+                  ""
+                )}
+                {isRunning(items, 2, false) ? (
+                  <Documents
+                    items={items}
+                    setActiveProgram={setActiveProgram}
+                    setMinimizeWindow={setMinimizeWindow}
+                    setCloseProgram={setCloseProgram}
+                    handleShortcutClickInside={handleShortcutClickInside}
+                  />
+                ) : (
+                  ""
+                )}
+                {isRunning(items, 6, false) ? (
+                  <SurchinSv
+                    items={items}
+                    setActiveProgram={setActiveProgram}
+                    setMinimizeWindow={setMinimizeWindow}
+                    setCloseProgram={setCloseProgram}
+                  />
+                ) : (
+                  ""
+                )}
+                {isRunning(items, 7, false) ? (
+                  <Pass
+                    items={items}
+                    setActiveProgram={setActiveProgram}
+                    setMinimizeWindow={setMinimizeWindow}
+                    setCloseProgram={setCloseProgram}
+                  />
+                ) : (
+                  ""
+                )}
+              </div>
+              <Footer
+                items={items}
+                setRunningProgram={setRunningProgram}
+                setActiveProgram={setActiveProgram}
+                handleShortcutClickOutside={handleShortcutClickOutside}
+                handleSubDesctopClick={handleSubDesctopClick}
+                isShutdown={shutdown}
+              />
+            </React.Fragment>
+          ) : (
+            ""
+          )}
+        </div>
+      )}
+    </React.Fragment>
   );
 }
 

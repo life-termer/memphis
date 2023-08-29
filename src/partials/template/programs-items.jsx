@@ -8,6 +8,7 @@ import logOff from "../../assets/images/icons/ic-log-off.png";
 import programs from "../../assets/images/icons/ic-programs.png";
 import cv from "../../assets/images/icons/ic-file-cv.png";
 import padlock from "../../assets/images/icons/ic-file-padlock.png";
+import snake from "../../assets/images/icons/ic-snake.png";
 
 const menuItems = [
   {
@@ -51,6 +52,19 @@ const menuItems = [
         classes: "minesweeper",
         image: minesweeper,
         imageAlt: "minesweeper",
+        running: "",
+        active: "",
+        minimized: "",
+        desktopShortcut: true,
+        focused: "",
+      },
+      {
+        id: 23,
+        group: "programs",
+        fullName: "Snake",
+        classes: "snake",
+        image: snake,
+        imageAlt: "snake",
         running: "",
         active: "",
         minimized: "",
