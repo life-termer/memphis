@@ -180,6 +180,7 @@ export default function Minesweeper({
       if (newGrid[x][y].value === "X") {
         setEndgame("gameLost");
         counter("stop");
+        newGrid[x][y].value = "XXX";
         // for (let i = 0; i < mineLocation.length; i++) {
         //   newGrid[mineLocation[i][0]][mineLocation[i][1]].revealed = true;
         // }

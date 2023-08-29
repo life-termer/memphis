@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Cell from "./cell";
 
 export default function Board({ grid, updateFlag, revealcell }) {
-  const [cellColor, setCellcolor] = useState('');
 
   const setCellClass = (value) => {
     switch(value){
@@ -35,6 +34,12 @@ export default function Board({ grid, updateFlag, revealcell }) {
       }
       case 'X': {
         return 'x';
+      }
+      case 'XXX': {
+        return 'bombClicked';
+      }
+      default: {
+        return '';
       }
   }
 }

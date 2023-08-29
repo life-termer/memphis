@@ -4,11 +4,11 @@ export default function Cell({ details, updateFlag, revealcell }) {
   const [active, setActive] = useState('');
   const handleMouseDown = (e) => {
     e = e || window.event;
-    if ("buttons" in e && e.buttons == 1) {
+    if ("buttons" in e && e.buttons === 1) {
         setActive('active');
     }
     var button = e.which || e.button;
-    if(button == 1)  {
+    if(button === 1)  {
       setActive('active');
     }
   }
@@ -20,7 +20,7 @@ export default function Cell({ details, updateFlag, revealcell }) {
   }
   return (
     <div
-      className={details.revealed ? "board-cell-closed revealed " + details.flagged + ' ' + active :  "board-cell-closed " + details.flagged + ' ' + active }
+      className={details.revealed ? "board-cell-closed revealed " + details.flagged + ' ' + active :  "board-cell-closed " + details.flagged + ' ' + active}
       onClick={()=>{revealcell(details.x,details.y)}}
       onContextMenu={(e) => updateFlag(e,details.x,details.y)}
       onMouseDown={handleMouseDown}
