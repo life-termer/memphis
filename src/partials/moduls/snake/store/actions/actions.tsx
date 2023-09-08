@@ -10,6 +10,14 @@ export const DOWN = "DOWN";
 
 export const SET_DIS_DIRECTION = "SET_DIS_DIRECTION";
 
+export const INCREMENT_SCORE = "INCREMENT_SCORE";
+export const INCREASE_SNAKE = "INCREASE_SNAKE";
+export const STOP_GAME = "STOP_GAME";
+
+export const RESET = "RESET";
+export const RESET_SCORE = "RESET_SCORE";
+
+
 export interface ISnakeCoord {
   x: number;
   y: number;
@@ -25,4 +33,20 @@ export const makeMove = (dx: number, dy: number, move: string) => ({
 export const setDisDirection = (direction: string) => ({
   type: SET_DIS_DIRECTION, // Action type, that is action constant
   payload: direction //additional data that acts as a payload.
+});
+
+export const increaseSnake = () => ({  //action creator
+  type: INCREASE_SNAKE
+});
+
+export const scoreUpdates = (type: string) => ({
+  type
+});
+
+export const stopGame = () => ({
+  type: STOP_GAME
+});
+
+export const resetGame = () => ({
+  type: RESET
 });
