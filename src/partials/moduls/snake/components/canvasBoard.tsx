@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import { createCookie } from "../../../utilities/cookies";
+
 import { useSelector, useDispatch } from "react-redux";
 import { IGlobalState } from "../store/reducers/reducers";
 import {
@@ -21,18 +23,25 @@ import {
   IObjectBody,
   hasSnakeCollided,
 } from "../utilities/utils";
+import Rules from "./rules";
+import GameOver from "./gameOver";
 
 export interface ICanvasBoard {
   height: number;
   width: number;
+  bestScore: number;
+  setBestScore: any;
+  showRules: boolean;
+  setShowRules: any;
 }
 
-const CanvasBoard = ({ height, width }: ICanvasBoard) => {
+const CanvasBoard = ({ height, width, bestScore, setBestScore, showRules, setShowRules }: ICanvasBoard) => {
   const dispatch = useDispatch();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
 
   const snake1 = useSelector((state: IGlobalState) => state.snake); //use the useSelector hook of react-redux to get the required state from the store. The following will give us the snake's global state:
+  const score = useSelector((state: IGlobalState) => state.score);
   const disallowedDirection = useSelector(
     (state: IGlobalState) => state.disallowedDirection
   );
@@ -41,7 +50,8 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
   );
   const [isConsumed, setIsConsumed] = useState<boolean>(false);
   const [gameEnded, setGameEnded] = useState<boolean>(false);
-
+  const [isBestScore, setIsBestScore] = useState<boolean>(false);
+  
   const moveSnake = useCallback(
     //function that dispatches an action passed to the makeMove action creator.
     (dx = 0, dy = 0, ds: string) => {
@@ -65,6 +75,7 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
   );
 
   const handleKeyEvents = useCallback(
+    
     //useCallback hook memoize version of this function which is called on every state change (that is, on the change of disallowedDirection and moveSnake).  This function is called on every key pressed on the keyboard.
     (event: KeyboardEvent) => {
       if (disallowedDirection) {
@@ -93,9 +104,10 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
           disallowedDirection !== "UP" &&
           disallowedDirection !== "DOWN" &&
           event.key === "d"
-        )
+        ) {
+          setShowRules(false);
           moveSnake(20, 0, disallowedDirection); //Move RIGHT at start
-        console.log("Start");
+        }
       }
     },
     [disallowedDirection, moveSnake]
@@ -105,19 +117,17 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
     window.removeEventListener("keypress", handleKeyEvents);
     dispatch(resetGame());
     dispatch(scoreUpdates(RESET_SCORE));
+    setIsBestScore(false);
     clearBoard(context);
     drawObject(context, snake1, "#91C483");
-    drawObject(
-      context,
-      [generateRandomPosition(width - 20, height - 20)],
-      "#676FA3"
-    ); //Draws object randomly
+    const posi = generateRandomPosition(width - 20, height - 20);
+    setPos(posi);
+    drawObject(context, [pos], "#676FA3"); //Draws object randomly
     window.addEventListener("keypress", handleKeyEvents);
   }, [context, dispatch, handleKeyEvents, height, snake1, width]);
 
   useEffect(() => {
     //Generate new object
-    console.log("Consumes");
     if (isConsumed) {
       setIsConsumed(false);
 
@@ -128,8 +138,15 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
     }
   }, [isConsumed, height, width, dispatch]);
 
+  const setRecord = (record: number, currentScore: number) => {
+    if(currentScore > record) {
+      setBestScore(currentScore);
+      createCookie("bestScoreSnake", currentScore, 3650);
+      setIsBestScore(true);
+    }
+  }
+
   useEffect(() => {
-    console.log("Context");
     //Draw on canvas each time
     setContext(canvasRef.current && canvasRef.current.getContext("2d")); //store in state variable
     clearBoard(context);
@@ -147,29 +164,31 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
       hasSnakeCollided(snake1, snake1[0]) ||
       //Checks if the snake head is out of the boundaries of the box
       snake1[0].x >= width ||
-      snake1[0].x <= 0 ||
-      snake1[0].y <= 0 ||
+      snake1[0].x <= 0 - 20 ||
+      snake1[0].y <= 0 - 20 ||
       snake1[0].y >= height
     ) {
       setGameEnded(true);
       dispatch(stopGame());
       window.removeEventListener("keypress", handleKeyEvents);
+      setRecord(bestScore, score);
     } else setGameEnded(false);
-  }, [context, snake1, pos, height, width, dispatch, handleKeyEvents]);
+  }, [context, snake1, pos, height, width, dispatch, handleKeyEvents, gameEnded]);
 
   useEffect(() => {
-    console.log("Events");
     window.addEventListener("keypress", handleKeyEvents);
 
     return () => {
       window.removeEventListener("keypress", handleKeyEvents);
     };
   }, [disallowedDirection, handleKeyEvents]);
-
+  
   return (
-    <div>
-      <div onClick={() => resetBoard()}>Reset</div>
-      <canvas ref={canvasRef} height={height} width={width} />;
+    <div className="content-canvas">
+      <div className="active-button" onClick={() => resetBoard()}>Reset</div>
+      <canvas ref={canvasRef} height={height} width={width} />
+      { showRules ? (<Rules />) : ("") }
+      { gameEnded ? (<GameOver score={score} bestScore={bestScore} isBestScore={isBestScore} />) : ("") }
     </div>
   );
 };

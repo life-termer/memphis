@@ -71,8 +71,8 @@ const gameReducer = (state = globalState, action: any) => {
         snake: [
           ...state.snake,
           {
-            x: state.snake[snakeLen - 1].x - 20,
-            y: state.snake[snakeLen - 1].y - 20,
+            x: state.snake[snakeLen - 1].x,
+            y: state.snake[snakeLen - 1].y - 2000,
           },
         ],
       };

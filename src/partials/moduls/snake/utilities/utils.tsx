@@ -58,3 +58,4 @@ export const hasSnakeCollided = (
 
   return flag;
 };
+

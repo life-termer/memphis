@@ -5,6 +5,8 @@ import Game from "./components/game";
 import { getCookie, deleteCookie } from "../../utilities/cookies";
 gsap.registerPlugin(Draggable);
 
+export var gameDelay = 200;
+
 export default function Snake({
   items,
   setCloseProgram,
@@ -16,10 +18,29 @@ export default function Snake({
   const menuItem = useRef();
   const timeline = useRef(gsap.timeline());
   const [show, setShow] = useState(false);
+  const [showRules, setShowRules] = useState(true);
 
   const handleMenuItemClick = () => {
     setShow((myRef) => !myRef);
   };
+
+  const [bestScore, setBestScore] = useState(0);
+
+  const resetBestScore = () => {
+    setBestScore(0);
+    deleteCookie("bestScoreSnake");
+  }
+
+  const handleRulesClick = () => {
+    setShowRules((myRef) => !myRef);
+  }
+
+  useEffect(() => {
+    if (getCookie("bestScoreSnake")) {
+      var bs = Number(getCookie("bestScoreSnake"));
+      setBestScore(bs);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     dragInstance.current = Draggable.create(dragWindow.current, {
@@ -73,11 +94,8 @@ export default function Snake({
         >
           Game
           <div className="subitems">
-            <div className="subitem line">New</div>
-            <div>Begginer</div>
-            <div>Intermediate</div>
-            <div>Expert</div>
-            <div className="subitem line">Best Times</div>
+            <div className="subitem line" onClick={handleRulesClick}>Rules</div>
+            <div className="subitem line" onClick={resetBestScore}>Reset Best Score</div>
             <div id="close-23" className="subitem" onClick={setCloseProgram}>
               Exit
             </div>
@@ -88,7 +106,14 @@ export default function Snake({
         </div>
       </div>
       <div className="content">
-        <Game />
+        <div className="inner-content">
+          <Game 
+            bestScore={bestScore}
+            setBestScore={setBestScore}
+            showRules={showRules}
+            setShowRules={setShowRules}
+          />
+        </div>
       </div>
     </div>
   );

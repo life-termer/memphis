@@ -208,7 +208,7 @@ function Memphis() {
     }
   };
   const handleShortcutClickOutside = (event) => {
-    console.log(event.currentTarget);
+    // console.log(event.currentTarget);
     const programList = items[1].programList.map((item) =>
       item.id === parseInt(event.currentTarget.id)
         ? { ...item, focused: "" }
