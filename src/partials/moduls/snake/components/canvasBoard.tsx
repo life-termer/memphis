@@ -122,7 +122,7 @@ const CanvasBoard = ({ height, width, bestScore, setBestScore, showRules, setSho
     drawObject(context, snake1, "#91C483");
     const posi = generateRandomPosition(width - 20, height - 20);
     setPos(posi);
-    drawObject(context, [pos], "#676FA3"); //Draws object randomly
+    drawObject(context, [pos], "#730312", "#730312"); //Draws object randomly
     window.addEventListener("keypress", handleKeyEvents);
   }, [context, dispatch, handleKeyEvents, height, snake1, width]);
 
@@ -151,7 +151,7 @@ const CanvasBoard = ({ height, width, bestScore, setBestScore, showRules, setSho
     setContext(canvasRef.current && canvasRef.current.getContext("2d")); //store in state variable
     clearBoard(context);
     drawObject(context, snake1, "#91C483"); //Draws snake at the required position
-    drawObject(context, [pos], "#676FA3"); //Draws fruit randomly
+    drawObject(context, [pos], "#730312", "#730312"); //Draws fruit randomly
     //When the fruit is consumed
     if (snake1[0].x === pos?.x && snake1[0].y === pos?.y) {
       //check if the head of the snake snake[0] is equal to the pos, or the position of the fruit.

@@ -3,7 +3,7 @@ import "./assets/sass/app.scss";
 import LoadigScreen from "./partials/moduls/loading-screen";
 import { menuItems } from "./partials/template/programs-items";
 import Footer from "./partials/template/footer";
-import Desctop from "./partials/moduls/desctop";
+import Desktop from "./partials/moduls/desktop";
 import WindowsUpdate from "./partials/moduls/windows-update";
 import InternetExplorer from "./partials/moduls/internet-explorer";
 import { gsap } from "gsap";
@@ -224,7 +224,7 @@ function Memphis() {
 
     setItems(trasformmenuItems);
   };
-  const handleSubDesctopClick = (event) => {
+  const handleSubdesktopClick = (event) => {
     event.stopPropagation();
     const programList = items[1].programList.map((item) =>
       item.running === "running"
@@ -266,7 +266,7 @@ function Memphis() {
           {isCookieConsent ? (
             <React.Fragment>
               <div className="draggable-container">
-                <Desctop
+                <Desktop
                   items={items}
                   setItems={setItems}
                   setRunningProgram={setRunningProgram}
@@ -351,7 +351,7 @@ function Memphis() {
                 setRunningProgram={setRunningProgram}
                 setActiveProgram={setActiveProgram}
                 handleShortcutClickOutside={handleShortcutClickOutside}
-                handleSubDesctopClick={handleSubDesctopClick}
+                handleSubdesktopClick={handleSubdesktopClick}
                 isShutdown={shutdown}
               />
             </React.Fragment>

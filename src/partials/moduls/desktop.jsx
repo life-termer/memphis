@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 gsap.registerPlugin(Draggable);
 
-export default function Desctop({
+export default function Desktop({
   items,
   setItems,
   handleShortcutClickInside,
@@ -30,9 +30,9 @@ export default function Desctop({
     });
   }, []);
   useEffect(() => {
-    document.querySelectorAll(".desctop-item").forEach((element) => {
+    document.querySelectorAll(".desktop-item").forEach((element) => {
       dragInstance.current = Draggable.create(element, {
-        bounds: ".desctop",
+        bounds: ".desktop",
         trigger: element,
         edgeResistance: 1,
         type: "x,y",
@@ -84,7 +84,7 @@ export default function Desctop({
   // });
 
   return (
-    <div className="desctop" onClick={handleShortcutClickOutside}>
+    <div className="desktop" onClick={handleShortcutClickOutside}>
       {items.map((item) => {
         return (
           <React.Fragment key={"items" + item.id}>
@@ -97,7 +97,7 @@ export default function Desctop({
                       key={item2.id}
                       ref={shortcut}
                       className={
-                        "desctop-item " + item2.running + " " + item2.focused
+                        "desktop-item " + item2.running + " " + item2.focused
                       }
                       onClick={handleShortcutClickInside}
                       // onClick={setActiveShortcut}
@@ -116,7 +116,7 @@ export default function Desctop({
                 key={item.id}
                 className={
                   item.classes +
-                  " desctop-item " +
+                  " desktop-item " +
                   item.running +
                   " " +
                   item.focused

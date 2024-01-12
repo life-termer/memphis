@@ -15,15 +15,28 @@ export interface IObjectBody {
 export const drawObject = (
   context: CanvasRenderingContext2D | null, //A 2D canvas context object for drawing the object on the canvas.
   objectBody: IObjectBody[], //Array of objects with each object having x and y properties, like the IObjectBody interface.
-  fillColor: string, //Color to be filled inside the object.
+  fillBodyColor: string, //Color to be filled inside the object.
+  fillHeadColor = "#021406",
   strokeStyle = "#146356" //Color to be filled in the outline of the object. Defaults to #146356.
 ) => {
   if (context) {
+    let cnt = 0;
     objectBody.forEach((object: IObjectBody) => {
-      context.fillStyle = fillColor;
-      context.strokeStyle = strokeStyle;
-      context?.fillRect(object.x, object.y, 20, 20); //Create a filled rectangle with coordinates object.x and object.y with size 20x20
-      context?.strokeRect(object.x, object.y, 20, 20); //Create an outlined rectangle with coordinates object.x and object.y with size 20x20
+      if(cnt == 0) {
+        console.log('test')
+        cnt++;
+        context.fillStyle = fillHeadColor;
+        context.strokeStyle = strokeStyle;
+        context?.fillRect(object.x, object.y, 20, 20); //Create a filled rectangle with coordinates object.x and object.y with size 20x20
+        context?.strokeRect(object.x, object.y, 20, 20); //Create an outlined rectangle with coordinates object.x and object.y with size 20x20
+      }
+      else {
+        context.fillStyle = fillBodyColor;
+        context.strokeStyle = strokeStyle;
+        context?.fillRect(object.x, object.y, 20, 20); //Create a filled rectangle with coordinates object.x and object.y with size 20x20
+        context?.strokeRect(object.x, object.y, 20, 20); //Create an outlined rectangle with coordinates object.x and object.y with size 20x20
+      }
+      
     });
   }
 };
