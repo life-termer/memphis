@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import axios from 'axios'
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 import Game from "./components/game";
@@ -24,8 +25,10 @@ export default function Snake({
     setShow((myRef) => !myRef);
   };
 
+  
   const [bestScore, setBestScore] = useState(0);
 
+  //TODO: add database reset
   const resetBestScore = () => {
     setBestScore(0);
     deleteCookie("bestScoreSnake");
@@ -34,6 +37,8 @@ export default function Snake({
   const handleRulesClick = () => {
     setShowRules((myRef) => !myRef);
   }
+
+  //TODO: fetch best score form database
 
   useEffect(() => {
     if (getCookie("bestScoreSnake")) {
