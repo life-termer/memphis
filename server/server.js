@@ -9,7 +9,7 @@ const helmet = require('helmet');
 const snakeRouter = require('./routes/snake-route');
 
 // Set default port for express app
-const PORT = process.env.PORT || 4001
+const PORT = process.env.REACT_APP_SERVER_PORT || 4001
 
 // Create express app
 const app = express();

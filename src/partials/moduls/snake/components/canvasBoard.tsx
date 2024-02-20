@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import axios from 'axios';
 import { createCookie } from "../../../utilities/cookies";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -33,10 +34,12 @@ export interface ICanvasBoard {
   setBestScore: any;
   showRules: boolean;
   setShowRules: any;
+  fetchScore: any;
 }
 
-const CanvasBoard = ({ height, width, bestScore, setBestScore, showRules, setShowRules }: ICanvasBoard) => {
+const CanvasBoard = ({ height, width, bestScore, setBestScore, showRules, setShowRules, fetchScore }: ICanvasBoard) => {
   const dispatch = useDispatch();
+  const serverURL = process.env.REACT_APP_SERVER_URL;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
 
@@ -138,10 +141,29 @@ const CanvasBoard = ({ height, width, bestScore, setBestScore, showRules, setSho
     }
   }, [isConsumed, height, width, dispatch]);
 
+
   const setRecord = (record: number, currentScore: number) => {
     if(currentScore > record) {
-      setBestScore(currentScore);
-      createCookie("bestScoreSnake", currentScore, 3650);
+      if(serverURL) {
+        //Send PUT request to 'books/reset' endpoint
+        axios
+        .put(process.env.REACT_APP_SERVER_URL + '/snake/reset')
+
+        //Send POST request to 'books/create' endpoint
+        axios
+          .post(process.env.REACT_APP_SERVER_URL + '/snake/create', {
+            bscore: currentScore,
+          })
+          .then(() => {
+            //Fetch score to refresh
+            fetchScore();
+            
+          })
+      } else {
+        setBestScore(currentScore);
+        createCookie("bestScoreSnake", currentScore, 3650);
+      }
+      
       setIsBestScore(true);
     }
   }

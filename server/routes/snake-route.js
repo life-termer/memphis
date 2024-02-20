@@ -12,7 +12,7 @@ const router = express.Router();
 router.get('/all', snakeRoutes.bsAll);
 
 //Add route for POST request
-router.post('.create', snakeRoutes.bsCreate);
+router.post('/create', snakeRoutes.bsCreate);
 
 //Add router for PUT request
 router.put('/delete', snakeRoutes.bsDelete);

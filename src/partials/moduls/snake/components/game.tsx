@@ -11,8 +11,9 @@ export interface IGame {
   setBestScore: any;
   showRules: boolean;
   setShowRules: any;
+  fetchScore: any;
 }
-const Game = ({bestScore, setBestScore, showRules, setShowRules}: IGame) => {
+const Game = ({bestScore, setBestScore, showRules, setShowRules, fetchScore}: IGame) => {
 
   return (
     <Provider store={store}>
@@ -30,6 +31,7 @@ const Game = ({bestScore, setBestScore, showRules, setShowRules}: IGame) => {
         setBestScore={setBestScore} 
         showRules={showRules}
         setShowRules={setShowRules}
+        fetchScore={fetchScore}
         />
     </Provider>
   );

@@ -41,9 +41,9 @@ knex.schema
     })
 
 // Log all data in snake table
-knex.select('*').from('snake')
-  .then(data => console.log('data: ', data))
-  .catch(err => console.log(err))
+// knex.select('*').from('snake')
+//   .then(data => console.log('data: ', data))
+//   .catch(err => console.log(err))
 
 //Export the database
 module.exports = knex;
