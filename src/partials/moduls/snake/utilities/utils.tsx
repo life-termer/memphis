@@ -23,7 +23,6 @@ export const drawObject = (
     let cnt = 0;
     objectBody.forEach((object: IObjectBody) => {
       if(cnt == 0) {
-        console.log('test')
         cnt++;
         context.fillStyle = fillHeadColor;
         context.strokeStyle = strokeStyle;

@@ -6,7 +6,7 @@ import Clock from "../moduls/clock";
 export default function Footer({
   items,
   handleShortcutClickOutside,
-  handleSubDesctopClick,
+  handleSubDesktopClick,
   setRunningProgram,
   setActiveProgram,
   isShutdown,
@@ -63,7 +63,7 @@ export default function Footer({
             className="active-button"
           ></span>
           <div className="start-submenu">
-            <div className="start-desctop active-button" onClick={handleSubDesctopClick}>
+            <div className="start-desctop active-button" onClick={handleSubDesktopClick}>
               <img src={desctop} alt="" />
             </div>
           </div>
