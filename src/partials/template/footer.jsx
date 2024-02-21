@@ -10,6 +10,9 @@ export default function Footer({
   setRunningProgram,
   setActiveProgram,
   isShutdown,
+  isLogIn,
+  userName,
+  setIsLogIn
 }) {
   const [active, setActive] = useState(false);
   const startMenu = useRef();
@@ -46,6 +49,10 @@ export default function Footer({
     setActive(false);
     setRunningProgram(event);
   };
+
+  const handleLogOff = () => {
+    setIsLogIn(false);
+  }
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -101,12 +108,27 @@ export default function Footer({
                           })}
                         </ul>
                       </li>
-                    ) : item.startItem ? (
+                    ) : item.startItem ? item.id === 5 ? (
+                    //TODO: Log in
+                    <li
+                      id={item.id}
+                      key={item.id}
+                      className={
+                        isLogIn
+                          ? "logged-in " + item.classes
+                          : item.classes
+                      }
+                      onClick={isLogIn ? handleLogOff : handleStartProgramClick}
+                    ><img src={item.image} alt={item.imageAlt} />
+                    {isLogIn ? "Log off" : item.fullName}
+                    <span className="ps-1 fw-bold">{isLogIn ? userName : ""}</span>
+                    </li>
+                    ) : (
                       <li
                         id={item.id}
                         key={item.id}
                         className={
-                          index === 0 || index === 3 || index === 4
+                          index === 0 || index === 3
                             ? "disabled " + item.classes
                             : item.classes
                         }

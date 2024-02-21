@@ -15,7 +15,7 @@ const knex = require('knex')({
 
 //Create a table in the database
 knex.schema
-  //Make sure table doens not exist before creation
+  //Make sure table does not exist before creation
   .hasTable('snake')
     .then((exists) => {
       if(!exists) {

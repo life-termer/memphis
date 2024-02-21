@@ -100,8 +100,8 @@ const menuItems = [
   },
   {
     id: 5,
-    fullName: "Log Off",
-    classes: "log-off",
+    fullName: "Log In",
+    classes: "log-in",
     image: logOff,
     imageAlt: "logo",
     running: "",

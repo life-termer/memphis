@@ -21,6 +21,8 @@ function Memphis() {
   const [matches, setMatches] = useState(
     window.matchMedia("(max-width: 768px)").matches
   );
+  const [isLogIn, setIsLogIn] = useState(true);
+  const [userName, setUserName] = useState("admin");
 
   useEffect(() => {
     window
@@ -353,6 +355,9 @@ function Memphis() {
                 handleShortcutClickOutside={handleShortcutClickOutside}
                 handleSubdesktopClick={handleSubdesktopClick}
                 isShutdown={shutdown}
+                isLogIn={isLogIn}
+                userName={userName}
+                setIsLogIn={setIsLogIn}
               />
             </React.Fragment>
           ) : (
