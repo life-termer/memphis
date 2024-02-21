@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import axios from 'axios';
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 import Game from "./components/game";
@@ -19,28 +20,62 @@ export default function Snake({
   const timeline = useRef(gsap.timeline());
   const [show, setShow] = useState(false);
   const [showRules, setShowRules] = useState(true);
+  const serverURL = process.env.REACT_APP_SERVER_URL;
 
   const handleMenuItemClick = () => {
     setShow((myRef) => !myRef);
   };
 
-  const [bestScore, setBestScore] = useState(0);
-
-  const resetBestScore = () => {
-    setBestScore(0);
-    deleteCookie("bestScoreSnake");
-  }
-
   const handleRulesClick = () => {
     setShowRules((myRef) => !myRef);
   }
 
+  const [bestScore, setBestScore] = useState(0);
+
+  // Fetch best score on initial render
   useEffect(() => {
-    if (getCookie("bestScoreSnake")) {
-      var bs = Number(getCookie("bestScoreSnake"));
-      setBestScore(bs);
+    if(serverURL) {
+      fetchScore()
+    } else {
+      if (getCookie("bestScoreSnake")) {
+        var bs = Number(getCookie("bestScoreSnake"));
+        setBestScore(bs);
+      }
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [])
+
+  //Fetch score
+  const fetchScore = async () => {
+    //Send GET request to 'snake/all' endpoint
+    axios
+      .get(process.env.REACT_APP_SERVER_URL + '/snake/all') //console.log(process.env.REACT_APP_SERVER_URL);
+      .then(response => {
+        //Update the state
+        if(response.data[0]) {
+          setBestScore(response.data[0].bscore);
+        }
+        else {
+          setBestScore(0);
+        }
+      })
+      .catch(err => console.log(`There was an error retrieving the data ${err}`));
+  }
+
+  const resetBestScore = () => {
+    if(serverURL) {
+      //Send PUT request to 'books/reset' endpoint
+      axios
+      .put(process.env.REACT_APP_SERVER_URL + '/snake/reset')
+      .then(() => {
+        //Fetch score to refresh
+        fetchScore();
+      })
+      .catch(error => console.error(`There was an error resetting the best score: ${error}`))
+    } else {
+      setBestScore(0);
+      deleteCookie("bestScoreSnake");
+    }
+  }
 
   useEffect(() => {
     dragInstance.current = Draggable.create(dragWindow.current, {
@@ -52,7 +87,7 @@ export default function Snake({
       autoScroll: true,
       cursor: "auto",
     });
-    
+    console.log(serverURL);
   }, []);
 
   return (
@@ -112,6 +147,7 @@ export default function Snake({
             setBestScore={setBestScore}
             showRules={showRules}
             setShowRules={setShowRules}
+            fetchScore={fetchScore}
           />
         </div>
       </div>
