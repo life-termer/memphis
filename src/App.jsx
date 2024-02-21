@@ -13,6 +13,7 @@ import SurchinSv from "./partials/moduls/surchinSv";
 import Pass from "./partials/moduls/pass";
 import Minesweeper from "./partials/moduls/minesweeper/minesweeper";
 import Snake from "./partials/moduls/snake/snake";
+import Breakout from "./partials/moduls/breakout/breakout";
 gsap.registerPlugin(Draggable);
 
 function Memphis() {
@@ -226,7 +227,7 @@ function Memphis() {
 
     setItems(trasformmenuItems);
   };
-  const handleSubdesktopClick = (event) => {
+  const handleSubDesktopClick = (event) => {
     event.stopPropagation();
     const programList = items[1].programList.map((item) =>
       item.running === "running"
@@ -316,6 +317,16 @@ function Memphis() {
                 ) : (
                   ""
                 )}
+                {isRunning(items, 3, true) ? (
+                  <Breakout
+                    items={items}
+                    setActiveProgram={setActiveProgram}
+                    setMinimizeWindow={setMinimizeWindow}
+                    setCloseProgram={setCloseProgram}
+                  />
+                ) : (
+                  ""
+                )}
                 {isRunning(items, 2, false) ? (
                   <Documents
                     items={items}
@@ -353,7 +364,7 @@ function Memphis() {
                 setRunningProgram={setRunningProgram}
                 setActiveProgram={setActiveProgram}
                 handleShortcutClickOutside={handleShortcutClickOutside}
-                handleSubdesktopClick={handleSubdesktopClick}
+                handleSubDesktopClick={handleSubDesktopClick}
                 isShutdown={shutdown}
                 isLogIn={isLogIn}
                 userName={userName}

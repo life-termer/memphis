@@ -52,7 +52,8 @@
     left: 10rem;
   }
   &.minesweeper,
-  &.snake {
+  &.snake,
+  &.breakout {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

@@ -9,6 +9,7 @@ import programs from "../../assets/images/icons/ic-programs.png";
 import cv from "../../assets/images/icons/ic-file-cv.png";
 import padlock from "../../assets/images/icons/ic-file-padlock.png";
 import snake from "../../assets/images/icons/ic-snake.png";
+import breakout from "../../assets/images/icons/ic-breakout.png";
 
 const menuItems = [
   {
@@ -65,6 +66,19 @@ const menuItems = [
         classes: "snake",
         image: snake,
         imageAlt: "snake",
+        running: "",
+        active: "",
+        minimized: "",
+        desktopShortcut: true,
+        focused: "",
+      },
+      {
+        id: 24,
+        group: "programs",
+        fullName: "Breakout",
+        classes: "breakout",
+        image: breakout,
+        imageAlt: "breakout",
         running: "",
         active: "",
         minimized: "",

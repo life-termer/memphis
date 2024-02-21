@@ -42,17 +42,24 @@
       order: 3;
       transform: translate(
         calc(($shortcut-width) * 8),
-        calc($shortcut-height * 5)
+        calc($shortcut-height * 4)
       );
     }
     &:nth-child(3) {
       order: 4;
       transform: translate(
         calc(($shortcut-width) * 6),
-        calc($shortcut-height * 5)
+        calc($shortcut-height * 4)
       );
     }
     &:nth-child(4) {
+      order: 5;
+      transform: translate(
+        calc(($shortcut-width) * 6),
+        calc($shortcut-height * 5)
+      );
+    }
+    &:nth-child(5) {
       order: 1;
     }
   }
