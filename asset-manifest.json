@@ -1,19 +1,21 @@
 {
   "files": {
-    "main.css": "/memphis/static/css/main.c0be410e.css",
-    "main.js": "/memphis/static/js/main.a23ad248.js",
+    "main.css": "/memphis/static/css/main.0ab1fb48.css",
+    "main.js": "/memphis/static/js/main.6436b709.js",
     "static/js/787.f9265d84.chunk.js": "/memphis/static/js/787.f9265d84.chunk.js",
     "static/media/Surchin_CV.pdf": "/memphis/static/media/Surchin_CV.10f4758ccb477e9db691.pdf",
     "static/media/loading-screen.jpg": "/memphis/static/media/loading-screen.3b43a90054c93b56066d.jpg",
     "static/media/ic-snake.png": "/memphis/static/media/ic-snake.5e4076f1540bdd12ddd7.png",
     "static/media/flag.png": "/memphis/static/media/flag.7e2783d2cf87ba6392b5.png",
+    "static/media/ic-bi-eye-slash.svg": "/memphis/static/media/ic-bi-eye-slash.fdf5507ab2dee3154b4e7f5cb7bfb556.svg",
     "index.html": "/memphis/index.html",
-    "main.c0be410e.css.map": "/memphis/static/css/main.c0be410e.css.map",
-    "main.a23ad248.js.map": "/memphis/static/js/main.a23ad248.js.map",
+    "static/media/ic-bi-eye.svg": "/memphis/static/media/ic-bi-eye.fe7791ea696a69819967504942807e15.svg",
+    "main.0ab1fb48.css.map": "/memphis/static/css/main.0ab1fb48.css.map",
+    "main.6436b709.js.map": "/memphis/static/js/main.6436b709.js.map",
     "787.f9265d84.chunk.js.map": "/memphis/static/js/787.f9265d84.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c0be410e.css",
-    "static/js/main.a23ad248.js"
+    "static/css/main.0ab1fb48.css",
+    "static/js/main.6436b709.js"
   ]
 }
