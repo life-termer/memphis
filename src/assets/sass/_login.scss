@@ -1,0 +1,48 @@
+.login {
+  resize: none;
+  overflow: visible;
+  width: 600px;
+  height: 220px;
+  min-height: 220px;
+  .content {
+    .buttons-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      div {
+        width: 100px;
+        text-align: center;
+      }
+    }
+    .inner-content {
+      width: 100%;
+      margin: 25px 15px;
+      .row {
+        flex: 1;
+      }
+    }
+  }
+  .input-wrapper {
+    p {
+      text-align: start;
+      min-width: 75px;
+      flex-shrink: 0;
+    }
+    img {
+      position: relative;
+      left: -45px;
+    }
+  }
+  input {
+    border: none;
+    max-width: 200px;
+    height: 25px;
+    &:focus,
+    &:focus-visible {
+      outline: none !important;
+    }
+  }
+ 
+
+}

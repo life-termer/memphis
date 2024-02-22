@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import desctop from "../../assets/images/icons/ic-desktop-active.png";
+import desktop from "../../assets/images/icons/ic-desktop-active.png";
 import { gsap } from "gsap";
 import Clock from "../moduls/clock";
 
@@ -71,7 +71,7 @@ export default function Footer({
           ></span>
           <div className="start-submenu">
             <div className="start-desctop active-button" onClick={handleSubDesktopClick}>
-              <img src={desctop} alt="" />
+              <img src={desktop} alt="" />
             </div>
           </div>
           <div

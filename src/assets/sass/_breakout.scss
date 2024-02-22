@@ -1,3 +1,9 @@
+.desktop-item:nth-child(4),
+.breakout  {
+  pointer-events: none !important;
+  opacity: 0.5;
+}
+
 .breakout {
   resize: none;
   overflow: visible;

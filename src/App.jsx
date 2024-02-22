@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./assets/sass/app.scss";
-import LoadigScreen from "./partials/moduls/loading-screen";
+import LoadingScreen from "./partials/moduls/loading-screen";
 import { menuItems } from "./partials/template/programs-items";
 import Footer from "./partials/template/footer";
 import Desktop from "./partials/moduls/desktop";
@@ -14,6 +14,7 @@ import Pass from "./partials/moduls/pass";
 import Minesweeper from "./partials/moduls/minesweeper/minesweeper";
 import Snake from "./partials/moduls/snake/snake";
 import Breakout from "./partials/moduls/breakout/breakout";
+import Login from "./partials/moduls/login";
 gsap.registerPlugin(Draggable);
 
 function Memphis() {
@@ -22,8 +23,8 @@ function Memphis() {
   const [matches, setMatches] = useState(
     window.matchMedia("(max-width: 768px)").matches
   );
-  const [isLogIn, setIsLogIn] = useState(true);
-  const [userName, setUserName] = useState("admin");
+  const [isLogIn, setIsLogIn] = useState(false);
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     window
@@ -265,7 +266,7 @@ function Memphis() {
       )}
       {!matches && (
         <div className="memphis">
-          <LoadigScreen isShutdown={shutdown} />
+          <LoadingScreen isShutdown={shutdown} />
           {isCookieConsent ? (
             <React.Fragment>
               <div className="draggable-container">
@@ -334,6 +335,20 @@ function Memphis() {
                     setMinimizeWindow={setMinimizeWindow}
                     setCloseProgram={setCloseProgram}
                     handleShortcutClickInside={handleShortcutClickInside}
+                  />
+                ) : (
+                  ""
+                )}
+                {isRunning(items, 4, false) ? (
+                  <Login
+                    items={items}
+                    setActiveProgram={setActiveProgram}
+                    setMinimizeWindow={setMinimizeWindow}
+                    setCloseProgram={setCloseProgram}
+                    isLogIn={isLogIn}
+                    setIsLogIn={setIsLogIn}
+                    userName={userName}
+                    setUserName={setUserName}
                   />
                 ) : (
                   ""

@@ -15,6 +15,7 @@ $inverted-shadow: -2px -2px #818181, -2px 0 #818181, 0 -2px #818181, -4px -4px b
 @import "minesweeper";
 @import "snake";
 @import "breakout";
+@import "login";
 
 body {
   position: relative;
@@ -78,4 +79,7 @@ p {
   h1, p {
     color: #fff;
   }
+}
+.fs-sm {
+  font-size: 14px;
 }
