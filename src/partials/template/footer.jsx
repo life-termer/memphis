@@ -109,7 +109,7 @@ export default function Footer({
                         </ul>
                       </li>
                     ) : item.startItem ? item.id === 5 ? (
-                    //TODO: Log in
+                    // Log in
                     <li
                       id={item.id}
                       key={item.id}
@@ -128,7 +128,7 @@ export default function Footer({
                         id={item.id}
                         key={item.id}
                         className={
-                          index === 0 || index === 3
+                          index === 0
                             ? "disabled " + item.classes
                             : item.classes
                         }

@@ -87,7 +87,6 @@ export default function Snake({
       autoScroll: true,
       cursor: "auto",
     });
-    console.log(serverURL);
   }, []);
 
   return (

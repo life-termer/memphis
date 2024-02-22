@@ -3,7 +3,6 @@ export default function PlaceMines(board, row, col, bombs, firstX, firstY) {
   let mineLocation = [];
   // Randomize Bomb Placement
   let bombsCount = 0;
-  console.log("first click " + firstX + " " + firstY);
   while (bombsCount < bombs) {
     // Implementing random function
     let x;

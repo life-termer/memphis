@@ -1,0 +1,116 @@
+.help {
+  resize: none;
+  overflow: visible;
+  width: 800px;
+  height: 600px;
+  .options {
+    .item {
+      min-width: 75px;
+      padding: 0;
+      p {
+        font-size: 15px;
+      }
+      span {
+        font-size: 25px;
+        line-height: 1;
+      }
+      img {
+        position: relative;
+        padding: 4px 0;
+        filter: grayscale(100%);
+        opacity: 0.8;
+        
+      }
+      &.triangle {
+        position: relative;
+        &::after {
+          content: '';
+          position: absolute;
+          left: 55px;
+          top: 30%;
+          width: 0;
+          height: 0;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-top: 5px solid #000;
+          clear: both;
+        }
+      }
+    }
+  }
+  .content {
+    overflow: hidden;
+    .col-6,
+    .col-12 {
+      height: 100%;
+      padding: 5px;
+      &.left {
+        padding-top: 15px;
+        padding-right: 10px;
+      }
+    }
+    .content-right {
+      width: 100%;
+      height: 100%;
+      box-shadow: $inverted-shadow;
+      background-color: rgb(250, 243, 235);
+      .inner {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .content-left {
+      width: 100%;
+      height: 100%;
+      box-shadow: $box-shadow;
+      padding: 15px;
+      .inner {
+        width: 100%;
+        height: 100%;
+        box-shadow: $inverted-shadow;
+        background-color: rgb(250, 243, 235);
+      }
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+        li {
+          position: relative;
+          padding-left: 2rem;
+          cursor: pointer;
+          &:first-child {
+            &::before {
+              background: url("../../assets/images/icons/ic-help-sheet.png");
+            }
+          }
+          &::before {
+            content: "";
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            background: url("../../assets/images/icons/ic-help-sm.png");
+          }
+          &.active {
+            background-color: rgba(12, 26, 152, 0.5);
+          }
+        }
+      }
+    }
+  }
+
+  .response {
+    padding: 20px 5px;
+    height: 100%;
+    &:first-child {
+      padding: 0;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(50%);
+      }
+    }
+  }
+}

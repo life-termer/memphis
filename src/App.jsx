@@ -15,6 +15,7 @@ import Minesweeper from "./partials/moduls/minesweeper/minesweeper";
 import Snake from "./partials/moduls/snake/snake";
 import Breakout from "./partials/moduls/breakout/breakout";
 import Login from "./partials/moduls/login";
+import Help from "./partials/moduls/help";
 gsap.registerPlugin(Draggable);
 
 function Memphis() {
@@ -335,6 +336,16 @@ function Memphis() {
                     setMinimizeWindow={setMinimizeWindow}
                     setCloseProgram={setCloseProgram}
                     handleShortcutClickInside={handleShortcutClickInside}
+                  />
+                ) : (
+                  ""
+                )}
+                {isRunning(items, 3, false) ? (
+                  <Help
+                    items={items}
+                    setActiveProgram={setActiveProgram}
+                    setMinimizeWindow={setMinimizeWindow}
+                    setCloseProgram={setCloseProgram}
                   />
                 ) : (
                   ""
