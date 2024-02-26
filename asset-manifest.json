@@ -1,21 +1,22 @@
 {
   "files": {
-    "main.css": "/memphis/static/css/main.0ab1fb48.css",
-    "main.js": "/memphis/static/js/main.6436b709.js",
+    "main.css": "/memphis/static/css/main.100f084f.css",
+    "main.js": "/memphis/static/js/main.6b2fb0b0.js",
     "static/js/787.f9265d84.chunk.js": "/memphis/static/js/787.f9265d84.chunk.js",
-    "static/media/Surchin_CV.pdf": "/memphis/static/media/Surchin_CV.10f4758ccb477e9db691.pdf",
     "static/media/loading-screen.jpg": "/memphis/static/media/loading-screen.3b43a90054c93b56066d.jpg",
     "static/media/ic-snake.png": "/memphis/static/media/ic-snake.5e4076f1540bdd12ddd7.png",
+    "static/media/Dmitry Surchin Resume.pdf": "/memphis/static/media/Dmitry Surchin Resume.03caf10c0f583c334088.pdf",
+    "static/media/windows98.webp": "/memphis/static/media/windows98.480c1f8ad238505a367a.webp",
     "static/media/flag.png": "/memphis/static/media/flag.7e2783d2cf87ba6392b5.png",
     "static/media/ic-bi-eye-slash.svg": "/memphis/static/media/ic-bi-eye-slash.fdf5507ab2dee3154b4e7f5cb7bfb556.svg",
     "index.html": "/memphis/index.html",
     "static/media/ic-bi-eye.svg": "/memphis/static/media/ic-bi-eye.fe7791ea696a69819967504942807e15.svg",
-    "main.0ab1fb48.css.map": "/memphis/static/css/main.0ab1fb48.css.map",
-    "main.6436b709.js.map": "/memphis/static/js/main.6436b709.js.map",
+    "main.100f084f.css.map": "/memphis/static/css/main.100f084f.css.map",
+    "main.6b2fb0b0.js.map": "/memphis/static/js/main.6b2fb0b0.js.map",
     "787.f9265d84.chunk.js.map": "/memphis/static/js/787.f9265d84.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0ab1fb48.css",
-    "static/js/main.6436b709.js"
+    "static/css/main.100f084f.css",
+    "static/js/main.6b2fb0b0.js"
   ]
 }
