@@ -138,7 +138,7 @@ const menuItems = [
   },
   {
     id: 7,
-    fullName: "SurchinSV",
+    fullName: "Dmitry Surchin Resume.pdf",
     classes: "cv",
     image: cv,
     imageAlt: "logo",

@@ -106,7 +106,7 @@ export default function Documents({
           <div className="image-wrapper">
             <img src={items[6].image} alt={items[7].imageAlt} />
           </div>
-          <p>Surchin_CV.pdf</p>
+          <p>Dmitry Surchin Resume.pdf</p>
         </div>
       </div>
     </div>

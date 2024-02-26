@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
-import cvPdf from "../../assets/docs/Surchin_CV.pdf";
+import cvPdf from "../../assets/docs/Dmitry Surchin Resume.pdf";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 gsap.registerPlugin(Draggable);
@@ -54,7 +54,7 @@ export default function SurchinSv({
         ref={dragWindow}
       >
         <div className="header drag-target-cv" onClick={toggleMaximizeWindow}>
-          <div>Surchin_CV.pdf</div>
+          <div>Dmitry Surchin Resume.pdf</div>
           <div className="header-buttons">
             <div
               id="min-7"
