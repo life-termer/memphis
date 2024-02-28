@@ -16,6 +16,7 @@ import Snake from "./partials/moduls/snake/snake";
 import Breakout from "./partials/moduls/breakout/breakout";
 import Login from "./partials/moduls/login";
 import Help from "./partials/moduls/help";
+import Weather from "./partials/moduls/weather/weather";
 gsap.registerPlugin(Draggable);
 
 function Memphis() {
@@ -321,6 +322,16 @@ function Memphis() {
                 )}
                 {isRunning(items, 3, true) ? (
                   <Breakout
+                    items={items}
+                    setActiveProgram={setActiveProgram}
+                    setMinimizeWindow={setMinimizeWindow}
+                    setCloseProgram={setCloseProgram}
+                  />
+                ) : (
+                  ""
+                )}
+                {isRunning(items, 4, true) ? (
+                  <Weather
                     items={items}
                     setActiveProgram={setActiveProgram}
                     setMinimizeWindow={setMinimizeWindow}

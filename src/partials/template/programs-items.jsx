@@ -10,6 +10,7 @@ import cv from "../../assets/images/icons/ic-file-cv.png";
 import padlock from "../../assets/images/icons/ic-file-padlock.png";
 import snake from "../../assets/images/icons/ic-snake.png";
 import breakout from "../../assets/images/icons/ic-breakout.png";
+import weather from "../../assets/images/icons/ic-weather.webp";
 
 const menuItems = [
   {
@@ -79,6 +80,19 @@ const menuItems = [
         classes: "breakout",
         image: breakout,
         imageAlt: "breakout",
+        running: "",
+        active: "",
+        minimized: "",
+        desktopShortcut: true,
+        focused: "",
+      },
+      {
+        id: 25,
+        group: "programs",
+        fullName: "Weather",
+        classes: "weather",
+        image: weather,
+        imageAlt: "weather",
         running: "",
         active: "",
         minimized: "",

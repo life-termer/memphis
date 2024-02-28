@@ -60,6 +60,13 @@
       );
     }
     &:nth-child(5) {
+      order: 6;
+      transform: translate(
+        calc(($shortcut-width) * -5),
+        calc($shortcut-height * 1)
+      );
+    }
+    &:nth-child(6) {
       order: 1;
     }
   }

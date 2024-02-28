@@ -1,0 +1,71 @@
+.weather {
+  resize: none;
+  overflow: visible;
+  width: 800px;
+  height: 600px;
+  p {
+    margin-bottom: 0;
+    &.temp {
+      font-size: 60px;
+      span {
+        font-size: 20px;
+        vertical-align: text-top;
+      }
+    }
+  }
+  .image-wrapper {
+    width: 100px;
+  }
+  .fs-xsm {
+    font-size: 13px;
+
+  }
+  .content {
+    position: relative;
+    .row:first-child {
+      min-height: 180px;
+    }
+    .loader-wrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      // background-color: #ffffff15;
+      backdrop-filter: blur(3px);
+      top: 0;
+      left: 0;
+    }
+  }
+  
+}
+
+$base: #b9b9b9;
+$lite:  #FFF;
+$brand: #000;
+$size: 48px;
+.loader{
+  width : $size;
+  height: $size;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  top: 40%;
+  left: 48%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(0deg, rgba($brand,0.2) 33%, rgba($brand,1) 100%);
+  animation: rotation 1s linear infinite;
+  &:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50% , -50%);
+    width : $size - 4px;
+    height: $size - 4px;
+    border-radius: 50%;
+    background: $base
+  }
+}
+@keyframes rotation {
+  0% { transform: rotate(0deg) }
+  100% { transform: rotate(360deg) }
+}

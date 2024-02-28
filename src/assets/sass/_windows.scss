@@ -55,7 +55,8 @@
   &.snake,
   &.breakout,
   &.login,
-  &.help {
+  &.help,
+  &.weather {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
