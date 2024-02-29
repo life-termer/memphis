@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/memphis/static/css/main.86ab1222.css",
-    "main.js": "/memphis/static/js/main.689fc44c.js",
+    "main.css": "/memphis/static/css/main.601aecf1.css",
+    "main.js": "/memphis/static/js/main.44e01aee.js",
     "static/js/787.f9265d84.chunk.js": "/memphis/static/js/787.f9265d84.chunk.js",
     "static/media/loading-screen.jpg": "/memphis/static/media/loading-screen.3b43a90054c93b56066d.jpg",
     "static/media/ic-snake.png": "/memphis/static/media/ic-snake.5e4076f1540bdd12ddd7.png",
@@ -9,18 +9,24 @@
     "static/media/windows98.webp": "/memphis/static/media/windows98.480c1f8ad238505a367a.webp",
     "static/media/flag.png": "/memphis/static/media/flag.7e2783d2cf87ba6392b5.png",
     "static/media/ic-weather.webp": "/memphis/static/media/ic-weather.4e1a914ec1c2f981af48.webp",
+    "static/media/wi-showers.svg": "/memphis/static/media/wi-showers.4843a199da459ce5d58cb6e7f482e398.svg",
     "static/media/wi-day-sunny.svg": "/memphis/static/media/wi-day-sunny.c23e7855e1cb8ac7c36d069db6dc68c5.svg",
     "static/media/wi-day-cloudy.svg": "/memphis/static/media/wi-day-cloudy.d3602df8f1e9ba231925ee9c62778df5.svg",
+    "static/media/wi-rain.svg": "/memphis/static/media/wi-rain.90fd14198e4b9af0dd81a403d300a9ae.svg",
+    "static/media/wi-sprinkle.svg": "/memphis/static/media/wi-sprinkle.7b48d7df7275d8f91bc98425894b2abd.svg",
+    "static/media/wi-night-alt-cloudy.svg": "/memphis/static/media/wi-night-alt-cloudy.da42fbe06be8e9e86a4e80e72f9040c8.svg",
+    "static/media/wi-fog.svg": "/memphis/static/media/wi-fog.7c3d1014174434d5d7082e5b119b2cf6.svg",
     "static/media/wi-cloudy.svg": "/memphis/static/media/wi-cloudy.ba3686e4a3d64a9dc5cff6628ec1a8ed.svg",
+    "static/media/wi-night-clear.svg": "/memphis/static/media/wi-night-clear.2923306bed84bccf8845e60e2b0f3aed.svg",
     "index.html": "/memphis/index.html",
     "static/media/ic-bi-eye-slash.svg": "/memphis/static/media/ic-bi-eye-slash.fdf5507ab2dee3154b4e7f5cb7bfb556.svg",
     "static/media/ic-bi-eye.svg": "/memphis/static/media/ic-bi-eye.fe7791ea696a69819967504942807e15.svg",
-    "main.86ab1222.css.map": "/memphis/static/css/main.86ab1222.css.map",
-    "main.689fc44c.js.map": "/memphis/static/js/main.689fc44c.js.map",
+    "main.601aecf1.css.map": "/memphis/static/css/main.601aecf1.css.map",
+    "main.44e01aee.js.map": "/memphis/static/js/main.44e01aee.js.map",
     "787.f9265d84.chunk.js.map": "/memphis/static/js/787.f9265d84.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.86ab1222.css",
-    "static/js/main.689fc44c.js"
+    "static/css/main.601aecf1.css",
+    "static/js/main.44e01aee.js"
   ]
 }
