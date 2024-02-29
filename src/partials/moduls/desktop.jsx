@@ -100,7 +100,6 @@ export default function Desktop({
                         "desktop-item " + item2.running + " " + item2.focused
                       }
                       onClick={handleShortcutClickInside}
-                      // onClick={setActiveShortcut}
                     >
                       <div className="image-wrapper">
                         <img src={item2.image} alt={item2.imageAlt} />

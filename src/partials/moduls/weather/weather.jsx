@@ -33,6 +33,7 @@ export default function Weather({
       autoScroll: true,
       cursor: "auto",
     });
+    
   }, []);
 
   const setMaximizeWindow = () => {

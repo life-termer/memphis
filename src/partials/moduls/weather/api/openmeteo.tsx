@@ -65,6 +65,7 @@ export default function Api({currentCity, setCurrenCity, weather, setWeather, se
 		};
 
 		setWeather(weatherData);
+		console.log(weatherData)
 		setTimeout(() => {
 			setLoading(false);
 		}, 1000);
@@ -80,6 +81,7 @@ export default function Api({currentCity, setCurrenCity, weather, setWeather, se
 
 	useEffect(() => {
 		fetchScore(currentCity);
+		
 	}, []);
 
 	{
