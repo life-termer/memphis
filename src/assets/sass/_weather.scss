@@ -1,3 +1,9 @@
+.desktop-item:nth-child(5),
+.weather  {
+  pointer-events: none !important;
+  opacity: 0.5;
+}
+
 .weather {
   resize: none;
   overflow: visible;
