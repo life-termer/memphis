@@ -1,0 +1,18 @@
+.form-control {
+  box-shadow: $inverted-shadow;
+  border: none;
+  border-radius: 0;
+  &:focus,
+  &:focus-visible,
+  &:focus-within {
+    color: #000;
+    background-color: #fff;
+    border-color: none;
+    outline: 0;
+    box-shadow: $inverted-shadow;
+  }
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}

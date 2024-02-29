@@ -1,14 +1,15 @@
-.desktop-item:nth-child(5),
-.weather  {
-  pointer-events: none !important;
-  opacity: 0.5;
-}
+// .desktop-item:nth-child(5),
+// .weather  {
+//   pointer-events: none !important;
+//   opacity: 0.5;
+// }
 
 .weather {
   resize: none;
   overflow: visible;
   width: 800px;
   height: 600px;
+  
   p {
     margin-bottom: 0;
     &.temp {
@@ -21,10 +22,12 @@
   }
   .image-wrapper {
     width: 100px;
+    &.list {
+      width: 60px;
+    }
   }
   .fs-xsm {
     font-size: 13px;
-
   }
   .content {
     position: relative;
@@ -41,7 +44,54 @@
       left: 0;
     }
   }
-  
+  .btn-city {
+    margin: 5px;
+    padding: 2px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    svg {
+      width: 100%;
+      height: auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &.weather-nav-next {
+      right: 0;
+    }
+    &.weather-nav-prev {
+      left: 0;
+    }
+  }
+  .card-daily-wrapper {
+    height: 125px;
+  }
+  .card-daily {
+    border-radius: 7px;
+    cursor: pointer;
+    &:hover,
+    &.active {
+      background-color: #a8a8a8;
+    }
+    
+  }
+  .day-daily {
+    position: relative;
+    top: 2px;
+  }
+  .temp-daily {
+    span {
+      opacity: 0.75;
+    }
+  }
 }
 
 $base: #b9b9b9;

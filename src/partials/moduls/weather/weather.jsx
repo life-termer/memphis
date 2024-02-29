@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
-import { weatherData } from "./api/openmeteo";
 import { citiesList } from "../../template/cities";
 import Api from "./api/openmeteo";
-import { getCurrentHour, getCurrentTemp, getCurrentDay, getCurrentWeather, weatherImages } from "./utils";
+import { getLocalHour, getCurrentDay, getCurrentWeather, weatherImages } from "./utils";
+import WeatherImg from "./components/weather-img";
+import WeekList from "./components/week-list";
 gsap.registerPlugin(Draggable);
 
 export default function Weather({
@@ -20,8 +21,7 @@ export default function Weather({
   const [currentCity, setCurrenCity] = useState(citiesList[0]);
   const [weather, setWeather] = useState([]);
   const [loading, setLoading] = useState(true);
-  const currentHour = getCurrentHour();
-  let imgUrl = "";
+  // const currentHour = getCurrentHour(weather);
   
   useEffect(() => {
     dragInstance.current = Draggable.create(dragWindow.current, {
@@ -64,7 +64,7 @@ export default function Weather({
         ref={dragWindow}
       >
         <div className="header drag-target-weather" onClick={toggleMaximizeWindow}>
-          <div>Weather</div>
+          <div>Weather ...in development</div>
           <div className="header-buttons">
             <div
               id="min-25"
@@ -95,25 +95,25 @@ export default function Weather({
         </div>
         
         <div className="content d-block">
-          <div className="row mb-5 g-0 line p-3">
+          <div className="row mb-3 g-0 line p-3">
             <div className="col-6 h-100">
               {!loading ? 
               <React.Fragment>
-                <h2 className='text-start'>Current City {!loading ? currentCity.name : ""}</h2>
+                <h2 className='text-start result'>Results for <span className="fw-bold">{!loading ? currentCity.name : ""}</span></h2>
                 <div className="d-flex align-items-center">
                   <div className="image-wrapper">
-                    {<img src={weatherImages[weather.hourly.weatherCode[currentHour]]} alt="" />}
+                    <WeatherImg weather={weather} />
                   </div>
-                  <p className="temp">{getCurrentTemp(weather)}<span>&#176;C</span></p>
+                  <p className="temp">{weather.current.temperature2m.toFixed(0)}<span>&#176;C</span></p>
                   <div className="d-flex flex-column ms-2 fs-xsm">
                     <p className='text-start'>
-                      Precipitation: {weather.hourly.precipitationProbability[currentHour]}%
+                      Precipitation: {weather.current.precipitation.toFixed(1)}%
                     </p>
                     <p className='text-start'>
-                      Humidity: {weather.hourly.relativeHumidity2m[currentHour]}%
+                      Humidity: {weather.current.relativeHumidity2m}%
                     </p>
                     <p className='text-start'>
-                      Wind: {weather.hourly.windSpeed10m[currentHour].toFixed(1)} km/h
+                      Wind: {weather.current.windSpeed10m.toFixed(1)} km/h
                     </p>
                   </div>
               </div>
@@ -125,24 +125,32 @@ export default function Weather({
             {!loading ? 
             <React.Fragment>
               <h2 className="text-end">Weather</h2>
-              <p className="text-end">{getCurrentDay() + " " + getCurrentHour() + ":00"}</p>
+              <p className="text-end">{getCurrentDay(weather) + " " + getLocalHour(weather) + ":00"}</p>
               <p className="text-end">{getCurrentWeather(weather)}</p>
             </React.Fragment>
             :<div></div>
             }
             </div>
           </div>
-          {!loading ? 
+          <div className="d-flex w-100 g-0 line mb-3 pb-3 card-daily-wrapper">
+          {!loading ?
+            <WeekList
+              weather={weather}
+            />
+            : ""}
+          </div>
+          {/* {!loading ? 
           <React.Fragment>
-            {/* <div>DATE: {weather.hourly.time[0].toISOString()}</div>  */}
+            <div>LOC_T {weather.current.time.toISOString()}</div>
             <div>TEMP: {weather.hourly.temperature2m[currentHour]}</div>
             <div>HUMID: {weather.hourly.relativeHumidity2m[currentHour]}</div>
-            <div>PART: {weather.hourly.precipitationProbability[currentHour]}</div>
-            <div>CODE: {weather.hourly.weatherCode[currentHour]}</div>
-            <div>WIND: {weather.hourly.windSpeed10m[currentHour]}</div>
+            <div>PART: {weather.current.precipitation}</div>
+            <div>CODE: {weather.current.weatherCode}</div>
+            <div>WIND: {weather.current.windSpeed10m}</div>
+            <div>IS-DAY: {}</div>
           </React.Fragment>
-          :<div>Loading....</div>
-          }
+          :<div></div>
+          } */}
           {loading ? <div className="loader-wrapper"><span className="loader"></span></div> : "" }
         </div>
       </div>

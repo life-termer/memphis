@@ -17,7 +17,11 @@ import Breakout from "./partials/moduls/breakout/breakout";
 import Login from "./partials/moduls/login";
 import Help from "./partials/moduls/help";
 import Weather from "./partials/moduls/weather/weather";
+// import function to register Swiper custom elements
+import { register } from 'swiper/element/bundle';
 gsap.registerPlugin(Draggable);
+// register Swiper custom elements
+register();
 
 function Memphis() {
   const [items, setItems] = useState(menuItems);

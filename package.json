@@ -29,6 +29,7 @@
     "redux-saga": "^1.2.3",
     "sass": "^1.60.0",
     "sqlite3": "^5.1.7",
+    "swiper": "^11.0.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
