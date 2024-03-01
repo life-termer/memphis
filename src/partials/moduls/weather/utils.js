@@ -7,6 +7,10 @@ export const weatherImages = [];
 export const getLocalHour = (weather) => {
   return weather.current.time.getHours() + (weather.current.time.getTimezoneOffset() / 60);
 }
+export const getHour = (weather, index) => {
+  let hour = weather.hourly.time[index].getHours() + (weather.current.time.getTimezoneOffset() / 60);
+  return hour < 10 ? "0" + hour + ":00" : hour + ":00"; 
+}
 export const getCurrentDay = (weather) => {
   const today = weather.current.time;
   let day =  today.getDay();

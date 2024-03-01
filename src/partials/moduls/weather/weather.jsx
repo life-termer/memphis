@@ -6,6 +6,8 @@ import Api from "./api/openmeteo";
 import { getLocalHour, getCurrentDay, getCurrentWeather, weatherImages } from "./utils";
 import WeatherImg from "./components/weather-img";
 import WeekList from "./components/week-list";
+import TempList from "./components/temp-list";
+import LineChart from "./components/line-chart";
 gsap.registerPlugin(Draggable);
 
 export default function Weather({
@@ -21,6 +23,7 @@ export default function Weather({
   const [currentCity, setCurrenCity] = useState(citiesList[0]);
   const [weather, setWeather] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeDay, setActiveDay] = useState(0);
   // const currentHour = getCurrentHour(weather);
   
   useEffect(() => {
@@ -48,7 +51,7 @@ export default function Weather({
     }
   };
   var classMax = maximized ? " maximized " : "";
-
+  
   {
     return (
       <div
@@ -91,6 +94,7 @@ export default function Weather({
             weather={weather}
             setWeather={setWeather}
             setLoading={setLoading}
+            setActiveDay={setActiveDay}
           />
         </div>
         
@@ -136,6 +140,22 @@ export default function Weather({
           {!loading ?
             <WeekList
               weather={weather}
+              activeDay={activeDay}
+              setActiveDay={setActiveDay}
+            />
+            : ""}
+          </div>
+          <div className="d-flex w-100 g-0 mb-3 pb-3 hourly-temp-wrapper flex-column">
+          {!loading ?
+            // <TempList
+            //   weather={weather}
+            //   activeDay={activeDay}
+            //   setActiveDay={setActiveDay}
+            // />
+            <LineChart
+              weather={weather}
+              activeDay={activeDay}
+              setActiveDay={setActiveDay} 
             />
             : ""}
           </div>

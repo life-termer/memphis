@@ -11,7 +11,7 @@ import { citiesList } from '../../../template/cities';
 // 	setLoading: any;
 // }
 
-export default function Api({currentCity, setCurrenCity, weather, setWeather, setLoading}) {
+export default function Api({currentCity, setCurrenCity, weather, setWeather, setLoading, setActiveDay}) {
 	
 	const url = "https://api.open-meteo.com/v1/forecast";
 	var responses = [];
@@ -86,6 +86,7 @@ export default function Api({currentCity, setCurrenCity, weather, setWeather, se
 
 
 	const	handleCityClick = (city) => {
+		setActiveDay(0);
 		setCurrenCity(city);
 		setLoading(true);
 		fetchScore(city);

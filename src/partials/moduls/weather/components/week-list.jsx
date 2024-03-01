@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { getCurrentDayShort } from "../utils";
 import WeatherImg from "./weather-img";
 
-export default function WeekList({weather}) {
+export default function WeekList({weather, activeDay, setActiveDay}) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -14,7 +14,11 @@ export default function WeekList({weather}) {
       {Array.from(weather.daily.weatherCode).map((code, i) => {
         return(
           <div className={"d-flex flex-column w-100 justify-content-center align-items-center card-daily" + (index == i ? " active" : "")} key={i}
-            onClick={() => setIndex(i) }
+            onClick={() => {
+              setIndex(i)
+              setActiveDay(i)
+            }
+             }
           >
             <p className="day-daily">{getCurrentDayShort(weather.daily.time[i].getDay())}</p>
             <div className="image-wrapper list">
