@@ -14,9 +14,9 @@ import showers from "./../../../../assets/images/icons/weather/wi-showers.svg";
 import thunderstorm from "./../../../../assets/images/icons/weather/wi-thunderstorm.svg";
 import stormShowers from "./../../../../assets/images/icons/weather/wi-storm-showers.svg";
 
-export default function WeatherImg({weather, id}) {
+export default function WeatherImg({weather, id, code}) {
   const [weatherImages, setWeatherImages] = useState();
-  const currentWeatherCode = id ? weather.daily.weatherCode[id] : weather.current.weatherCode;
+  const currentWeatherCode = id ? weather.daily.weatherCode[id] : code ? code : weather.current.weatherCode;
   const isDay = id ? true : weather.current.isDay;
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export default function WeatherImg({weather, id}) {
       default:
         setWeatherImages();
     }
-  }, [weather]);
+  }, [code]);
 
   return (
     <img src={weatherImages} alt="" />

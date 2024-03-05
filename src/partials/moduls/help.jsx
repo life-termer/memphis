@@ -149,6 +149,7 @@ export default function Help({
                       <li>Minesweeper game - 3 game types, scores are saved in user cookies.</li>
                       <li>Snake game with Redux, Redux Saga and TypeScript</li>
                       <li>Backend - Node.js and Express with a SQLite database (not deployed yet)</li>
+                      <li>Weather app - Open-Meteo API and Chart.js</li>
                     </ul>
                   </div>
                   <div className={index === 3 ? "response" : "d-none"}>

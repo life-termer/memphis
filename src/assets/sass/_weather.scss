@@ -92,11 +92,42 @@
       opacity: 0.75;
     }
   }
-  .hourly-temp {
-    // height: 150px;
-  }
   .line-chart {
+    position: relative;
     height: 150px;
+    .line-chart-images {
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      width: 100%;
+      justify-content: space-between;
+      .image-wrapper {
+        max-width: 30px;
+      }
+    }
+  }
+  .search {
+    position: relative;
+    width: calc(100% - 7px);
+    .results {
+      position: absolute;
+      top: 45px;
+      left: 0;
+      width: 100%;
+      height: auto;
+      background: #ffffff;
+      z-index: 99;
+      box-shadow: $inverted-shadow;
+      p {
+        &:first-child
+        &:last-child {
+          padding-top: 0.4rem;
+        }
+        &:hover {
+          background: rgba(12, 26, 152, 0.55);
+        }
+      }
+    }
   }
 }
 

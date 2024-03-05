@@ -3,10 +3,22 @@ import { getLocalHour, getHour } from "../utils";
 import Chart from "chart.js/auto";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Line } from "react-chartjs-2";
+import WeatherImg from "./weather-img";
 Chart.register(ChartDataLabels);
 
 const LineChart = ({weather, activeDay}) => {
 
+  const [weatherCodes, setWeatherCodes] = useState([
+    weather.hourly.weatherCode[getLocalHour(weather) + 0*3],
+    weather.hourly.weatherCode[getLocalHour(weather) + 1*3],
+    weather.hourly.weatherCode[getLocalHour(weather) + 2*3],
+    weather.hourly.weatherCode[getLocalHour(weather) + 3*3],
+    weather.hourly.weatherCode[getLocalHour(weather) + 4*3],
+    weather.hourly.weatherCode[getLocalHour(weather) + 5*3],
+    weather.hourly.weatherCode[getLocalHour(weather) + 6*3],
+    weather.hourly.weatherCode[getLocalHour(weather) + 7*3]
+  ]);
+  
   let labelsCurrent = [
     getHour(weather, getLocalHour(weather) + 0*3),
     getHour(weather, getLocalHour(weather) + 1*3),
@@ -49,12 +61,15 @@ const LineChart = ({weather, activeDay}) => {
       legend: {
           display: false // This hides all text in the legend and also the labels.
       },
+      tooltip: {
+        enabled: false,
+      },
       datalabels: {
         color: '#000',
         align : 'top',
         font: {
           size: 15
-        }
+        },
       }
     },
     tooltipTemplate: "<%= value %>",
@@ -66,7 +81,7 @@ const LineChart = ({weather, activeDay}) => {
         },
         grid: {
           display: false
-        }
+        },
       },
       y: {
         border: {
@@ -85,19 +100,22 @@ const LineChart = ({weather, activeDay}) => {
     },
     layout: {
       padding: {
-          top: 30
+          top: 30,
+          bottom: 10,
       }
   }
   }
 
   useEffect(() => {
-    console.log(activeDay)
     let tempData = [];
-   
+    let newCodes = [];
     for (let i = 0; i < 8; i++) {
-      let temp = parseInt(weather.hourly.temperature2m[getLocalHour(weather)].toFixed(0));
+      let temp = parseInt(weather.hourly.temperature2m[activeDay * 24 + 1 + i * 3].toFixed(0));
+      let tempCode = weather.hourly.weatherCode[activeDay * 24 + 1 + i * 3];
       tempData.push(temp);
+      newCodes.push(tempCode);
     }
+    setWeatherCodes(newCodes);
     setData({
       labels: activeDay === 0 ? labelsCurrent : labels,
       datasets: [
@@ -113,11 +131,20 @@ const LineChart = ({weather, activeDay}) => {
     })
   }, [activeDay]);
 
-  
-
   return (
     <div className="d-flex w-100 line-chart">
       <Line data={data} options={options} />
+      <div className="d-flex line-chart-images">
+        {weatherCodes.map((code, i) => {
+          return(
+            <React.Fragment key={i}>
+              <div className="image-wrapper">
+                <WeatherImg weather={weather} code={code} />
+              </div>
+            </React.Fragment>
+          )
+        })}
+      </div>
     </div>
   );
 };

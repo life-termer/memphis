@@ -1,15 +1,7 @@
 import { fetchWeatherApi } from 'openmeteo';
 import { useEffect } from 'react';
 import { citiesList } from '../../../template/cities';
-
-
-// export interface IApi {
-//   currentCity: any;
-//   setCurrenCity: any;
-//   weather: any;
-//   setWeather: any;
-// 	setLoading: any;
-// }
+import Search from '../components/search';
 
 export default function Api({currentCity, setCurrenCity, weather, setWeather, setLoading, setActiveDay}) {
 	
@@ -22,8 +14,8 @@ export default function Api({currentCity, setCurrenCity, weather, setWeather, se
 
 	const fetchScore = async (city) => {
 		const params = {
-			"latitude": city.latitude,
-			"longitude": city.longitude,
+			"latitude": city.lat,
+			"longitude": city.lng,
 			"current": ["temperature_2m", "relative_humidity_2m", "is_day", "precipitation", "weather_code", "wind_speed_10m"],
 			"hourly": ["temperature_2m", "relative_humidity_2m", "precipitation_probability", "weather_code", "wind_speed_10m"],
 			"daily": ["weather_code", "temperature_2m_max", "temperature_2m_min"],
@@ -92,6 +84,13 @@ export default function Api({currentCity, setCurrenCity, weather, setWeather, se
 		fetchScore(city);
 	}
 
+	const handleSearchClick = (city) => {
+		setActiveDay(0);
+		setCurrenCity(city);
+		setLoading(true);
+		fetchScore(city);
+	}
+
 	useEffect(() => {
 		fetchScore(currentCity);
 	}, []);
@@ -131,8 +130,8 @@ export default function Api({currentCity, setCurrenCity, weather, setWeather, se
 						</svg>
 					</div>
       	</div>
-				<div className="col-4 search d-flex align-items-center active ps-3">
-					<input className="form-control me-2 disabled" type="search" placeholder="Search" aria-label="Search"/>
+				<div className="col-4 d-flex align-items-center active ps-3">
+					<Search handleCityClick={handleCityClick}/>
 				</div>
 			</div>
 			

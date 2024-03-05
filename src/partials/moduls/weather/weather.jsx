@@ -8,6 +8,7 @@ import WeatherImg from "./components/weather-img";
 import WeekList from "./components/week-list";
 import TempList from "./components/temp-list";
 import LineChart from "./components/line-chart";
+import cities from 'cities.json';
 gsap.registerPlugin(Draggable);
 
 export default function Weather({
@@ -36,7 +37,7 @@ export default function Weather({
       autoScroll: true,
       cursor: "auto",
     });
-    
+    console.log(cities);
   }, []);
 
   const setMaximizeWindow = () => {
@@ -67,7 +68,7 @@ export default function Weather({
         ref={dragWindow}
       >
         <div className="header drag-target-weather" onClick={toggleMaximizeWindow}>
-          <div>Weather ...in development</div>
+          <div>Weather</div>
           <div className="header-buttons">
             <div
               id="min-25"
@@ -100,7 +101,7 @@ export default function Weather({
         
         <div className="content d-block">
           <div className="row mb-3 g-0 line p-3">
-            <div className="col-6 h-100">
+            <div className="col-9 h-100">
               {!loading ? 
               <React.Fragment>
                 <h2 className='text-start result'>Results for <span className="fw-bold">{!loading ? currentCity.name : ""}</span></h2>
@@ -111,7 +112,7 @@ export default function Weather({
                   <p className="temp">{weather.current.temperature2m.toFixed(0)}<span>&#176;C</span></p>
                   <div className="d-flex flex-column ms-2 fs-xsm">
                     <p className='text-start'>
-                      Precipitation: {weather.current.precipitation.toFixed(1)}%
+                      Precipitation: {weather.current.precipitation.toFixed(1)} mm
                     </p>
                     <p className='text-start'>
                       Humidity: {weather.current.relativeHumidity2m}%
@@ -125,7 +126,7 @@ export default function Weather({
               :<div></div>
               }
             </div>
-            <div className="col-6 h-100">
+            <div className="col-3 h-100">
             {!loading ? 
             <React.Fragment>
               <h2 className="text-end">Weather</h2>
@@ -147,11 +148,6 @@ export default function Weather({
           </div>
           <div className="d-flex w-100 g-0 mb-3 pb-3 hourly-temp-wrapper flex-column">
           {!loading ?
-            // <TempList
-            //   weather={weather}
-            //   activeDay={activeDay}
-            //   setActiveDay={setActiveDay}
-            // />
             <LineChart
               weather={weather}
               activeDay={activeDay}

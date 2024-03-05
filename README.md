@@ -10,6 +10,7 @@ React app that recreates Windows 98 inspired by this [CodePen](https://codepen.i
 * Windows and shortcuts drag and drop with GSAP library.
 * Minesweeper game - 3 game types, scores are saved in user cookies.
 * Snake game with Redux, Redux Saga and TypeScript
+* Weather app - Open-Meteo API and Chart.js
 #
 #### The backend is made in Node.js and Express with a SQLite database (not deployed yet)
 

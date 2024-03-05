@@ -9,7 +9,8 @@ export const getLocalHour = (weather) => {
 }
 export const getHour = (weather, index) => {
   let hour = weather.hourly.time[index].getHours() + (weather.current.time.getTimezoneOffset() / 60);
-  return hour < 10 ? "0" + hour + ":00" : hour + ":00"; 
+  if(hour == -1) return "23:00";
+  else return hour < 10 ? "0" + hour + ":00" : hour + ":00"; 
 }
 export const getCurrentDay = (weather) => {
   const today = weather.current.time;
