@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 import { getCookie, deleteCookie } from "../../utilities/cookies";
+import { resetGame, ball, paddle } from "./utilities/utilities";
+import Game from "./components/game";
 gsap.registerPlugin(Draggable);
-
 
 export default function Breakout({
   items,
@@ -17,6 +18,14 @@ export default function Breakout({
   const timeline = useRef(gsap.timeline());
   const [show, setShow] = useState(false);
   const [showRules, setShowRules] = useState(true);
+  const [isFullScr, setIsFullScr] = useState(false);
+  const [isGameOn, setIsGameOn] = useState(false);
+  const [gameState, setGameState] = useState(0);
+  const gameWidth = isFullScr ? document.documentElement.clientWidth :  870,
+        gameHeight = isFullScr ? document.documentElement.clientHeight :  400;
+  const width = gameWidth;
+  const height = gameHeight;
+  const [gameLevel, setGameLevel] = useState(1);
 
   const handleMenuItemClick = () => {
     setShow((myRef) => !myRef);
@@ -29,16 +38,13 @@ export default function Breakout({
     deleteCookie("");
   }
 
-  const handleRulesClick = () => {
-    setShowRules((myRef) => !myRef);
+  const handleFullScrClick = () => {
+    setIsFullScr((myRef) => !myRef);
   }
 
   useEffect(() => {
-    if (getCookie("")) {
-      var bs = Number(getCookie(""));
-      setBestScore(bs);
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    resetGame(ball, paddle, width, height);
+  }, [isFullScr]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     dragInstance.current = Draggable.create(dragWindow.current, {
@@ -60,7 +66,8 @@ export default function Breakout({
         "window breakout windows-box-shadow " +
         items[1].programList[3].active +
         " " +
-        items[1].programList[3].minimized
+        items[1].programList[3].minimized + " " +
+        (isFullScr ? "full-screen" : "")
       }
       onClick={setActiveProgram}
       ref={dragWindow}
@@ -73,6 +80,14 @@ export default function Breakout({
             className="minimize windows-box-shadow"
             onClick={setMinimizeWindow}
           ></div>
+          <div
+            className={"exit-fs windows-box-shadow" + 
+            (!isFullScr ? " d-none" : "") + 
+            (isGameOn ? " disabled" : "")} 
+            onClick={() => {
+              setIsFullScr(false)
+            }}
+          >Exit Full Screen</div>
           <div className="maximize windows-box-shadow disabled"></div>
           <div
             id="close-24"
@@ -92,7 +107,7 @@ export default function Breakout({
         >
           Game
           <div className="subitems">
-            <div className="subitem line" onClick={handleRulesClick}>Rules</div>
+            <div className="subitem line" onClick={handleFullScrClick}>Full Screen</div>
             <div className="subitem line" onClick={resetBestScore}>Reset Best Score</div>
             <div id="close-24" className="subitem" onClick={setCloseProgram}>
               Exit
@@ -104,8 +119,22 @@ export default function Breakout({
         </div>
       </div>
       <div className="content">
-        <div className="inner-content">
-        </div>
+       <Game 
+        isFullScr={isFullScr}
+        isGameOn={isGameOn}
+        setIsGameOn={setIsGameOn}
+        gameState={gameState}
+        setGameState={setGameState}
+        width={width}
+        height={height}
+        gameLevel={gameLevel}
+        setGameLevel={setGameLevel}
+       />
+      </div>
+      <div>
+        <p>{isGameOn ? "Game On" : "Game OFF"}</p>
+        <p>{gameState==1 ? "Game Lost" : gameState==2 ? "Game Won" : "Game"}</p>
+        <p>{"Game Level " + gameLevel }</p>
       </div>
     </div>
   );

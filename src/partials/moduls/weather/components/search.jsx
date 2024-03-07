@@ -14,12 +14,6 @@ export default function Search({handleCityClick}) {
     setFilteredCity(filtered);
   }
 
-
-
-  useEffect(() => {
-    console.log(filteredCity);
-  }, []);
-
   return (
     <div className="search">
       <input ref={inputRef} className="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={handleOnChange} />
