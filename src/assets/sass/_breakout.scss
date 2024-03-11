@@ -8,7 +8,7 @@
   resize: none;
   overflow: visible;
   width: 900px;
-  height: 500px;
+  height: 550px;
   &.full-screen {
     position: fixed;
     width: 100%;
@@ -28,22 +28,57 @@
     }
     #gameCanvas {
       position: fixed;
-      top:0;
+      top: 0;
       left: 0;
+    }
+     .content .content-rules {
+      z-index: 100;
+      position: fixed;
+      p {
+        font-size: 2rem;
+      }
+      h3 {
+        font-size: 4rem;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+  .content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    margin: 0.5rem;
+    box-shadow: $inverted-shadow;
+    p {
+      margin: 0;
+      font-size: 14px;
     }
   }
   .content {
+    position: relative;
     box-shadow: $inverted-shadow;
     margin: 5px;
-    
-    .content-header {
+    .content-rules {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      left: 0;
       display: flex;
       align-items: center;
-      justify-content: space-around;
-      width: 100%;
-      height: 50px;
-      box-shadow: $inverted-shadow;
+      justify-content: center;
+      flex-direction: column;
+      backdrop-filter: blur(1.5px);
+      p {
+        color: #fff;
+        font-size: 17px;
+      }
+      h3 {
+        color: #fff;
+      }
     }
+    
   }
   .options {
     .item.active {

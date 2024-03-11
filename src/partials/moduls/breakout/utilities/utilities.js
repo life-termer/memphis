@@ -1,32 +1,45 @@
 import { Paddle } from "../components/paddle";
 import { Ball } from "../components/ball";
 import { Brick } from "../components/brick";
+import { setDelay } from "../../snake/store/sagas/sagas";
 
-const width = 870;
+const width = 890;
 const height = 400;
 export const paddle = new Paddle();
 export const ball = new Ball();
 let bricks = [];
-const colors=["#18582b","#0c905d","#00c78e","#33dbff","#3375ff","#5733ff"];
+const colors=["#00b2f9","#01f85c","#2dfa22","#10f504","#f95323","#e7112b"];
+
 
 export const createBricks = (bricks, w, h) => {
   
   let ratio = w/width;
   let brickX = 2;
   let brickY = 10 * ratio;
-  let color = 0;
+  let color = 5;
   let bW = (w/10) - ratio - 1.25;
-  if(true) {
-    for( let i = 0; i < 60; i++) {
+  let bricksAmount = 60;
+  for( let i = 0; i < bricksAmount; i++) {
+    if(i <= 20) {
       bricks.push(
-        new Brick(brickX, brickY, bW, h / 40, colors[color])
+        new Brick(brickX, brickY, bW, h / 40, color, 3)
       )
-      brickX += bW + ratio + 1;
-      if(brickX + bW + ratio + 1 > w){
-        brickY += (h / 40 + ratio + 1);
-        brickX = 2;
-        color++;
-      }
+    }
+    else if(i > 20 && i < 50) {
+      bricks.push(
+        new Brick(brickX, brickY, bW, h / 40, color, 2)
+      )
+    }
+    else {
+      bricks.push(
+        new Brick(brickX, brickY, bW, h / 40, color, 1)
+      )
+    }
+    brickX += bW + ratio + 1;
+    if(brickX + bW + ratio + 1 > w){
+      brickY += (h / 40 + ratio + 1);
+      brickX = 2;
+      color--;
     }
   }
 }
@@ -34,32 +47,53 @@ export const createBricks = (bricks, w, h) => {
 createBricks(bricks, width, height);
 
 // if ball touch brick destroy
-const destroyBrick = () => {
+const destroyBrick = (props) => {
   for(var i = 0; i < bricks.length; i++){
+    let x = i;
     if(checkCollision(ball, bricks[i])){
       ball.speedY = -ball.speedY;
+      if(bricks[i].life == 1) {
+        bricks[i].color = 0;
+      }
+      if(bricks[i].life == 2) bricks[i].color = 1;
+      
+      if(bricks[i].life == 0) {
+        if(bricks[i].collisions == 1) {
+          props.setScore(ref => ref + 20);
+        } else 
+        if(bricks[i].collisions == 2) {
+          props.setScore(ref => ref + 50);
+        } else props.setScore(ref => ref + 100);
+        bricks.splice(i, 1);
       // createBonus(bricks[i]);
-      bricks.splice(i,1);
+      }
     }
   }
 }
-
-const checkCollision = (obj1, obj2) => {
-  if(obj1 != ball){
-    if(obj1.y >= obj2.y &&
-       obj1.y <= obj2.y + obj2.h &&
-       obj1.x >= obj2.x &&
-       obj1.x <= obj2.x + obj2.w){
-      return true
-    }
-  }else{
-    if(obj1.y + obj1.radius >= obj2.y &&
-       obj1.y - obj1.radius <= obj2.y + obj2.h &&
-       obj1.x - obj1.radius >= obj2.x &&
-       obj1.x + obj1.radius <= obj2.x + obj2.w){
-      return true
-    }
+const checkCollision = (ball, brick) => {
+  var distX = Math.abs(ball.x - brick.x-brick.w/2);
+  var distY = Math.abs(ball.y - brick.y-brick.h/2);
+  if (distX > (brick.w/2 + ball.radius)) { return false; }
+  if (distY > (brick.h/2 + ball.radius)) { return false; }
+  if (distX <= (brick.w/2)) { brick.collisions++; brick.life--; return true; } 
+  if (distY <= (brick.h/2)) { brick.collisions++; brick.life--; return true; }
+  var dx=distX-brick.w/2;
+  var dy=distY-brick.h/2;
+  if(dx*dx+dy*dy<=(ball.radius*ball.radius)) {
+    brick.collisions++;
+    brick.life--;
+    return true;
   }
+}
+
+function shake(ctx, brick, level, x, y) {
+  ctx.save();
+  var dx = Math.random() * level;
+  var dy = Math.random() * level;
+  ctx.translate(dx, dy);
+  ctx.fillStyle = colors[brick.color];  ;    
+  ctx.fillRect(brick.x, brick.y, brick.w, brick.h);
+  ctx.restore();
 }
 
 export const draw = (ctx, props) => {
@@ -68,17 +102,28 @@ export const draw = (ctx, props) => {
   ctx.fillStyle = "#333";
   ctx.fillRect(0, 0, props.width, props.height);
   // paddle
-  ctx.fillStyle = "#fff";    
+  ctx.fillStyle = "#89ddff";  
   ctx.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
-  // ball
+   // ball
+  ctx.fillStyle = "#f6929e"; 
   ctx.beginPath();
   ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2);
+  
   ctx.fill();
+  ctx.save();
   //bricks
-  for(var i=0;i<bricks.length;i++){
-    ctx.fillStyle = bricks[i].color;    
-    ctx.fillRect(bricks[i].x, bricks[i].y, bricks[i].w, bricks[i].h);
-}
+  for(var i = 0; i < bricks.length; i++){
+    if(bricks[i].collisions > 0) {
+      shake(ctx, bricks[i], 2);
+      var x = i;
+      setTimeout(function() {
+        if(bricks[x]) bricks[x].collisions--;
+    }, 150);
+    } else {
+      ctx.fillStyle = colors[bricks[i].color];    
+      ctx.fillRect(bricks[i].x, bricks[i].y, bricks[i].w, bricks[i].h);
+    }
+   }
 }
 
 export const move = (keys, props) => {
@@ -94,6 +139,7 @@ export const move = (keys, props) => {
     props.setGameState(0)
   }
   if(props.isGameOn){
+    destroyBrick(props);
     ball.x += ball.speedX;
     ball.y += ball.speedY;
     // check ball hit ceiling
@@ -106,13 +152,13 @@ export const move = (keys, props) => {
     }
     // check ball hit paddle and angle
     if(ball.y + ball.radius >= paddle.y &&
-      ball.x-ball.radius >= paddle.x &&
-      ball.x+ball.radius <= paddle.x+paddle.w){
+      ball.x-ball.radius >= paddle.x - 10 &&
+      ball.x+ball.radius <= paddle.x + paddle.w + 10 ){
         ball.speedY = -ball.speedY;
-     let deltaX=ball.x - (paddle.x + paddle.w/2)
+     let deltaX = ball.x - (paddle.x + paddle.w / 2)
      ball.speedX = deltaX * 0.15;
+    //  ball.speedY = deltaX / 10;
    }
-   destroyBrick();
    // check if lost
    if(ball.y > props.height){
     // ball.speedY = -ball.speedY;
@@ -138,6 +184,7 @@ export const resetGame = (ball, paddle, w, h, props) => {
   if(props) {
     props.setIsGameOn(false);    
     props.setGameLevel(1);
+    props.setScore(0);
   }  
   createBricks(bricks, w, h);
 }

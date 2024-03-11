@@ -4,13 +4,16 @@ export class Brick {
   w;
   h;
   color;
+  collisions = 0;
+  life;
 
-  constructor (x, y, w, h, color) {
+  constructor (x, y, w, h, color, life) {
     this._x = x;
     this._y = y;
     this._w = w;
     this._h = h;
     this._color = color;
+    this._life = life;
   }
   
   get x() {
@@ -28,21 +31,27 @@ export class Brick {
   get color() {
     return this._color;
   }
+  get collisions() {
+    return this._collisions;
+  }
+  get life() {
+    return this._life;
+  }
 
-  // set x(i) {
-  //   this._x = i;
-  // }
-  // set y(i) {
-  //   this._y = i;
-  // }
-  // set radius(i) {
-  //   this._radius = i;
-  // }
-  // set speedX(i) {
-  //   this._speedX = i;
-  // }
-  // set speedY(i) {
-  //   this._speedY = i;
-  // }
 
+  set x(i) {
+    this._x = i;
+  }
+  set y(i) {
+    this._y = i;
+  }
+  set collisions(i) {
+    this._collisions = i;
+  }
+  set color(i) {
+    this._color = i;
+  }
+  set life(i) {
+    this._life = i;
+  }
 }

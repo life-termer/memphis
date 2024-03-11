@@ -3,7 +3,8 @@ export class Ball {
   y = (400/2)-3;
   radius = 6;
   speedX = 0;
-  speedY = 6;
+  speedY = 4;
+  collisions = 0; 
 
   
   get x() {

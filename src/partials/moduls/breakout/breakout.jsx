@@ -21,7 +21,7 @@ export default function Breakout({
   const [isFullScr, setIsFullScr] = useState(false);
   const [isGameOn, setIsGameOn] = useState(false);
   const [gameState, setGameState] = useState(0);
-  const gameWidth = isFullScr ? document.documentElement.clientWidth :  870,
+  const gameWidth = isFullScr ? document.documentElement.clientWidth :  890,
         gameHeight = isFullScr ? document.documentElement.clientHeight :  400;
   const width = gameWidth;
   const height = gameHeight;
@@ -31,12 +31,13 @@ export default function Breakout({
     setShow((myRef) => !myRef);
   };
 
+  const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
 
-  const resetBestScore = () => {
-    setBestScore(0);
-    deleteCookie("");
-  }
+  // const resetBestScore = () => {
+  //   setBestScore(0);
+  //   deleteCookie("");
+  // }
 
   const handleFullScrClick = () => {
     setIsFullScr((myRef) => !myRef);
@@ -108,7 +109,7 @@ export default function Breakout({
           Game
           <div className="subitems">
             <div className="subitem line" onClick={handleFullScrClick}>Full Screen</div>
-            <div className="subitem line" onClick={resetBestScore}>Reset Best Score</div>
+            <div className="subitem line">Reset Best Score</div>
             <div id="close-24" className="subitem" onClick={setCloseProgram}>
               Exit
             </div>
@@ -118,7 +119,19 @@ export default function Breakout({
           Help
         </div>
       </div>
+      <div className="content-header">
+        <p>{isGameOn ? "Game On" : "Game OFF"}</p>
+        <p>{gameState==1 ? "Game Lost" : gameState==2 ? "Game Won" : "Game"}</p>
+        <p>{"Game Level " + gameLevel }</p>
+        <p>{"Score " + score }</p>
+      </div>
       <div className="content">
+      {!isGameOn ? 
+        <div className="content-rules">
+              {gameState==1 ? <h3>You've lost</h3> : gameState==2 ? <p>Game Won</p> : ""}
+              <p>Press spacebar to start a new game.</p>
+        </div> 
+      : ""}
        <Game 
         isFullScr={isFullScr}
         isGameOn={isGameOn}
@@ -129,12 +142,8 @@ export default function Breakout({
         height={height}
         gameLevel={gameLevel}
         setGameLevel={setGameLevel}
+        setScore={setScore}
        />
-      </div>
-      <div>
-        <p>{isGameOn ? "Game On" : "Game OFF"}</p>
-        <p>{gameState==1 ? "Game Lost" : gameState==2 ? "Game Won" : "Game"}</p>
-        <p>{"Game Level " + gameLevel }</p>
       </div>
     </div>
   );
