@@ -1,12 +1,13 @@
 $box-shadow: -2px -2px #e0dede, -2px 0 #e0dede, 0 -2px #e0dede, -4px -4px white,
--4px 0 white, 0 -4px white, 2px 2px #818181, 0 2px #818181, 2px 0 #818181,
-2px -2px #e0dede, -2px 2px #818181, -4px 2px white, -4px 4px black,
-4px 4px black, 4px 0 black, 0 4px black, 2px -4px white, 4px -4px black;
+  -4px 0 white, 0 -4px white, 2px 2px #818181, 0 2px #818181, 2px 0 #818181,
+  2px -2px #e0dede, -2px 2px #818181, -4px 2px white, -4px 4px black,
+  4px 4px black, 4px 0 black, 0 4px black, 2px -4px white, 4px -4px black;
 
-$inverted-shadow: -2px -2px #818181, -2px 0 #818181, 0 -2px #818181, -4px -4px black,
--4px 0 black, 0 -4px black, 2px 2px #e0dede, 0 2px #e0dede, 2px 0 #e0dede,
-2px -2px #818181, -2px 2px #e0dede, -4px 2px black, -4px 4px white,
-4px 4px white, 4px 0 white, 0 4px white, 2px -4px black, 4px -4px white;
+$inverted-shadow: -2px -2px #818181, -2px 0 #818181, 0 -2px #818181,
+  -4px -4px black, -4px 0 black, 0 -4px black, 2px 2px #e0dede, 0 2px #e0dede,
+  2px 0 #e0dede, 2px -2px #818181, -2px 2px #e0dede, -4px 2px black,
+  -4px 4px white, 4px 4px white, 4px 0 white, 0 4px white, 2px -4px black,
+  4px -4px white;
 @import "bootstrap-import";
 @import "footer";
 @import "windows";
@@ -54,7 +55,7 @@ body {
     margin: 0.25rem auto 60px auto;
   }
   @include media-breakpoint-down(md) {
-    overflow:scroll;
+    overflow: scroll;
   }
 }
 
@@ -79,7 +80,8 @@ p {
   gap: 2rem;
   height: 100vh;
   width: 100vw;
-  h1, p {
+  h1,
+  p {
     color: #fff;
   }
 }

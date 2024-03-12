@@ -7,7 +7,7 @@ export class Brick {
   collisions = 0;
   life;
 
-  constructor (x, y, w, h, color, life) {
+  constructor(x, y, w, h, color, life) {
     this._x = x;
     this._y = y;
     this._w = w;
@@ -15,7 +15,7 @@ export class Brick {
     this._color = color;
     this._life = life;
   }
-  
+
   get x() {
     return this._x;
   }
@@ -37,7 +37,6 @@ export class Brick {
   get life() {
     return this._life;
   }
-
 
   set x(i) {
     this._x = i;

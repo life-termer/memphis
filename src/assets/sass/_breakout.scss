@@ -31,16 +31,33 @@
       top: 0;
       left: 0;
     }
-     .content .content-rules {
-      z-index: 100;
+    .content {
+      .content-rules,
+      .content-message {
+        z-index: 100;
+        position: fixed !important;
+        p {
+          font-size: 2rem !important;
+        }
+        h3 {
+          font-size: 3rem;
+          margin-bottom: 2rem;
+        }
+      }
+    }
+    .score-fs,
+    .best-score-fs {
+      display: block;
       position: fixed;
-      p {
-        font-size: 2rem;
-      }
-      h3 {
-        font-size: 4rem;
-        margin-bottom: 2rem;
-      }
+      top: 0.5rem;
+      left: 0.5rem;
+      width: fit-content;
+      height: 2rem;
+      z-index: 200;
+    }
+    .best-score-fs {
+      left: 50%;
+      transform: translateX(-50% );
     }
   }
   .content-header {
@@ -59,7 +76,8 @@
     position: relative;
     box-shadow: $inverted-shadow;
     margin: 5px;
-    .content-rules {
+    .content-rules,
+    .content-message {
       position: absolute;
       top: 0;
       width: 100%;
@@ -69,7 +87,10 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      backdrop-filter: blur(1.5px);
+      animation-duration: 0.8s;
+      animation-fill-mode: both;
+      animation-timing-function: ease-in-out;
+      visibility: visible;
       p {
         color: #fff;
         font-size: 17px;
@@ -78,7 +99,13 @@
         color: #fff;
       }
     }
-    
+    .content-rules {
+      animation-name: zoomInBlur;
+    }
+    .content-message {
+      animation-duration: 0.7s;
+      animation-name: zoomIn;
+    }
   }
   .options {
     .item.active {
@@ -88,5 +115,35 @@
       }
     }
   }
-  
+  .score-fs,
+  .best-score-fs {
+    display: none;
+  }
+}
+
+@keyframes zoomInBlur {
+  from {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+    backdrop-filter: blur(0px);
+  }
+  100% {
+    backdrop-filter: blur(3px);
+  }
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
 }

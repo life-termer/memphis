@@ -21,11 +21,12 @@ export default function Breakout({
   const [isFullScr, setIsFullScr] = useState(false);
   const [isGameOn, setIsGameOn] = useState(false);
   const [gameState, setGameState] = useState(0);
-  const gameWidth = isFullScr ? document.documentElement.clientWidth :  890,
-        gameHeight = isFullScr ? document.documentElement.clientHeight :  400;
+  const gameWidth = isFullScr ? document.documentElement.clientWidth : 890,
+    gameHeight = isFullScr ? document.documentElement.clientHeight : 400;
   const width = gameWidth;
   const height = gameHeight;
   const [gameLevel, setGameLevel] = useState(1);
+  const [bonus, setBonus] = useState();
 
   const handleMenuItemClick = () => {
     setShow((myRef) => !myRef);
@@ -33,6 +34,7 @@ export default function Breakout({
 
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
+  const [newBestScore, setNewBestScore] = useState(false);
 
   // const resetBestScore = () => {
   //   setBestScore(0);
@@ -41,7 +43,19 @@ export default function Breakout({
 
   const handleFullScrClick = () => {
     setIsFullScr((myRef) => !myRef);
-  }
+    setScore(0);
+  };
+  useEffect(() => {
+    if(gameState === 1) {
+      if(score > bestScore) {
+        setBestScore(score);
+        setNewBestScore(true);
+      } else {
+        setNewBestScore(false);
+      }
+      
+    }
+  }, [gameState]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     resetGame(ball, paddle, width, height);
@@ -57,7 +71,6 @@ export default function Breakout({
       autoScroll: true,
       cursor: "auto",
     });
-    
   }, []);
 
   return (
@@ -67,28 +80,36 @@ export default function Breakout({
         "window breakout windows-box-shadow " +
         items[1].programList[3].active +
         " " +
-        items[1].programList[3].minimized + " " +
+        items[1].programList[3].minimized +
+        " " +
         (isFullScr ? "full-screen" : "")
       }
       onClick={setActiveProgram}
       ref={dragWindow}
     >
       <div className="header drag-target-breakout">
-        <div>Breakout</div>
+        <div>Breakout ...in development</div>
+        <div className="score-fs">Score: {score}</div>
+        <div className="best-score-fs">Best Score: {bestScore}</div>
         <div className="header-buttons">
+          <div
+              className={
+                "exit-fs windows-box-shadow" +
+                (!isFullScr ? " d-none" : "") +
+                (isGameOn ? " disabled" : "")
+              }
+              onClick={() => {
+                setIsFullScr(false);
+              }}
+            >
+              Exit Full Screen
+          </div>
           <div
             id="min-24"
             className="minimize windows-box-shadow"
             onClick={setMinimizeWindow}
           ></div>
-          <div
-            className={"exit-fs windows-box-shadow" + 
-            (!isFullScr ? " d-none" : "") + 
-            (isGameOn ? " disabled" : "")} 
-            onClick={() => {
-              setIsFullScr(false)
-            }}
-          >Exit Full Screen</div>
+          
           <div className="maximize windows-box-shadow disabled"></div>
           <div
             id="close-24"
@@ -108,8 +129,10 @@ export default function Breakout({
         >
           Game
           <div className="subitems">
-            <div className="subitem line" onClick={handleFullScrClick}>Full Screen</div>
-            <div className="subitem line">Reset Best Score</div>
+            <div className="subitem line" onClick={handleFullScrClick}>
+              Full Screen
+            </div>
+            <div className="subitem line" onClick={() => setBestScore(0)}>Reset Best Score</div>
             <div id="close-24" className="subitem" onClick={setCloseProgram}>
               Exit
             </div>
@@ -120,30 +143,52 @@ export default function Breakout({
         </div>
       </div>
       <div className="content-header">
-        <p>{isGameOn ? "Game On" : "Game OFF"}</p>
-        <p>{gameState==1 ? "Game Lost" : gameState==2 ? "Game Won" : "Game"}</p>
-        <p>{"Game Level " + gameLevel }</p>
-        <p>{"Score " + score }</p>
+        <p>{"Game Level " + gameLevel}</p>
+        <p>{"Score: " + score}</p>
+        <p>{"Best Score " + bestScore}</p>
       </div>
       <div className="content">
-      {!isGameOn ? 
-        <div className="content-rules">
-              {gameState==1 ? <h3>You've lost</h3> : gameState==2 ? <p>Game Won</p> : ""}
-              <p>Press spacebar to start a new game.</p>
-        </div> 
-      : ""}
-       <Game 
-        isFullScr={isFullScr}
-        isGameOn={isGameOn}
-        setIsGameOn={setIsGameOn}
-        gameState={gameState}
-        setGameState={setGameState}
-        width={width}
-        height={height}
-        gameLevel={gameLevel}
-        setGameLevel={setGameLevel}
-        setScore={setScore}
-       />
+        {!isGameOn ? (
+          <div className="content-rules">
+            {gameState === 1 ? (
+              <h3>Game Over.</h3>
+            ) : gameState === 2 ? (
+              <h3>You have won! Game Over.</h3>
+            ) : (
+              ""
+            )}
+            {newBestScore ? (
+              <p>{"New Best Score: " + bestScore }</p>
+            ) : ("")}
+            <p>Press spacebar to start a new game.</p>
+          </div>
+        ) : (
+          ""
+        )}
+        <Game
+          isFullScr={isFullScr}
+          isGameOn={isGameOn}
+          setIsGameOn={setIsGameOn}
+          gameState={gameState}
+          setGameState={setGameState}
+          width={width}
+          height={height}
+          gameLevel={gameLevel}
+          setGameLevel={setGameLevel}
+          setScore={setScore}
+          score={score}
+          setBonus={setBonus}
+          bestScore={bestScore}
+          setBestScore={setBestScore}
+          setNewBestScore={setNewBestScore}
+        />
+        {bonus ? (
+          <div className="content-message">
+            <p>{bonus}</p>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

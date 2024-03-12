@@ -1,7 +1,7 @@
 export class Paddle {
   w = 100;
   h = 10;
-  x = 870 / 2 - (100/2);// 100 is paddle.w
+  x = 870 / 2 - 100 / 2; // 100 is paddle.w
   y = 400 - 20;
   speed = 6;
 
@@ -36,5 +36,4 @@ export class Paddle {
   set speed(i) {
     this._speed = i;
   }
-
 }
