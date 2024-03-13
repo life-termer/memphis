@@ -19,6 +19,7 @@ import Help from "./partials/moduls/help";
 import Weather from "./partials/moduls/weather/weather";
 // import function to register Swiper custom elements
 import { register } from 'swiper/element/bundle';
+import Tetris from "./partials/moduls/tetris/tetris";
 gsap.registerPlugin(Draggable);
 // register Swiper custom elements
 register();
@@ -37,7 +38,6 @@ function Memphis() {
     window
       .matchMedia("(max-width: 768px)")
       .addEventListener("change", (e) => setMatches(e.matches));
-      console.log(isDev)
   }, []);
 
   let isCookieConsent = true;
@@ -338,6 +338,16 @@ function Memphis() {
                 )}
                 {isRunning(items, 4, true) ? (
                   <Weather
+                    items={items}
+                    setActiveProgram={setActiveProgram}
+                    setMinimizeWindow={setMinimizeWindow}
+                    setCloseProgram={setCloseProgram}
+                  />
+                ) : (
+                  ""
+                )}
+                {isRunning(items, 5, true) ? (
+                  <Tetris
                     items={items}
                     setActiveProgram={setActiveProgram}
                     setMinimizeWindow={setMinimizeWindow}

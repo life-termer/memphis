@@ -88,7 +88,7 @@ export default function Breakout({
       ref={dragWindow}
     >
       <div className="header drag-target-breakout">
-        <div>Breakout ...in development</div>
+        <div>Breakout</div>
         <div className="score-fs">Score: {score}</div>
         <div className="best-score-fs">Best Score: {bestScore}</div>
         
