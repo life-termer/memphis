@@ -67,6 +67,13 @@
       );
     }
     &:nth-child(6) {
+      order: 7;
+      transform: translate(
+        calc(($shortcut-width) * 3),
+        calc($shortcut-height * 5)
+      );
+    }
+    &:nth-child(7) {
       order: 1;
     }
   }

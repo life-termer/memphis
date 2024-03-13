@@ -17,26 +17,50 @@ const colors = [
   "#e7112b",
 ];
 
-export const createBricks = (bricks, w, h) => {
+export const createBricks = (bricks, w, h, props) => {
   let ratio = w / width;
   let brickX = 2;
   let brickY = 10 * ratio;
-  let color = 5;
+  let color = 1;
   let bW = w / 10 - ratio - 1.25;
-  let bricksAmount = 70;
+  let bricksAmount = 30;
+  if (props && props.gameLevel === 3) {
+    bricksAmount = 50;
+    color = 5;
+  } else if (props && props.gameLevel === 2) {
+    bricksAmount = 70;
+    color = 4;
+  }
   for (let i = 0; i < bricksAmount; i++) {
-    if (i <= 20) {
-      bricks.push(new Brick(brickX, brickY, bW, h / 40, color, 3));
-    } else if (i > 20 && i < 50) {
-      bricks.push(new Brick(brickX, brickY, bW, h / 40, color, 2));
+    if (props && props.gameLevel === 3) {
+      if (i < 20) {
+        bricks.push(new Brick(brickX, brickY, bW, h / 40, color, 3));
+      } else if (i >= 20 && i < 50) {
+        bricks.push(new Brick(brickX, brickY, bW, h / 40, color, 2));
+      } else {
+        bricks.push(new Brick(brickX, brickY, bW, h / 40, color, 1));
+      }
+    } else if (props && props.gameLevel === 2) {
+      if (i <= 10) {
+        bricks.push(new Brick(brickX, brickY, bW, h / 40, color, 3));
+      } else if (i >= 10 && i < 30) {
+        bricks.push(new Brick(brickX, brickY, bW, h / 40, color, 2));
+      } else {
+        bricks.push(new Brick(brickX, brickY, bW, h / 40, color, 1));
+      }
     } else {
-      bricks.push(new Brick(brickX, brickY, bW, h / 40, color, 1));
+      if (i < 10) {
+        bricks.push(new Brick(brickX, brickY, bW, h / 40, color, 2));
+      } else {
+        bricks.push(new Brick(brickX, brickY, bW, h / 40, color, 1));
+      }
     }
     brickX += bW + ratio + 1;
     if (brickX + bW + ratio + 1 > w) {
       brickY += h / 40 + ratio + 1;
       brickX = 2;
-      color--;
+      if (color >= 0) color--;
+      if(props && props.gameLevel === 2 && color === 1) color = 0;
     }
   }
 };
@@ -44,7 +68,7 @@ export const createBricks = (bricks, w, h) => {
 const createBonus = (brick) => {
   var chance = Math.random();
   if (chance < 0.4) {
-  // if (true) {
+    // if (true) {
     let type = Math.floor(Math.random() * (0 - 7 + 1) + 7); //random number between 1-6
     let color = Math.floor(Math.random() * (0 - 7 + 1) + 7);
     let b = {
@@ -201,7 +225,6 @@ export const move = (keys, props) => {
   if (keys.isPressed(32) && !props.isGameOn) {
     resetGame(ball, paddle, props.width, props.height, props);
     props.setIsGameOn(true);
-    props.setGameState(0);
   }
   if (props.isGameOn) {
     destroyBrick(props);
@@ -223,8 +246,8 @@ export const move = (keys, props) => {
     ) {
       ball.speedY = -ball.speedY;
       let deltaX = ball.x - (paddle.x + paddle.w / 2);
-      if(deltaX > 30) deltaX = 30;
-      if(deltaX < -30) deltaX = -30;
+      if (deltaX > 30) deltaX = 30;
+      if (deltaX < -30) deltaX = -30;
       ball.speedX = deltaX * 0.15;
     }
     //bonus movement
@@ -237,23 +260,23 @@ export const move = (keys, props) => {
             props.setBonus("Larger ball");
             break;
           case 2:
-            if(ball.speedY > 0) ball.speedY +=0.5;
+            if (ball.speedY > 0) ball.speedY += 0.5;
             else ball.speedY -= 0.5;
             props.setBonus("Ball speed up");
             break;
           case 3:
-            if(ball.speedY >= 2) ball.speedY -=0.5;
-            else if(ball.speedY <= -2) ball.speedY += 0.5;
+            if (ball.speedY >= 2) ball.speedY -= 0.5;
+            else if (ball.speedY <= -2) ball.speedY += 0.5;
             props.setBonus("Ball speed down");
             break;
           case 4:
-            if(paddle.w < width * 100 / 50){
+            if (paddle.w < (width * 100) / 50) {
               paddle.w += 20;
             }
             props.setBonus("More paddle length");
             break;
           case 5:
-            if(paddle.w > 70){
+            if (paddle.w > 70) {
               paddle.w -= 20;
             }
             props.setBonus("Less paddle length");
@@ -266,22 +289,29 @@ export const move = (keys, props) => {
         bonus.splice(i, 1);
         setTimeout(() => {
           props.setBonus();
-        }, 1000)
+        }, 1000);
         return;
       }
       if (bonus[i].y > props.height) {
         bonus.splice(i, 1);
-      } 
+      }
     }
     // check if lost
     if (ball.y > props.height) {
       props.setGameState(1);
+      props.setGameLevel(1);
       props.setIsGameOn(false);
     }
     //check if won
-    if(bricks.length < 1){
-      props.setGameState(2);
-      props.setIsGameOn(false);
+    if (bricks.length < 1) {
+      if (props.gameLevel != 3) {
+        props.gameLevel === 1 ? props.setGameLevel(2) : props.setGameLevel(3); 
+        props.setGameState(2);
+        props.setIsGameOn(false);
+      }else {
+        props.setGameState(3);
+        props.setIsGameOn(false);
+      }
     }
   }
 };
@@ -301,10 +331,11 @@ export const resetGame = (ball, paddle, w, h, props) => {
   if (props) {
     props.setBonus();
     props.setIsGameOn(false);
-    props.setGameLevel(1);
-    props.setScore(0);
+    if(props.gameState === 3) {
+      props.setGameLevel(1);
+    }
   }
-  createBricks(bricks, w, h);
+  createBricks(bricks, w, h, props);
 };
 
 //object that helps track pressed keys and provides functionality to check if a

@@ -150,15 +150,15 @@ export default function Help({
                       <li>Snake game with Redux, Redux Saga and TypeScript</li>
                       <li>Backend - Node.js and Express with a SQLite database (not deployed yet)</li>
                       <li>Weather app - Open-Meteo API and Chart.js</li>
+                      <li>Breakout game - canvas.</li>
                     </ul>
                   </div>
                   <div className={index === 3 ? "response" : "d-none"}>
                     <ul>
-                      <li>Breakout game</li>
-                      <li>Stack game with Three.js and Cannon.js</li>
+                      <li>Tetris game</li>
+                      <li>First game with Phaser 3</li>
                       <li>Context menu</li>
                       <li>Some properties - background change, screen saver etc.</li>
-                      <li>Full screen mode</li>
                       <li>User authentication and authorization</li>
                       <li>User registration (maybe)</li>
                       <li>Temporary list of running programs with sorting (maybe)</li>

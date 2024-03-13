@@ -37,7 +37,6 @@ export default function Weather({
       autoScroll: true,
       cursor: "auto",
     });
-    console.log(cities);
   }, []);
 
   const setMaximizeWindow = () => {

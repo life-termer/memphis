@@ -31,11 +31,13 @@ function Memphis() {
   );
   const [isLogIn, setIsLogIn] = useState(false);
   const [userName, setUserName] = useState("");
+  const isDev = process.env.REACT_APP_DEV;
 
   useEffect(() => {
     window
       .matchMedia("(max-width: 768px)")
       .addEventListener("change", (e) => setMatches(e.matches));
+      console.log(isDev)
   }, []);
 
   let isCookieConsent = true;
@@ -272,7 +274,7 @@ function Memphis() {
       )}
       {!matches && (
         <div className="memphis">
-          <LoadingScreen isShutdown={shutdown} />
+          {!isDev ? <LoadingScreen isShutdown={shutdown} /> : ""}
           {isCookieConsent ? (
             <React.Fragment>
               <div className="draggable-container">

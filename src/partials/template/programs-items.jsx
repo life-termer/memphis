@@ -11,6 +11,7 @@ import padlock from "../../assets/images/icons/ic-file-padlock.png";
 import snake from "../../assets/images/icons/ic-snake.png";
 import breakout from "../../assets/images/icons/ic-breakout.png";
 import weather from "../../assets/images/icons/ic-weather.webp";
+import tetris from "../../assets/images/icons/ic-tetris.png";
 
 const menuItems = [
   {
@@ -99,6 +100,19 @@ const menuItems = [
         desktopShortcut: true,
         focused: "",
       },
+      {
+        id: 26,
+        group: "programs",
+        fullName: "Tetris",
+        classes: "tetris",
+        image: tetris,
+        imageAlt: "tetris",
+        running: "",
+        active: "",
+        minimized: "",
+        desktopShortcut: true,
+        focused: "",
+      },
     ],
   },
   {
@@ -174,6 +188,32 @@ const menuItems = [
     desktopShortcut: false,
     startItem: false,
   },
+  // {
+  //   id: 9,
+  //   fullName: "Canvas Games",
+  //   classes: "docs",
+  //   image: documents,
+  //   imageAlt: "logo",
+  //   running: "",
+  //   active: "",
+  //   minimized: "",
+  //   desktopShortcut: true,
+  //   focused: "",
+  //   startItem: true,
+  // },
+  // {
+  //   id: 10,
+  //   fullName: "Phaser Games",
+  //   classes: "docs",
+  //   image: documents,
+  //   imageAlt: "logo",
+  //   running: "",
+  //   active: "",
+  //   minimized: "",
+  //   desktopShortcut: true,
+  //   focused: "",
+  //   startItem: true,
+  // },
 ];
 
 export { menuItems };

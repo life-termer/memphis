@@ -46,14 +46,14 @@ export default function Breakout({
     setScore(0);
   };
   useEffect(() => {
-    if(gameState === 1) {
+    if(gameState != 2) {
       if(score > bestScore) {
         setBestScore(score);
         setNewBestScore(true);
       } else {
         setNewBestScore(false);
       }
-      
+      setScore(0);
     }
   }, [gameState]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -91,6 +91,7 @@ export default function Breakout({
         <div>Breakout ...in development</div>
         <div className="score-fs">Score: {score}</div>
         <div className="best-score-fs">Best Score: {bestScore}</div>
+        
         <div className="header-buttons">
           <div
               className={
@@ -143,9 +144,9 @@ export default function Breakout({
         </div>
       </div>
       <div className="content-header">
-        <p>{"Game Level " + gameLevel}</p>
+        <p>{"Level: " + gameLevel}</p>
         <p>{"Score: " + score}</p>
-        <p>{"Best Score " + bestScore}</p>
+        <p>{"Best Score: " + bestScore}</p>
       </div>
       <div className="content">
         {!isGameOn ? (
@@ -153,6 +154,8 @@ export default function Breakout({
             {gameState === 1 ? (
               <h3>Game Over.</h3>
             ) : gameState === 2 ? (
+              <h3>Well done. Next level: {gameLevel}</h3>
+            ) : gameState === 3 ? (
               <h3>You have won! Game Over.</h3>
             ) : (
               ""
@@ -160,7 +163,9 @@ export default function Breakout({
             {newBestScore ? (
               <p>{"New Best Score: " + bestScore }</p>
             ) : ("")}
-            <p>Press spacebar to start a new game.</p>
+            {gameState != 2 ? <p>Press spacebar to start a new game.</p> : 
+            <p>Press spacebar to continue.</p>}
+            
           </div>
         ) : (
           ""
