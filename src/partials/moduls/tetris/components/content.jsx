@@ -1,6 +1,6 @@
 import Menu from "./menu";
 import { useGameOver } from "../hooks/useGameOver";
-import Game from "../../breakout/components/game";
+import Game from "../../tetris/components/game";
 
 const Content = ({ rows, columns }) => {
   //custom hook
