@@ -20,6 +20,7 @@ import Weather from "./partials/moduls/weather/weather";
 // import function to register Swiper custom elements
 import { register } from 'swiper/element/bundle';
 import Tetris from "./partials/moduls/tetris/tetris";
+import BouncingBall from "./partials/moduls/bouncing-ball/bouncing-ball";
 gsap.registerPlugin(Draggable);
 // register Swiper custom elements
 register();
@@ -32,7 +33,6 @@ function Memphis() {
   );
   const [isLogIn, setIsLogIn] = useState(false);
   const [userName, setUserName] = useState("");
-  const isDev = process.env.REACT_APP_DEV;
 
   useEffect(() => {
     window
@@ -274,7 +274,7 @@ function Memphis() {
       )}
       {!matches && (
         <div className="memphis">
-          {!isDev ? <LoadingScreen isShutdown={shutdown} /> : ""}
+          {false ? <LoadingScreen isShutdown={shutdown}/> : ''}
           {isCookieConsent ? (
             <React.Fragment>
               <div className="draggable-container">
@@ -348,6 +348,16 @@ function Memphis() {
                 )}
                 {isRunning(items, 5, true) ? (
                   <Tetris
+                    items={items}
+                    setActiveProgram={setActiveProgram}
+                    setMinimizeWindow={setMinimizeWindow}
+                    setCloseProgram={setCloseProgram}
+                  />
+                ) : (
+                  ""
+                )},
+                {isRunning(items, 6, true) ? (
+                  <BouncingBall
                     items={items}
                     setActiveProgram={setActiveProgram}
                     setMinimizeWindow={setMinimizeWindow}
