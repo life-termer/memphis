@@ -1,12 +1,14 @@
 {
   "files": {
-    "main.css": "/memphis/static/css/main.a3648610.css",
-    "main.js": "/memphis/static/js/main.d4b243f3.js",
+    "main.css": "/memphis/static/css/main.82096d72.css",
+    "main.js": "/memphis/static/js/main.9bf41372.js",
     "static/js/787.f9265d84.chunk.js": "/memphis/static/js/787.f9265d84.chunk.js",
+    "static/media/bg.png": "/memphis/static/media/bg.a7a33ed2da02ac04507c.png",
     "static/media/loading-screen.jpg": "/memphis/static/media/loading-screen.3b43a90054c93b56066d.jpg",
     "static/media/ic-snake.png": "/memphis/static/media/ic-snake.5e4076f1540bdd12ddd7.png",
     "static/media/Dmitry Surchin Resume.pdf": "/memphis/static/media/Dmitry Surchin Resume.03caf10c0f583c334088.pdf",
     "static/media/windows98.webp": "/memphis/static/media/windows98.480c1f8ad238505a367a.webp",
+    "static/media/logo.png": "/memphis/static/media/logo.a86f5134f3587fbc96f0.png",
     "static/media/flag.png": "/memphis/static/media/flag.7e2783d2cf87ba6392b5.png",
     "static/media/ic-weather.webp": "/memphis/static/media/ic-weather.4e1a914ec1c2f981af48.webp",
     "static/media/wi-sleet.svg": "/memphis/static/media/wi-sleet.781b69f9f41bfe931f541ae102dfff2f.svg",
@@ -26,12 +28,12 @@
     "static/media/wi-night-clear.svg": "/memphis/static/media/wi-night-clear.2923306bed84bccf8845e60e2b0f3aed.svg",
     "static/media/ic-bi-eye-slash.svg": "/memphis/static/media/ic-bi-eye-slash.fdf5507ab2dee3154b4e7f5cb7bfb556.svg",
     "static/media/ic-bi-eye.svg": "/memphis/static/media/ic-bi-eye.fe7791ea696a69819967504942807e15.svg",
-    "main.a3648610.css.map": "/memphis/static/css/main.a3648610.css.map",
-    "main.d4b243f3.js.map": "/memphis/static/js/main.d4b243f3.js.map",
+    "main.82096d72.css.map": "/memphis/static/css/main.82096d72.css.map",
+    "main.9bf41372.js.map": "/memphis/static/js/main.9bf41372.js.map",
     "787.f9265d84.chunk.js.map": "/memphis/static/js/787.f9265d84.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a3648610.css",
-    "static/js/main.d4b243f3.js"
+    "static/css/main.82096d72.css",
+    "static/js/main.9bf41372.js"
   ]
 }
