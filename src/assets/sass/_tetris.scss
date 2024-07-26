@@ -1,8 +1,8 @@
-.desktop-item:nth-child(6),
-.tetris  {
-  pointer-events: none !important;
-  opacity: 0.5;
-}
+// .desktop-item:nth-child(6),
+// .tetris  {
+//   pointer-events: none !important;
+//   opacity: 0.5;
+// }
 
 .tetris {
   resize: none;
@@ -18,6 +18,9 @@
     position: relative;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
   }
   .menu {
     position: relative;
@@ -37,22 +40,29 @@
         color: rgb(48, 0, 78);
         margin: 0;
       }
-
     }
   }
   .board {
     display: grid;
     position: relative;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 350px;
-    height: 700px;
+    align-self: center;
+    grid-gap: 1px;
+    height: 95%;
+    aspect-ratio: 1 / 1.8;
+    border-radius: 10px;
+    box-shadow: rgba(0,0,0,0.35) 0px 5px 15px;
     background-color: rgb(48, 0, 78);
-    .board-cell {
-      width: auto;
-      border-radius: 6px;
-      position: relative;
+    
+  }
+  .board-cell {
+    width: auto;
+    border-radius: 6px;
+    position: relative;
+    &.tetromino {
+      border-top: 3px solid rgba(255, 255, 255, 0.1);
+      border-left: 3px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+      border-right: 3px solid rgba(0, 0, 0, 0.1);
       .sparkle {
         position: absolute;
         z-index: 10;
@@ -63,49 +73,45 @@
         background-color: rgba(255, 255, 255, 0.4);
         border-radius: 4px 4px;
       }
-      &.tetromino {
-        border-top: 3px solid rgba(255, 255, 255, 0.1);
-        border-left: 3px solid rgba(255, 255, 255, 0.1);
-        border-bottom: 3px solid rgba(0, 0, 0, 0.1);
-        border-right: 3px solid rgba(0, 0, 0, 0.1);
-        &.ghost {
-          .sparkle {
-            opacity: 0;
-          }
+      &.ghost {
+        .sparkle {
+          opacity: 0;
         }
-        &__i {
-          background-color: rgba(80, 227, 230, 1);
-        }
-        &__j {
-          background-color: rgba(36, 95, 223, 1);
-        }
-        &__l {
-          background-color: rgba(223, 173, 36, 1);
-        }
-        &__o {
-          background-color: rgba(223, 217, 36, 1);
-        }
-        &__s {
-          background-color: rgba(48, 211, 56, 1);
-        }
-        &__t {
-          background-color: rgba(132, 61, 198, 1);
-        }
-        &__j {
-          background-color: rgba(246, 80, 195, 1);
-        }
+      }
+      &__i {
+        background-color: rgba(80, 227, 230, 1);
+      }
+      &__j {
+        background-color: rgba(36, 95, 223, 1);
+      }
+      &__l {
+        background-color: rgba(223, 173, 36, 1);
+      }
+      &__o {
+        background-color: rgba(223, 217, 36, 1);
+      }
+      &__s {
+        background-color: rgba(48, 211, 56, 1);
+      }
+      &__z {
+        background-color: rgba(207, 27, 27, 1);
+      }
+      &__t {
+        background-color: rgba(132, 61, 198, 1);
+      }
+      &__j {
+        background-color: rgba(246, 80, 195, 1);
       }
     }
   }
   .game-stats {
-    position: absolute;
     width: 200px;
     list-style-type: none;
     color: rgba(255, 255, 255, 0.5);
     &-right {
-      right: 0;
-      bottom: 0;
+      padding-bottom: 20px;
       text-align: left;
+      align-self: flex-end;
     }
     &-left {
       right: 0;
@@ -118,20 +124,27 @@
       color: rgba(255, 255, 255, 1);
     }
   }
-  .preview {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.1);
-    border: 10px solid rgba(0, 0, 0, 0);
-    border-radius: 10px;
-    .preview-board {
-      display: grid;
-      grid-gap: 2px;
-      grid-template-rows: repeat(4, 1fr);
-      grid-template-columns: (repeat(4, 1fr));
-      width: 150px;
-      height: 150px;
+  .previews {
+    position: relative;
+    top: 2.5%;
+    height: fit-content;
+    .preview {
+      background: rgba(0, 0, 0, 0.1);
+      border: 10px solid rgba(0, 0, 0, 0);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      .preview-board {
+        display: grid;
+        grid-gap: 1px;
+        grid-template-rows: repeat(4, 1fr);
+        grid-template-columns: (repeat(4, 1fr));
+        width: 100px;
+        height: 100px;
+      }
     }
+  }
+  .gameController {
+    position: absolute;
+    top: -999999em;
   }
 }

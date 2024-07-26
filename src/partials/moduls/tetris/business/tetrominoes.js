@@ -59,6 +59,25 @@ export const TETROMINOES = {
   },
 };
 
+export const randomTetromino = () => {
+  const keys = Object.keys(TETROMINOES);
+  const index = Math.floor(Math.random() * keys.length);
+  const key = keys[index];
+  return TETROMINOES[key];
+}
+
+export const rotate = ({piece, direction}) => {
+  //Transpose rows and columns
+  const newPiece = piece.map((__, index) =>
+    piece.map((column) => column[index])
+  );
+
+  //Reverse row to get a rotated matrix
+  if(direction > 0) return newPiece.map((row) => row.reverse());
+
+  return newPiece.reverse();
+}
+
 export const transferToBoard = ({
   className,
   isOccupied,

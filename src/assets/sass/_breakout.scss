@@ -9,6 +9,9 @@
   overflow: visible;
   width: 900px;
   height: 550px;
+  #gameCanvas {
+    max-width: 100%;
+  }
   &.full-screen {
     position: fixed;
     width: 100%;

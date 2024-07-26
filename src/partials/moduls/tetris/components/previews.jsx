@@ -7,13 +7,13 @@ const Previews = ({ tertominoes }) => {
   const previewTetrominoes = tertominoes
     .slice(1 - tertominoes.length)
     .reverse();
-
   return (
-    <>
-      {previewTetrominoes.map((tetromino, index) => {
+    <div className="previews">
+      {previewTetrominoes.map((tetromino, index) => 
         <Preview tetromino={tetromino} index={index} key={index}/>
-      })}
-    </>
+      )}
+    </div>
   );
 };
+//memo lets you skip re-rendering a component when its props are unchanged
 export default React.memo(Previews);

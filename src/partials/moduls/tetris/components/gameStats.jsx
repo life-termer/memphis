@@ -1,3 +1,5 @@
+import React from "react";
+
 const GameStats = ({ gameStats }) => {
   const { level, points, linesCompleted, linesPerLevel } = gameStats;
   const linesToLevel = linesPerLevel - linesCompleted;
@@ -13,4 +15,4 @@ const GameStats = ({ gameStats }) => {
     </ul>
   );
 };
-export default GameStats;
+export default React.memo(GameStats);

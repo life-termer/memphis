@@ -4,7 +4,7 @@ import { transferToBoard } from "../business/tetrominoes";
 import BoardCell from "./boardCell";
 
 const Preview = ({ tetromino, index }) => {
-  const [shape, className] = tetromino;
+  const { shape, className } = tetromino;
   const board = buildBoard({rows: 4, columns: 4});
   const style = {top: `${index * 15}px`};
 
@@ -15,15 +15,14 @@ const Preview = ({ tetromino, index }) => {
     rows: board.rows,
     shape
   })
-
   return (
-    <div className="preview" style={style}> 
+    <div className="preview"> 
       <div className="preview-board">
-        {board.rows.map((row, y) => {
-          row.map((cell, x) => (
+        {board.rows.map((row, y) =>
+          row.map((cell, x) => 
             <BoardCell key={x * board.size.columns + x} cell={cell} />
-          ))
-        })}
+          )
+        )}
       </div>
     </div>
   );

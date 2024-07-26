@@ -274,7 +274,7 @@ function Memphis() {
       )}
       {!matches && (
         <div className="memphis">
-          {false ? <LoadingScreen isShutdown={shutdown}/> : ''}
+          <LoadingScreen isShutdown={shutdown}/>
           {isCookieConsent ? (
             <React.Fragment>
               <div className="draggable-container">
@@ -356,7 +356,7 @@ function Memphis() {
                 ) : (
                   ""
                 )},
-                {isRunning(items, 6, true) ? (
+                {/* {isRunning(items, 6, true) ? (
                   <BouncingBall
                     items={items}
                     setActiveProgram={setActiveProgram}
@@ -365,7 +365,7 @@ function Memphis() {
                   />
                 ) : (
                   ""
-                )}
+                )} */}
                 {isRunning(items, 2, false) ? (
                   <Documents
                     items={items}
