@@ -6,7 +6,7 @@ import GameStats from "./gameStats";
 import Previews from "./previews";
 import GameController from "./gameController";
 
-const Game = ({ rows, columns, setGameOver }) => {
+const Game = ({ rows, columns, setGameOver, setGameLost }) => {
 
   const [gameStats, addLinesCleared] = useGameStats();
   const [player, setPlayer, resetPlayer] = usePlayer();
@@ -29,6 +29,7 @@ const Game = ({ rows, columns, setGameOver }) => {
         player={player}
         setGameOver={setGameOver}
         setPlayer={setPlayer}
+        setGameLost={setGameLost}
       />
     </div>
   );
