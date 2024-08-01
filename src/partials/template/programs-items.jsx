@@ -12,6 +12,7 @@ import snake from "../../assets/images/icons/ic-snake.png";
 import breakout from "../../assets/images/icons/ic-breakout.png";
 import weather from "../../assets/images/icons/ic-weather.webp";
 import tetris from "../../assets/images/icons/ic-tetris.png";
+import bouncingBall from "../../assets/images/icons/ic-bouncing-ball.jpg";
 
 const menuItems = [
   {
@@ -113,19 +114,19 @@ const menuItems = [
         desktopShortcut: true,
         focused: "",
       },
-      // {
-      //   id: 27,
-      //   group: "programs",
-      //   fullName: "Bouncing Ball", 
-      //   classes: "bouncing-ball",
-      //   image: tetris,
-      //   imageAlt: "bouncing-ball",
-      //   running: "",
-      //   active: "",
-      //   minimized: "",
-      //   desktopShortcut: true,
-      //   focused: "",
-      // },
+      {
+        id: 27,
+        group: "programs",
+        fullName: "Bouncing Ball", 
+        classes: "bouncing-ball",
+        image: bouncingBall,
+        imageAlt: "bouncing-ball",
+        running: "",
+        active: "",
+        minimized: "",
+        desktopShortcut: true,
+        focused: "",
+      },
     ],
   },
   {

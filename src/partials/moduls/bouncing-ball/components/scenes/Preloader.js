@@ -2,13 +2,19 @@ import { Scene } from 'phaser';
 import logo from '../../assets/logo.png'
 import star from '../../assets/star.png'
 // import ground from '../../assets/platform.png'
-import sky from '../../assets/sky.png'
-import bomb from '../../assets/bomb.png'
-import dude from '../../assets/dude.png'
 import ball from '../../assets/ball.png'
-import ground from '../../assets/ground.png'
+// import ground from '../../assets/ground.png'
+import groundStone from '../../assets/stoneGround.jpg'
 import obstacle from '../../assets/obstacle.png'
-import ballsp from '../../assets/ball-sp.png'
+import cloud1 from '../../assets/clouds/3.png'
+import cloud2 from '../../assets/clouds/4.png'
+import cloud3 from '../../assets/clouds/5.png'
+import cloud4 from '../../assets/clouds/6.png'
+import sky from '../../assets/background/sky.png'
+import mountains from '../../assets/background/mountains.png'
+import plateau from '../../assets/background/plateau.png'
+import ground from '../../assets/background/ground.png'
+import plant from '../../assets/background/plant.png'
 
 export class Preloader extends Scene
 {
@@ -44,16 +50,20 @@ export class Preloader extends Scene
         this.load.image('logo', logo);
         this.load.image('star', star);
         this.load.image('sky', sky);
+        this.load.image('mountains', mountains);
+        this.load.image('plateau', plateau);
         this.load.image('ground', ground);
-        this.load.image('bomb', bomb);
-        this.load.spritesheet('dude',
-            dude,
-            { frameWidth: 32, frameHeight: 48 }
-        );
-        this.load.spritesheet('ballSp',
-            ballsp,
-            { frameWidth: 32, frameHeight: 32 }
-        );
+        this.load.image('plant', plant);
+        // this.load.image('ground', groundStone);
+        this.load.image('cloud1', cloud1);
+        this.load.image('cloud2', cloud2);
+        this.load.image('cloud3', cloud3);
+        this.load.image('cloud4', cloud4);
+        
+        // this.load.spritesheet('dude',
+        //     dude,
+        //     { frameWidth: 32, frameHeight: 48 }
+        // );
         // this.load.image('ground', ground);
         this.load.image('ball', ball);
         this.load.image('obstacle', obstacle);

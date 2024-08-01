@@ -73,8 +73,12 @@
         calc($shortcut-height * 5)
       );
     }
-    // &:nth-child(7) {
-    //   order: 1;
-    // }
+    &:nth-child(7) {
+      order: 8;
+      transform: translate(
+        calc(($shortcut-width) * 3),
+        calc($shortcut-height * 3)
+      );
+    }
   }
 }
