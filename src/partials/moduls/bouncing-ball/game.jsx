@@ -85,7 +85,7 @@ function Game ()
     return (
         <div className='content-inner'>
             <PhaserGame ref={phaserRef} currentActiveScene={currentScene} />
-            <div className='absolute-content'>
+            {/* <div className='absolute-content'>
                 <div>
                     <button className="button" onClick={changeScene}>Change Scene</button>
                 </div>
@@ -101,7 +101,7 @@ function Game ()
                 <div>
                     <button className="button" onClick={gameOver}>Game Over</button>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

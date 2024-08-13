@@ -12,7 +12,7 @@ import snake from "../../assets/images/icons/ic-snake.png";
 import breakout from "../../assets/images/icons/ic-breakout.png";
 import weather from "../../assets/images/icons/ic-weather.webp";
 import tetris from "../../assets/images/icons/ic-tetris.png";
-import bouncingBall from "../../assets/images/icons/ic-bouncing-ball.jpg";
+import bouncingBall from "../../assets/images/icons/ic-bouncing-ball.png";
 
 const menuItems = [
   {

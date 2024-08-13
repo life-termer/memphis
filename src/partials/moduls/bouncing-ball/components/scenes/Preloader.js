@@ -1,16 +1,15 @@
 import { Scene } from 'phaser';
+import menuBg from '../../assets/background/menu-bg.jpg'
 import logo from '../../assets/logo.png'
 import star from '../../assets/star.png'
 // import ground from '../../assets/platform.png'
 import ball from '../../assets/ball.png'
+import ballExpl from '../../assets/ball-expl.png'
 // import ground from '../../assets/ground.png'
 import groundStone from '../../assets/stoneGround.jpg'
 import obstacle from '../../assets/obstacle.png'
-import cloud1 from '../../assets/clouds/3.png'
-import cloud2 from '../../assets/clouds/4.png'
-import cloud3 from '../../assets/clouds/5.png'
-import cloud4 from '../../assets/clouds/6.png'
 import sky from '../../assets/background/sky.png'
+import skyRed from '../../assets/background/sky-red.png'
 import mountains from '../../assets/background/mountains.png'
 import plateau from '../../assets/background/plateau.png'
 import ground from '../../assets/background/ground.png'
@@ -47,25 +46,30 @@ export class Preloader extends Scene
     {
         //  Load the assets for the game - Replace with your own assets
         // this.load.setPath('/assets');
+        this.load.image('menuBg', menuBg);
         this.load.image('logo', logo);
         this.load.image('star', star);
         this.load.image('sky', sky);
+        this.load.image('skyRed', skyRed);
         this.load.image('mountains', mountains);
         this.load.image('plateau', plateau);
         this.load.image('ground', ground);
         this.load.image('plant', plant);
-        // this.load.image('ground', groundStone);
-        this.load.image('cloud1', cloud1);
-        this.load.image('cloud2', cloud2);
-        this.load.image('cloud3', cloud3);
-        this.load.image('cloud4', cloud4);
-        
-        // this.load.spritesheet('dude',
-        //     dude,
-        //     { frameWidth: 32, frameHeight: 48 }
-        // );
-        // this.load.image('ground', ground);
-        this.load.image('ball', ball);
+
+        this.load.spritesheet('ball',
+            ball,
+            { frameWidth: 50, 
+            frameHeight: 50,
+            startFrame: 1,
+            endFrame: 9 }
+        );
+        this.load.spritesheet('ballExpl',
+            ballExpl,
+            { frameWidth: 44.4, 
+            frameHeight: 50,
+            startFrame: 1,
+            endFrame: 40 }
+        );
         this.load.image('obstacle', obstacle);
     }
 
