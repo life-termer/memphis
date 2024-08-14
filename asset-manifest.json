@@ -1,13 +1,23 @@
 {
   "files": {
-    "main.css": "/memphis/static/css/main.498f481e.css",
-    "main.js": "/memphis/static/js/main.c2530943.js",
+    "main.css": "/memphis/static/css/main.27de039b.css",
+    "main.js": "/memphis/static/js/main.651996c7.js",
     "static/js/787.f9265d84.chunk.js": "/memphis/static/js/787.f9265d84.chunk.js",
+    "static/media/menu-bg.jpg": "/memphis/static/media/menu-bg.a60fe82c6e4eaa2a9668.jpg",
     "static/media/bg.png": "/memphis/static/media/bg.a7a33ed2da02ac04507c.png",
     "static/media/loading-screen.jpg": "/memphis/static/media/loading-screen.3b43a90054c93b56066d.jpg",
+    "static/media/sky.png": "/memphis/static/media/sky.8e1796f07867bbacd91c.png",
+    "static/media/sky-red.png": "/memphis/static/media/sky-red.a4fda5dbbd11bb469643.png",
     "static/media/ic-snake.png": "/memphis/static/media/ic-snake.5e4076f1540bdd12ddd7.png",
     "static/media/Dmitry Surchin Resume.pdf": "/memphis/static/media/Dmitry Surchin Resume.e6fc400549f23585f37f.pdf",
+    "static/media/plateau.png": "/memphis/static/media/plateau.60876a533badb9948a8c.png",
+    "static/media/stoneGround.jpg": "/memphis/static/media/stoneGround.62dfd9b7a376e9ff056e.jpg",
+    "static/media/ground.png": "/memphis/static/media/ground.bda992dd5264827194e7.png",
+    "static/media/ball-expl.png": "/memphis/static/media/ball-expl.a5274d2e10ba588a6553.png",
     "static/media/windows98.webp": "/memphis/static/media/windows98.480c1f8ad238505a367a.webp",
+    "static/media/mountains.png": "/memphis/static/media/mountains.cdb1f76009c6d79f514a.png",
+    "static/media/ball.png": "/memphis/static/media/ball.b02799bc31557fb29dc7.png",
+    "static/media/plant.png": "/memphis/static/media/plant.b53eb9ecf44e339f8d6b.png",
     "static/media/logo.png": "/memphis/static/media/logo.a86f5134f3587fbc96f0.png",
     "static/media/flag.png": "/memphis/static/media/flag.7e2783d2cf87ba6392b5.png",
     "static/media/ic-weather.webp": "/memphis/static/media/ic-weather.4e1a914ec1c2f981af48.webp",
@@ -28,12 +38,12 @@
     "static/media/wi-night-clear.svg": "/memphis/static/media/wi-night-clear.d928be0a920490626a1cf7ef25716105.svg",
     "static/media/ic-bi-eye-slash.svg": "/memphis/static/media/ic-bi-eye-slash.fdf5507ab2dee3154b4e7f5cb7bfb556.svg",
     "static/media/ic-bi-eye.svg": "/memphis/static/media/ic-bi-eye.fe7791ea696a69819967504942807e15.svg",
-    "main.498f481e.css.map": "/memphis/static/css/main.498f481e.css.map",
-    "main.c2530943.js.map": "/memphis/static/js/main.c2530943.js.map",
+    "main.27de039b.css.map": "/memphis/static/css/main.27de039b.css.map",
+    "main.651996c7.js.map": "/memphis/static/js/main.651996c7.js.map",
     "787.f9265d84.chunk.js.map": "/memphis/static/js/787.f9265d84.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.498f481e.css",
-    "static/js/main.c2530943.js"
+    "static/css/main.27de039b.css",
+    "static/js/main.651996c7.js"
   ]
 }
