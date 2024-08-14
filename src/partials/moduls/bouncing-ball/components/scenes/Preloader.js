@@ -7,6 +7,10 @@ import ball from '../../assets/ball.png'
 import ballExpl from '../../assets/ball-expl.png'
 // import ground from '../../assets/ground.png'
 import groundStone from '../../assets/stoneGround.jpg'
+import obstacle1 from '../../assets//obstacles/tile01.png'
+import obstacle2 from '../../assets//obstacles/tile02.png'
+import obstacle3 from '../../assets//obstacles/tile03.png'
+import obstacle4 from '../../assets//obstacles/tile04.png'
 import obstacle from '../../assets/obstacle.png'
 import sky from '../../assets/background/sky.png'
 import skyRed from '../../assets/background/sky-red.png'
@@ -70,7 +74,10 @@ export class Preloader extends Scene
             startFrame: 1,
             endFrame: 40 }
         );
-        this.load.image('obstacle', obstacle);
+        this.load.image('obstacle1', obstacle1);
+        this.load.image('obstacle2', obstacle2);
+        this.load.image('obstacle3', obstacle3);
+        this.load.image('obstacle4', obstacle4);
     }
 
     create ()

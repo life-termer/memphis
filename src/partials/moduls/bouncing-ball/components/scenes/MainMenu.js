@@ -63,7 +63,7 @@ export class MainMenu extends Scene
           this.menuTween2 = this.tweens.add({
             targets: [this.sky, this.mountains, this.plateau, this.ground, this.plant],
             ease: 'Sine.easeInOut',
-            duration: 1000,
+            duration: 500,
             delay: 0,
             paused: true,
             alpha: {

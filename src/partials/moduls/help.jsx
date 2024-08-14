@@ -151,12 +151,12 @@ export default function Help({
                       <li>Backend - Node.js and Express with a SQLite database (not deployed yet)</li>
                       <li>Weather app - Open-Meteo API and Chart.js</li>
                       <li>Breakout game - canvas.</li>
+                      <li>Tetris game</li>
+                      <li>Bouncing Ball game - Phaser 3</li>
                     </ul>
                   </div>
                   <div className={index === 3 ? "response" : "d-none"}>
                     <ul>
-                      <li>Tetris game</li>
-                      <li>First game with Phaser 3</li>
                       <li>Context menu</li>
                       <li>Some properties - background change, screen saver etc.</li>
                       <li>User authentication and authorization</li>

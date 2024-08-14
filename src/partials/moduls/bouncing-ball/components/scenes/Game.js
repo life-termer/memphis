@@ -3,6 +3,10 @@ import { Scene } from "phaser";
 import Phaser from "phaser";
 import { ball } from "../../../breakout/utilities/utilities";
 
+const randomIntFromInterval = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+var start = randomIntFromInterval(40, 60);
 var gameOptions = {
   width: 1024,
   height: 768,
@@ -13,10 +17,13 @@ var gameOptions = {
   backgroundSpeed: 1,
   cloudHeight: 324,
   groundSpeed: 250 / 59.85,
-  obstacleDistanceRange: [100, 250],
+  obstacleDistanceRange: [100, 350],
   localStorageName: 'bestballscore',
   gameOver: true,
+  redSkiesStart: start,
+  redSkiesEnd: start + 20,
 }
+
 export class Game extends Scene {
   constructor() {
     super("Game");
@@ -26,6 +33,7 @@ export class Game extends Scene {
     this.obstacleGroup = this.physics.add.group();
     this.groundGroup = this.physics.add.group();
     //Static ground 
+    // this.add.rectangle(0, 500, 800, 100, 0x9d2d9d).setOrigin(0, 0);
     this.ground = this.physics.add.staticGroup();
     this.ground.create(
       gameOptions.width / 2,
@@ -40,6 +48,7 @@ export class Game extends Scene {
     this.skyRed = this.add.sprite(gameOptions.width / 2, 576 / 2, "skyRed");
     this.sky = this.add.sprite(gameOptions.width / 2, 576 / 2, "sky");
     this.mountains = this.add.tileSprite(gameOptions.width / 2, 430, 1024, 417, "mountains");
+    this.mountains.setOrigin(0.5, 0.5);
     this.plateau = this.add.tileSprite(gameOptions.width / 2, 520, 1024, 404, "plateau");
     
     
@@ -65,7 +74,10 @@ export class Game extends Scene {
       repeat: 0,
     });
 
+    //Input
     this.input.on("pointerdown", this.boost, this);
+
+    //Score
     this.score = 0;
     this.topScore =
       localStorage.getItem(gameOptions.localStorageName) == null
@@ -89,25 +101,30 @@ export class Game extends Scene {
 
     //Obstacles
     let obstacleX = gameOptions.width;
+    let obColors = ['#9a1411'];
     for (let i = 0; i < 10; i++) {
+      let obType =  randomIntFromInterval(1, 4);
+      let obName = "obstacle" + obType;
       let obstacle = this.obstacleGroup.create(
         obstacleX,
         // this.groundGroup.getBounds().top,
-        gameOptions.height - 85,
-        "obstacle"
+        gameOptions.height - 90,
+        obName
       );
-      obstacle.setOrigin(0.5, 1);
+      obstacle.setCircle(32, 0, 10);
+      obstacle.setScale(obType / 10 + 0.5)
+      obstacle.setOrigin(0.5, 0.5);
       obstacle.setImmovable(true);
       obstacleX += Phaser.Math.Between(
         gameOptions.obstacleDistanceRange[0],
         gameOptions.obstacleDistanceRange[1]
       );
-      obstacle.setOffset(0, 10);
+      // obstacle.setOffset(0, 10);
+      
+      const fxOb = obstacle.postFX.addGlow(0x9a1411, 3, 1, false, 0.1, 20);
     }
     this.obstacleGroup.setVelocityX(-gameOptions.obstacleSpeed);
 
-    
-    // this.ground.setOffset(20);
     //Grounds
     let groundX = gameOptions.width;
     for (let i = 0; i < 3; i++) {
@@ -123,8 +140,7 @@ export class Game extends Scene {
     this.groundGroup.setVelocityX(-gameOptions.obstacleSpeed);
 
     this.plant = this.add.tileSprite(626, gameOptions.height - 80 / 2, 626 * 2, 80, "plant");
-    
-    
+
 
     EventBus.emit("current-scene-ready", this);
   }
@@ -136,7 +152,9 @@ export class Game extends Scene {
     if (this.firstBounce != 0) {
       this.ball.body.velocity.y = gameOptions.ballPower;
       // this.ball.anims.play('AnBall', true);
-      this.fx2 = this.ball.postFX.addGlow(0xff0000, 2, 0);
+      if(!this.fx2 || !this.fx2.active)
+        this.fx2 = this.ball.postFX.addGlow(0xff0000, 2, 0);
+      console.log(this.fx2)
     }
   }
   
@@ -153,9 +171,19 @@ export class Game extends Scene {
     this.plateau.tilePositionX += gameOptions.backgroundSpeed * 1.25;
     this.plant.tilePositionX += gameOptions.backgroundSpeed * 5;
     this.ball.rotation += gameOptions.backgroundSpeed / 3;
+    
     if(this.ball.y > 768) {
       this.changeScene();
     }
+    if(this.score !== 0 && this.score % gameOptions.redSkiesStart === 0) {
+      this.redSkies(true);
+    }
+    if(this.score !== 0 && this.score % gameOptions.redSkiesEnd === 0) {
+      this.redSkies(false);
+    }
+    this.obstacleGroup.children.iterate((ob) => {
+      ob.rotation += gameOptions.backgroundSpeed / 10;
+    })
     this.physics.world.collide(
       this.ground,
       this.ball,
@@ -203,7 +231,7 @@ export class Game extends Scene {
           //   getEnd: () => 100
           // },
           alpha: {
-            getStart: () => 1,
+            // getStart: () => 1,
             getEnd: () => 0.3
           },
           onComplete: () => {
@@ -243,9 +271,27 @@ export class Game extends Scene {
     }, this);
   }
 
+  redSkies(forward) {
+      this.tweens.add({
+        targets: [this.sky],
+        ease: 'Sine.easeInOut',
+        duration: 350,
+        delay: -0.3,
+        alpha: {
+          getStart: () => forward ? 1 : 0,
+          getEnd: () => forward ? 0.1 : 1
+        },
+        onComplete: () => {
+          forward ? gameOptions.backgroundSpeed = 3 : gameOptions.backgroundSpeed = 1;
+          forward ? gameOptions.obstacleSpeed = 350 : gameOptions.obstacleSpeed = 250;
+          this.obstacleGroup.setVelocityX(-gameOptions.obstacleSpeed);
+          this.groundGroup.setVelocityX(-gameOptions.obstacleSpeed);
+        }
+      });
+  }
   changeScene() {
-    this.firstBounce = 0;
     gameOptions.backgroundSpeed = 1;
+    gameOptions.obstacleSpeed = 250;
     this.scene.start("MainMenu");
   }
   gameOver() {
@@ -254,6 +300,12 @@ export class Game extends Scene {
       stroke: '#9a1411', strokeThickness: 8,
       align: 'center'
     }).setOrigin(0.5).setDepth(100);
+    this.firstBounce = 0;
+    // gameOptions.backgroundSpeed = 0;
+    // gameOptions.obstacleSpeed = 0;
+    start = randomIntFromInterval(40, 60);
+    gameOptions.redSkiesStart = start;
+    gameOptions.redSkiesEnd = start + 20;
     this.input.on("pointerdown", this.changeScene, this);
   }
 }

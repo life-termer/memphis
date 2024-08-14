@@ -274,7 +274,7 @@ function Memphis() {
       )}
       {!matches && (
         <div className="memphis">
-          {/* <LoadingScreen isShutdown={shutdown}/> */}
+          {<LoadingScreen isShutdown={shutdown}/>}
           {isCookieConsent ? (
             <React.Fragment>
               <div className="draggable-container">
